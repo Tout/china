@@ -1,0 +1,8 @@
+*.iml
+*.pyc
+.idea
+tmp
+logs
+*~
+.DS_Store
+test

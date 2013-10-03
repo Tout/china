@@ -1,0 +1,33 @@
+#!/usr/bin/python
+
+import sys
+import os
+import argparse
+from collections import OrderedDict
+from china_lib import environment
+from china_lib import context
+
+from china_lib.global_config import *
+
+DEFAULT_COMMAND = 'create'
+
+VALID_COMMANDS = { DEFAULT_COMMAND: environment.setup_environment,
+                   'unit-create': environment.setup_unit_environment }
+
+parser = argparse.ArgumentParser(description='Manage china unit environments')
+
+config_common_args(parser, VALID_COMMANDS, DEFAULT_COMMAND)
+
+args = parser.parse_args()
+
+if args.noop:
+    os.environ['CHINA_DEBUG'] = "1"
+
+ctx = context.ChinaContext(args.blueprints, args.command, VALID_COMMANDS)
+ctx.set_region(args.region)
+ctx.set_environment(args.environment)
+
+# OK, we have everything we need, let's roll...
+VALID_COMMANDS[args.command](ctx, args.units)
+
+sys.exit(0)
