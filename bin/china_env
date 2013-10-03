@@ -28,6 +28,6 @@ ctx.set_region(args.region)
 ctx.set_environment(args.environment)
 
 # OK, we have everything we need, let's roll...
-VALID_COMMANDS[args.command](ctx, args.units)
+VALID_COMMANDS[args.command](ctx, args.unit)
 
 sys.exit(0)

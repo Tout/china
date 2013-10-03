@@ -7,7 +7,7 @@ import util
 import ec2
 from pprint import pprint, pformat
 
-def setup_environment(ctx, units):
+def setup_environment(ctx, unit_name):
     # Create the EC2 group
     env_name = ctx.specific_environment['name']
     group_name = util.env_prefix(ctx) + env_name
@@ -18,14 +18,9 @@ def setup_environment(ctx, units):
             for auth in env['authorizations']:
                 ec2.authorize(auth, group_name, ctx.region_config)
 
-    setup_unit_environment(ctx, units)
+    setup_unit_environment(ctx, unit_name)
 
-def setup_unit_environment(ctx, units):
-    # units sg creation
-    for unit_name in units:
-        setup_single_unit_environment(ctx, unit_name)
-
-def setup_single_unit_environment(ctx, unit_name):
+def setup_unit_environment(ctx, unit_name):
     active_unit = unit.ChinaUnit(ctx, unit_name)
     active_unit.create_ec2_group()
     if 'authorizations' in active_unit.config:
