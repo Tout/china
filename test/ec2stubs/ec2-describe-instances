@@ -1,0 +1,1278 @@
+#!/bin/bash
+chars='[ !"#$&()*,;<>?\^`{|}]'
+for arg
+do
+    if [[ $arg == *\'* ]]
+    then
+        arg=\""$arg"\"
+    elif [[ $arg == *$chars* ]]
+    then
+        arg="'$arg'"
+    fi
+    allargs+=("$arg")    # ${allargs[@]} is to be used only for printing
+done
+
+if [ "x${CHINA_TEST_LOG}" != "x" ] ; then
+  echo -n "$(basename $0) " >> ${CHINA_TEST_LOG}
+  printf "%s " "${allargs[*]}" >> ${CHINA_TEST_LOG}
+  echo " " >> ${CHINA_TEST_LOG}
+fi
+
+cat <<EOF
+RESERVATION	r-abd7cbc2	821387913885	env-prod,env-prod-redis-metrics
+INSTANCE	i-42ed2528	ami-fd20ad94	ec2-54-225-122-208.compute-1.amazonaws.com	ip-10-118-170-96.ec2.internal	running	techops	0		m1.large	2013-04-25T23:51:47+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.225.122.208	10.118.170.96			ebs					paravirtual	xen		sg-b6dae9de, sg-88dae9e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7cfba825	2013-04-25T23:51:52.000Z	true		
+TAG	instance	i-42ed2528	Name	env-prod-redis-metrics-i-42ed2528
+RESERVATION	r-c1001ea8	821387913885	env-prod,env-prod-redis-kicktag
+INSTANCE	i-f5d2aa95	ami-fd20ad94	ec2-107-20-181-142.compute-1.amazonaws.com	ip-10-32-57-181.ec2.internal	running	techops	0		m1.large	2013-04-24T01:04:12+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	107.20.181.142	10.32.57.181			ebs					paravirtual	xen		sg-b6dae9de, sg-81b7a0e9	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a3c0b8fa	2013-04-24T01:04:16.000Z	true		
+TAG	instance	i-f5d2aa95	Name	env-prod-redis-kicktag-i-f5d2aa95
+RESERVATION	r-af658cc7	821387913885	env-prod,env-prod-redis-metrics
+INSTANCE	i-81b473ec	ami-fd20ad94	ec2-54-234-154-193.compute-1.amazonaws.com	ip-10-114-122-16.ec2.internal	running	techops	0		m1.large	2013-04-26T20:51:51+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.234.154.193	10.114.122.16			ebs					paravirtual	xen		sg-b6dae9de, sg-88dae9e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-12dbfe4b	2013-04-26T20:51:55.000Z	true		
+TAG	instance	i-81b473ec	Name	env-prod-redis-metrics-i-81b473ec
+RESERVATION	r-2f8c7147	821387913885	env-prod-resque,env-prod
+INSTANCE	i-54f5523f	ami-fd20ad94	ec2-54-224-176-208.compute-1.amazonaws.com	ip-10-118-169-201.ec2.internal	running	techops	0		m1.medium	2013-07-05T17:40:41+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.224.176.208	10.118.169.201			ebs					paravirtual	xen	a5de262d-919d-48a3-885c-e9dfa97f336c_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-6b9b8531	2013-07-05T17:40:44.000Z	true		
+TAG	instance	i-54f5523f	aws:autoscaling:groupName	env-prod-resque-worker-ops-fastrak
+TAG	instance	i-54f5523f	Name	env-prod-resque-i-54f5523f
+TAG	instance	i-54f5523f	WorkerRole	resque-worker-ops-fastrak
+RESERVATION	r-fbf36c93	821387913885	env-prod-director,env-prod
+INSTANCE	i-305b0d5e	ami-fd20ad94	ec2-23-22-196-219.compute-1.amazonaws.com	ip-10-203-87-3.ec2.internal	running	techops	0		m1.small	2013-05-01T18:13:27+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.196.219	10.203.87.3			ebs					paravirtual	xen	b4fd9244-4fc0-4f99-90f0-3be6c7bc362b_us-east-1c_1	sg-1436c67f, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-96899fcf	2013-05-01T18:13:29.000Z	true		
+TAG	instance	i-305b0d5e	aws:autoscaling:groupName	env-prod-director
+TAG	instance	i-305b0d5e	Name	env-prod-director-i-305b0d5e
+RESERVATION	r-bfe28cd7	821387913885	env-stage-haystack-receiver,env-stage
+INSTANCE	i-a0dcfdc3	ami-fd20ad94	ec2-54-221-137-15.compute-1.amazonaws.com	ip-10-182-136-102.ec2.internal	running	techops	0		m1.small	2013-09-13T11:15:09+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	54.221.137.15	10.182.136.102			ebs					paravirtual	xen	f7ee5875-fb4b-4b41-9603-1927ca3e690c_us-east-1a_1	sg-b7c156dc, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-bcf5cdf6	2013-09-13T11:15:12.000Z	true		
+TAG	instance	i-a0dcfdc3	aws:autoscaling:groupName	env-stage-haystack-receiver
+TAG	instance	i-a0dcfdc3	Name	env-stage-haystack-receiver-i-a0dcfdc3
+RESERVATION	r-cf4e27a7	821387913885	env-prod-ppd,env-prod
+INSTANCE	i-544fba38	ami-fd20ad94	ec2-54-226-248-84.compute-1.amazonaws.com	ip-10-179-1-117.ec2.internal	running	techops	0		m1.medium	2013-08-02T17:54:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.248.84	10.179.1.117			ebs					paravirtual	xen	54a95cf3-f2e1-44f6-8404-80f1a24841a9_us-east-1c_1	sg-6b2fe300, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-eb6142ab	2013-08-02T17:54:40.000Z	true		
+TAG	instance	i-544fba38	Name	env-prod-ppd-i-544fba38
+TAG	instance	i-544fba38	aws:autoscaling:groupName	env-prod-ppd
+RESERVATION	r-d7dc98bf	821387913885	env-stage,env-stage-schedservice
+INSTANCE	i-0b81ed71	ami-fd20ad94	ec2-75-101-219-104.compute-1.amazonaws.com	domU-12-31-39-09-0C-FE.compute-1.internal	running	techops	0		c1.medium	2013-09-13T23:32:07+0000	us-east-1b	aki-825ea7eb			monitoring-enabled	75.101.219.104	10.210.19.12			ebs					paravirtual	xen	906df8a9-616b-4d55-8851-f4df966995fd_us-east-1b_1	sg-6452610c, sg-be7bd4d5	default	false	
+BLOCKDEVICE	/dev/sda1	vol-63e72014	2013-09-13T23:32:10.000Z	true		
+TAG	instance	i-0b81ed71	aws:autoscaling:groupName	env-stage-schedservice
+TAG	instance	i-0b81ed71	Name	env-stage-schedservice-i-0b81ed71
+RESERVATION	r-7f115c17	821387913885	env-prod,env-prod-mongo-server
+INSTANCE	i-ebb14589	ami-fd20ad94	ec2-54-226-128-86.compute-1.amazonaws.com	ip-10-124-19-78.ec2.internal	running	techops	0		m1.small	2013-06-13T23:03:07+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.226.128.86	10.124.19.78			ebs					paravirtual	xen		sg-b6dae9de, sg-cb4692a0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-fb8a92a0	2013-06-13T23:03:09.000Z	true		
+TAG	instance	i-ebb14589	Name	env-prod-mongo-server-i-ebb14589
+RESERVATION	r-41703c29	821387913885	env-stage,env-stage-resque
+INSTANCE	i-4958e026	ami-fd20ad94	ec2-54-234-245-121.compute-1.amazonaws.com	ip-10-170-53-235.ec2.internal	running	techops	0		m1.medium	2013-09-13T19:00:27+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	54.234.245.121	10.170.53.235			ebs					paravirtual	xen	82c511e3-3caf-46b3-9730-fc9c3307da1c_us-east-1a_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-319aa27b	2013-09-13T19:00:30.000Z	true		
+TAG	instance	i-4958e026	Name	env-stage-resque-i-4958e026
+TAG	instance	i-4958e026	aws:autoscaling:groupName	env-stage-resque-worker-general
+TAG	instance	i-4958e026	WorkerRole	resque-worker-general
+RESERVATION	r-6bf5b903	821387913885	env-wildwest,env-wildwest-tester
+INSTANCE	i-b974f8d4	ami-fd20ad94	ec2-54-226-35-39.compute-1.amazonaws.com	ip-10-122-38-15.ec2.internal	running	techops	0		m1.small	2013-06-11T23:24:40+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.226.35.39	10.122.38.15			ebs					paravirtual	xen		sg-047d4e6c, sg-f211119a	default	false	
+BLOCKDEVICE	/dev/sda1	vol-06f8f95d	2013-06-11T23:24:45.000Z	true		
+TAG	instance	i-b974f8d4	Name	env-wildwest-tester-i-b974f8d4
+RESERVATION	r-2bcdff43	821387913885	env-stage,env-stage-tugboat
+INSTANCE	i-3665f14d	ami-fd20ad94	ec2-54-211-23-215.compute-1.amazonaws.com	domU-12-31-39-05-3C-21.compute-1.internal	running	techops	0		m1.large	2013-09-14T07:59:08+0000	us-east-1b	aki-825ea7eb			monitoring-enabled	54.211.23.215	10.241.63.207			ebs					paravirtual	xen	13ee4599-12ff-4ab9-93a6-26b64c746c59_us-east-1b_1	sg-6452610c, sg-1a424f72	default	false	
+BLOCKDEVICE	/dev/sda1	vol-bf5a9dc8	2013-09-14T07:59:11.000Z	true		
+TAG	instance	i-3665f14d	aws:autoscaling:groupName	env-stage-tugboat
+TAG	instance	i-3665f14d	Name	env-stage-tugboat-i-3665f14d
+RESERVATION	r-52ef0439	821387913885	env-stage-haproxy-app,env-stage
+INSTANCE	i-7f575b14	ami-fd20ad94	ec2-54-225-242-193.compute-1.amazonaws.com	domU-12-31-38-07-32-B7.compute-1.internal	running	techops	0		m1.small	2013-05-15T04:42:14+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.225.242.193	10.223.49.65			ebs					paravirtual	xen		sg-ad06c6c6, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a2c3aefa	2013-05-15T04:42:23.000Z	true		
+TAG	instance	i-7f575b14	Name	env-stage-haproxy-app-i-7f575b14
+RESERVATION	r-e2ee0589	821387913885	env-prod,env-prod-haproxy-app
+INSTANCE	i-e3555988	ami-fd20ad94	ec2-54-235-71-1.compute-1.amazonaws.com	ip-10-125-10-224.ec2.internal	running	techops	0		m1.small	2013-05-15T05:23:12+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.235.71.1	10.125.10.224			ebs					paravirtual	xen		sg-b6dae9de, sg-5f08c834	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1a6f0342	2013-05-15T05:23:19.000Z	true		
+TAG	instance	i-e3555988	Name	env-prod-haproxy-app-i-e3555988
+RESERVATION	r-5492673f	821387913885	env-stage,env-stage-resque
+INSTANCE	i-bc620bd4	ami-fd20ad94	ec2-23-20-30-91.compute-1.amazonaws.com	ip-10-165-40-249.ec2.internal	running	techops	0		m1.medium	2013-05-26T18:25:31+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.30.91	10.165.40.249			ebs					paravirtual	xen	c61979ee-0935-460b-9967-7d6d424edbe7_us-east-1c_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d802e983	2013-05-26T18:25:35.000Z	true		
+TAG	instance	i-bc620bd4	aws:autoscaling:groupName	env-stage-resque-worker-ops
+TAG	instance	i-bc620bd4	Name	env-stage-resque-i-bc620bd4
+TAG	instance	i-bc620bd4	WorkerRole	resque-worker-ops
+RESERVATION	r-72eb2519	821387913885	env-prod-resque,env-prod
+INSTANCE	i-aa5202cb	ami-fd20ad94	ec2-54-235-37-14.compute-1.amazonaws.com	ip-10-112-85-105.ec2.internal	running	techops	0		m1.medium	2013-07-05T17:41:34+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.235.37.14	10.112.85.105			ebs					paravirtual	xen	41bb7612-a1ec-48da-b180-6879d156fed4_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-69988633	2013-07-05T17:41:38.000Z	true		
+TAG	instance	i-aa5202cb	WorkerRole	resque-worker-shares
+TAG	instance	i-aa5202cb	Name	env-prod-resque-i-aa5202cb
+TAG	instance	i-aa5202cb	aws:autoscaling:groupName	env-prod-resque-worker-shares
+RESERVATION	r-56eb253d	821387913885	env-prod-resque,env-prod
+INSTANCE	i-60510101	ami-fd20ad94	ec2-23-20-170-100.compute-1.amazonaws.com	ip-10-243-3-124.ec2.internal	running	techops	0		m1.medium	2013-07-05T17:40:19+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.170.100	10.243.3.124			ebs					paravirtual	xen	b57b030e-ac19-4ead-bf9d-d510bd93a0fe_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-fd9a84a7	2013-07-05T17:40:23.000Z	true		
+TAG	instance	i-60510101	WorkerRole	resque-worker-shares-fastrak
+TAG	instance	i-60510101	aws:autoscaling:groupName	env-prod-resque-worker-shares-fastrak
+TAG	instance	i-60510101	Name	env-prod-resque-i-60510101
+RESERVATION	r-507db33b	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-11729570	ami-fd20ad94	ec2-54-242-131-73.compute-1.amazonaws.com	ip-10-244-18-79.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:32:01+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.242.131.73	10.244.18.79			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-53362f08	2013-06-13T20:32:04.000Z	true		
+TAG	instance	i-11729570	Name	env-prod-mongo-shard-i-11729570
+RESERVATION	r-27f6584c	821387913885	env-prod-tester,env-prod
+INSTANCE	i-5e361432	ami-fd20ad94	ec2-54-242-40-163.compute-1.amazonaws.com	ip-10-235-58-26.ec2.internal	running	techops	0		m1.small	2013-07-26T20:44:23+0000	us-east-1a	aki-825ea7eb			monitoring-disabled	54.242.40.163	10.235.58.26			ebs					paravirtual	xen		sg-b7fe3ddc, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1344684e	2013-07-26T20:44:27.000Z	true		
+TAG	instance	i-5e361432	Name	env-prod-tester-i-5e361432
+RESERVATION	r-919d05fa	821387913885	env-qa-redis-kicktag,env-qa
+INSTANCE	i-76c5801c	ami-fd20ad94	ec2-54-235-140-2.compute-1.amazonaws.com	ip-10-123-39-18.ec2.internal	running	techops	0		m1.large	2013-04-23T19:04:23+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.235.140.2	10.123.39.18			ebs					paravirtual	xen		sg-b22c13da, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ed7d02b4	2013-04-23T19:04:28.000Z	true		
+TAG	instance	i-76c5801c	Name	env-qa-redis-kicktag-i-76c5801c
+RESERVATION	r-cd662fa6	821387913885	env-qa-kicktag,env-qa
+INSTANCE	i-982db5fd	ami-fd20ad94	ec2-54-234-8-247.compute-1.amazonaws.com	ip-10-202-161-16.ec2.internal	running	techops	0		m1.medium	2013-05-28T16:44:51+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.234.8.247	10.202.161.16			ebs					paravirtual	xen	ccf15827-0e07-4eac-9d91-628bb8f28f74_us-east-1c_1	sg-f42c139c, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-815394da	2013-05-28T16:44:56.000Z	true		
+TAG	instance	i-982db5fd	Name	env-qa-kicktag-i-982db5fd
+TAG	instance	i-982db5fd	aws:autoscaling:groupName	env-qa-kicktag
+RESERVATION	r-8d662fe6	821387913885	env-stage-kicktag,env-stage
+INSTANCE	i-c22db5a7	ami-fd20ad94	ec2-107-22-97-76.compute-1.amazonaws.com	ip-10-194-215-14.ec2.internal	running	techops	0		m1.medium	2013-05-28T16:45:51+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	107.22.97.76	10.194.215.14			ebs					paravirtual	xen	ff1383c6-0a07-4012-b9ea-88e0b2185b09_us-east-1c_1	sg-a4dce4cc, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e15e99ba	2013-05-28T16:45:56.000Z	true		
+TAG	instance	i-c22db5a7	aws:autoscaling:groupName	env-stage-kicktag
+TAG	instance	i-c22db5a7	Name	env-stage-kicktag-i-c22db5a7
+RESERVATION	r-c5ccf4ae	821387913885	env-prod-ppd,env-prod
+INSTANCE	i-eb55628b	ami-fd20ad94	ec2-50-16-58-111.compute-1.amazonaws.com	ip-10-165-2-198.ec2.internal	running	techops	0		m1.medium	2013-08-02T22:39:20+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.16.58.111	10.165.2.198			ebs					paravirtual	xen	f9421aa9-8e4b-4421-96e1-4fe22141cef8_us-east-1c_1	sg-6b2fe300, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-cf0c2f8f	2013-08-02T22:39:24.000Z	true		
+TAG	instance	i-eb55628b	Name	env-prod-ppd-i-eb55628b
+TAG	instance	i-eb55628b	aws:autoscaling:groupName	env-prod-ppd
+RESERVATION	r-93afbcf8	821387913885	env-prod,env-prod-redis-kicktag
+INSTANCE	i-c55138a8	ami-fd20ad94	ec2-72-44-41-47.compute-1.amazonaws.com	ip-10-116-190-32.ec2.internal	running	techops	0		m1.large	2013-04-25T23:51:34+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	72.44.41.47	10.116.190.32			ebs					paravirtual	xen		sg-b6dae9de, sg-81b7a0e9	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e5f4a7bc	2013-04-25T23:51:38.000Z	true		
+TAG	instance	i-c55138a8	Name	env-prod-redis-kicktag-i-c55138a8
+RESERVATION	r-465ba52c	821387913885	env-stage-kicktag,env-stage
+INSTANCE	i-63050c01	ami-fd20ad94	ec2-54-234-37-3.compute-1.amazonaws.com	ip-10-234-8-79.ec2.internal	running	techops	0		m1.medium	2013-09-13T10:18:03+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	54.234.37.3	10.234.8.79			ebs					paravirtual	xen	f2d442f1-5288-47f0-b3a0-47f6802f2618_us-east-1a_1	sg-a4dce4cc, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a4fdc5ee	2013-09-13T10:18:09.000Z	true		
+TAG	instance	i-63050c01	Name	env-stage-kicktag-i-63050c01
+TAG	instance	i-63050c01	aws:autoscaling:groupName	env-stage-kicktag
+RESERVATION	r-5412db3e	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-c8c7e9a0	ami-fd20ad94	ec2-54-224-123-109.compute-1.amazonaws.com	ip-10-112-98-210.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:30:28+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.224.123.109	10.112.98.210			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-39352c62	2013-06-13T20:30:32.000Z	true		
+TAG	instance	i-c8c7e9a0	Name	env-prod-mongo-shard-i-c8c7e9a0
+RESERVATION	r-0a12db60	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-1ac8e672	ami-fd20ad94	ec2-54-224-84-171.compute-1.amazonaws.com	ip-10-85-118-71.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:31:30+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.224.84.171	10.85.118.71			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0f372e54	2013-06-13T20:31:39.000Z	true		
+TAG	instance	i-1ac8e672	Name	env-prod-mongo-shard-i-1ac8e672
+RESERVATION	r-0612db6c	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-0cc8e664	ami-fd20ad94	ec2-50-17-10-191.compute-1.amazonaws.com	ip-10-242-210-6.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:31:44+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.17.10.191	10.242.210.6			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-25372e7e	2013-06-13T20:31:49.000Z	true		
+TAG	instance	i-0cc8e664	Name	env-prod-mongo-shard-i-0cc8e664
+RESERVATION	r-ded119b4	821387913885	env-qa-api,env-qa
+INSTANCE	i-9e932cff	ami-fd20ad94	ec2-54-242-80-9.compute-1.amazonaws.com	ip-10-152-171-89.ec2.internal	running	techops	0		m1.medium	2013-06-26T21:24:17+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.242.80.9	10.152.171.89			ebs					paravirtual	xen	5adc24dd-9103-4684-a338-b68b67c19a50_us-east-1c_1	sg-459e452e, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-de6b1d84	2013-06-26T21:24:23.000Z	true		
+TAG	instance	i-9e932cff	aws:autoscaling:groupName	env-qa-api
+TAG	instance	i-9e932cff	Name	env-qa-api-i-9e932cff
+RESERVATION	r-542e8a3e	821387913885	env-prod,env-prod-haproxy-app
+INSTANCE	i-67c8b607	ami-fd20ad94	ec2-54-225-49-235.compute-1.amazonaws.com	ip-10-91-7-81.ec2.internal	running	techops	0		m1.small	2013-05-15T17:18:19+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.225.49.235	10.91.7.81			ebs					paravirtual	xen		sg-b6dae9de, sg-5f08c834	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e3cea5bb	2013-05-15T17:18:23.000Z	true		
+TAG	instance	i-67c8b607	Name	env-prod-haproxy-app-i-67c8b607
+RESERVATION	r-ccf24ba6	821387913885	env-qa-tester,env-qa
+INSTANCE	i-8ee7bfe2	ami-fd20ad94	ec2-54-226-235-60.compute-1.amazonaws.com	ip-10-147-131-249.ec2.internal	running	techops	0		m1.large	2013-09-11T23:18:19+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.235.60	10.147.131.249			ebs					paravirtual	xen		sg-7c3d3214, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b05d1fed	2013-07-22T17:47:33.000Z	true		
+TAG	instance	i-8ee7bfe2	Name	env-qa-tester-i-8ee7bfe2
+RESERVATION	r-7caf1416	821387913885	env-prod-haproxy-db,env-prod
+INSTANCE	i-b27884de	ami-fd20ad94	ec2-54-224-139-8.compute-1.amazonaws.com	ip-10-41-2-173.ec2.internal	running	techops	0		m1.large	2013-04-09T19:58:32+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.224.139.8	10.41.2.173			ebs					paravirtual	xen		sg-31e1f959, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-3bd4cc7d	2013-04-09T19:58:35.000Z	true		
+TAG	instance	i-b27884de	Name	env-prod-haproxy-db-i-b27884de
+RESERVATION	r-d9b729b3	821387913885	env-qa-tester,env-qa
+INSTANCE	i-bc94c2d4	ami-fd20ad94	ec2-107-22-64-224.compute-1.amazonaws.com	ip-10-124-94-98.ec2.internal	running	techops	0		m1.small	2013-04-09T16:54:24+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	107.22.64.224	10.124.94.98			ebs					paravirtual	xen		sg-7c3d3214, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a9e0feef	2013-04-09T16:54:28.000Z	true		
+TAG	instance	i-bc94c2d4	Name	env-qa-tester-i-bc94c2d4
+RESERVATION	r-9cb8c0f6	821387913885	env-stage-mobile-web,env-stage
+INSTANCE	i-68f03a00	ami-fd20ad94	ec2-54-226-172-188.compute-1.amazonaws.com	ip-10-144-75-246.ec2.internal	running	techops	0		m1.small	2013-05-31T00:35:18+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.172.188	10.144.75.246			ebs					paravirtual	xen	01cab410-8b4b-4790-86a4-2c94b145fce9_us-east-1c_1	sg-7da36816, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-9dc166c6	2013-05-31T00:35:24.000Z	true		
+TAG	instance	i-68f03a00	aws:autoscaling:groupName	env-stage-mobile-web
+TAG	instance	i-68f03a00	Name	env-stage-mobile-web-i-68f03a00
+RESERVATION	r-4431742e	821387913885	env-inf,env-inf-tester
+INSTANCE	i-19fad576	ami-fd20ad94	ec2-107-20-72-120.compute-1.amazonaws.com	ip-10-158-12-221.ec2.internal	running	techops	0		m1.small	2013-09-11T19:44:53+0000	us-east-1a	aki-825ea7eb			monitoring-disabled	107.20.72.120	10.158.12.221			ebs					paravirtual	xen		sg-27649a4c, sg-6f31a104	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1a83bd50	2013-09-11T19:44:56.000Z	true		
+TAG	instance	i-19fad576	Name	env-inf-tester-i-19fad576
+RESERVATION	r-1c194176	821387913885	env-stage-orgservice,env-stage
+INSTANCE	i-cbab75b1	ami-fd20ad94	ec2-54-227-49-255.compute-1.amazonaws.com	ip-10-236-182-218.ec2.internal	running	techops	0		m1.medium	2013-09-13T09:52:22+0000	us-east-1b	aki-825ea7eb			monitoring-enabled	54.227.49.255	10.236.182.218			ebs					paravirtual	xen	7058714e-4b36-4c27-afd5-fd9a885f282b_us-east-1b_1	sg-af79bac4, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5bf4302c	2013-09-13T09:52:25.000Z	true		
+TAG	instance	i-cbab75b1	Name	env-stage-orgservice-i-cbab75b1
+TAG	instance	i-cbab75b1	aws:autoscaling:groupName	env-stage-orgservice
+RESERVATION	r-18878172	821387913885	env-prod-mobile-web,env-prod
+INSTANCE	i-74953d1c	ami-fd20ad94	ec2-54-226-160-246.compute-1.amazonaws.com	ip-10-62-90-52.ec2.internal	running	techops	0		m1.small	2013-05-31T00:35:22+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.160.246	10.62.90.52			ebs					paravirtual	xen	d8bd9a8a-a085-48ed-89be-804db1024835_us-east-1c_1	sg-75a3681e, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a2c166f9	2013-05-31T00:35:25.000Z	true		
+TAG	instance	i-74953d1c	aws:autoscaling:groupName	env-prod-mobile-web
+TAG	instance	i-74953d1c	Name	env-prod-mobile-web-i-74953d1c
+RESERVATION	r-e4bfbe8e	821387913885	env-prod-jump,env-prod
+INSTANCE	i-44ce0c21	ami-fd20ad94	ec2-54-224-122-238.compute-1.amazonaws.com	domU-12-31-39-04-71-48.compute-1.internal	running	bastion_start20130417	0		m1.xlarge	2013-04-22T23:24:08+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.224.122.238	10.240.118.182			ebs					paravirtual	xen		sg-48070520, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-4c542115	2013-04-22T23:24:11.000Z	true		
+TAG	instance	i-44ce0c21	Name	env-prod-jump-i-44ce0c21
+RESERVATION	r-04d7d56e	821387913885	env-qa,env-qa-mobile-web
+INSTANCE	i-2cda7d4f	ami-fd20ad94	ec2-184-72-205-196.compute-1.amazonaws.com	ip-10-101-10-171.ec2.internal	running	techops	0		m1.small	2013-05-30T23:48:03+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.72.205.196	10.101.10.171			ebs					paravirtual	xen	5b290b95-aeae-44f5-bc0f-fd61a8b58fa4_us-east-1c_1	sg-5c380734, sg-018e456a	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e842e6b3	2013-05-30T23:48:07.000Z	true		
+TAG	instance	i-2cda7d4f	aws:autoscaling:groupName	env-qa-mobile-web
+TAG	instance	i-2cda7d4f	Name	env-qa-mobile-web-i-2cda7d4f
+RESERVATION	r-eac5d480	821387913885	env-inf,env-inf-nagios-server
+INSTANCE	i-6dddab0f	ami-fd20ad94	ec2-23-22-54-181.compute-1.amazonaws.com	ip-10-149-6-57.ec2.internal	running	techops	0		m3.2xlarge	2013-07-08T18:57:48+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	23.22.54.181	10.149.6.57			ebs					paravirtual	xen		sg-27649a4c, sg-75a2711e	default	false	
+BLOCKDEVICE	/dev/sda1	vol-19db2544	2013-07-08T18:57:52.000Z	true		
+TAG	instance	i-6dddab0f	Name	env-inf-nagios-server-i-6dddab0f
+RESERVATION	r-14465f7e	821387913885	env-qa-mysql,env-qa
+INSTANCE	i-70b7be1e	ami-fd20ad94	ec2-54-227-99-183.compute-1.amazonaws.com	ip-10-39-98-226.ec2.internal	running	techops	0		m1.large	2013-07-12T15:29:05+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.227.99.183	10.39.98.226			ebs					paravirtual	xen		sg-7a399b11, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-9be64ec6	2013-07-12T15:29:12.000Z	true		
+TAG	instance	i-70b7be1e	Name	env-qa-mysql-i-70b7be1e
+RESERVATION	r-e89c8682	821387913885	wowza
+INSTANCE	i-9a5d10ff	ami-f3d3129a	ec2-174-129-246-119.compute-1.amazonaws.com	domU-12-31-39-0B-0D-76.compute-1.internal	running	wowza	0	[devpay: 8ED157F9]	m1.small	2013-07-09T21:44:09+0000	us-east-1b	aki-6eaa4907	ari-42b95a2b		monitoring-disabled	174.129.246.119	10.214.18.132			instance-store					paravirtual	xen	JweyM1373406238198	sg-41a5fb28	default	false	
+TAG	instance	i-9a5d10ff	Name	Staging Webcam Load Balancer v2
+RESERVATION	r-65ac4208	821387913885	env-stage-upcode,env-stage
+INSTANCE	i-8adfb1e6	ami-fd20ad94	ec2-54-221-10-61.compute-1.amazonaws.com	ip-10-88-133-182.ec2.internal	running	techops	0		c1.medium	2013-09-14T21:54:44+0000	us-east-1d	aki-825ea7eb			monitoring-enabled	54.221.10.61	10.88.133.182			ebs					paravirtual	xen	ca9c4383-c276-4dbd-93ac-dd0bfb04d292_us-east-1d_1	sg-ed524e85, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-af6d69dc	2013-09-14T21:54:47.000Z	true		
+TAG	instance	i-8adfb1e6	aws:autoscaling:groupName	env-stage-upcode
+TAG	instance	i-8adfb1e6	Name	env-stage-upcode-i-8adfb1e6
+RESERVATION	r-b734eeda	821387913885	env-tiab
+INSTANCE	i-6193990e	ami-3fec7956	ec2-23-20-76-250.compute-1.amazonaws.com	ip-10-32-143-32.ec2.internal	running	tiab	0		m1.large	2013-05-14T00:34:46+0000	us-east-1c	aki-88aa75e1			monitoring-disabled	23.20.76.250	10.32.143.32			ebs					paravirtual	xen		sg-c503fdae	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0ad54b52	2013-05-14T00:34:50.000Z	true		
+TAG	instance	i-6193990e	Name	tiab-A
+RESERVATION	r-cf59e8a2	821387913885	env-prod-mongo-config,env-prod
+INSTANCE	i-08822263	ami-fd20ad94			stopped	techops	0		t1.micro	2013-06-13T20:36:08+0000	us-east-1d	aki-825ea7eb			monitoring-disabled					ebs					paravirtual	xen		sg-6f518504, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b02039eb	2013-06-13T20:36:12.000Z	true		
+TAG	instance	i-08822263	Name	env-prod-mongo-config-i-08822263
+RESERVATION	r-d559e8b8	821387913885	env-prod-mongo-config,env-prod
+INSTANCE	i-ee832385	ami-fd20ad94	ec2-54-234-99-180.compute-1.amazonaws.com	ip-10-88-166-189.ec2.internal	running	techops	0		t1.micro	2013-06-13T20:36:45+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.234.99.180	10.88.166.189			ebs					paravirtual	xen		sg-6f518504, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-09253c52	2013-06-13T20:37:02.000Z	true		
+TAG	instance	i-ee832385	Name	env-prod-mongo-config-i-ee832385
+RESERVATION	r-5d732d30	821387913885	env-qa,env-qa-pbs
+INSTANCE	i-4bfa5c24	ami-fd20ad94	ec2-54-234-249-219.compute-1.amazonaws.com	ip-10-242-209-139.ec2.internal	running	techops	1		m1.medium	2013-05-15T20:42:20+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.234.249.219	10.242.209.139			ebs					paravirtual	xen	799f24db-5daf-4b05-969f-41e7d0035ea7_us-east-1c_2	sg-5c380734, sg-d49a7dbf	default	false	
+BLOCKDEVICE	/dev/sda1	vol-712c5829	2013-05-15T20:42:23.000Z	true		
+TAG	instance	i-4bfa5c24	Name	env-qa-pbs-i-4bfa5c24
+TAG	instance	i-4bfa5c24	aws:autoscaling:groupName	env-qa-pbs
+RESERVATION	r-43a6932e	821387913885	env-qa-resque,env-qa
+INSTANCE	i-79dbcf11	ami-fd20ad94	ec2-54-234-138-59.compute-1.amazonaws.com	ip-10-76-175-191.ec2.internal	running	techops	0		c1.xlarge	2013-04-10T18:10:40+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.234.138.59	10.76.175.191			ebs					paravirtual	xen		sg-b82c13d0, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e41df0bd	2013-04-10T18:10:45.000Z	true		
+TAG	instance	i-79dbcf11	Name	env-qa-resque-i-79dbcf11
+RESERVATION	r-9f4353f2	821387913885	env-prod-jump,env-prod
+INSTANCE	i-7d5cf412	ami-fd20ad94	ec2-54-221-58-33.compute-1.amazonaws.com	ip-10-6-90-9.ec2.internal	running	bastion_start20130417	0		m1.xlarge	2013-04-23T18:26:01+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.221.58.33	10.6.90.9			ebs					paravirtual	xen		sg-48070520, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-cef08c97	2013-04-23T18:26:05.000Z	true		
+TAG	instance	i-7d5cf412	Name	env-prod-jump-i-7d5cf412
+RESERVATION	r-9c5eadf0	821387913885	env-qa,env-qa-ppd
+INSTANCE	i-2a5f0344	ami-fd20ad94	ec2-54-226-58-130.compute-1.amazonaws.com	ip-10-152-158-57.ec2.internal	running	techops	0		m1.medium	2013-05-23T04:06:48+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.58.130	10.152.158.57			ebs					paravirtual	xen	a9a86730-5a61-441a-97ce-71ce4b4956b7_us-east-1c_1	sg-5c380734, sg-212ce04a	default	false	
+BLOCKDEVICE	/dev/sda1	vol-28343970	2013-05-23T04:06:51.000Z	true		
+TAG	instance	i-2a5f0344	Name	env-qa-ppd-i-2a5f0344
+TAG	instance	i-2a5f0344	aws:autoscaling:groupName	env-qa-ppd
+RESERVATION	r-04509368	821387913885	env-stage-upcode,env-stage
+INSTANCE	i-11b19c74	ami-fd20ad94	ec2-54-225-23-154.compute-1.amazonaws.com	ip-10-31-210-12.ec2.internal	running	techops	0		c1.medium	2013-09-17T21:05:22+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	54.225.23.154	10.31.210.12			ebs					paravirtual	xen	91095219-e905-4c59-b157-191d097bf7d5_us-east-1a_1	sg-ed524e85, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-19919553	2013-09-17T21:05:26.000Z	true		
+TAG	instance	i-11b19c74	aws:autoscaling:groupName	env-stage-upcode
+TAG	instance	i-11b19c74	Name	env-stage-upcode-i-11b19c74
+RESERVATION	r-40955f2c	821387913885	env-stage-orgservice,env-stage
+INSTANCE	i-123b277b	ami-fd20ad94	ec2-54-234-241-10.compute-1.amazonaws.com	ip-10-234-19-76.ec2.internal	running	techops	0		m1.medium	2013-09-13T09:52:22+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	54.234.241.10	10.234.19.76			ebs					paravirtual	xen	7058714e-4b36-4c27-afd5-fd9a885f282b_us-east-1a_1	sg-af79bac4, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1afac250	2013-09-13T09:52:26.000Z	true		
+TAG	instance	i-123b277b	aws:autoscaling:groupName	env-stage-orgservice
+TAG	instance	i-123b277b	Name	env-stage-orgservice-i-123b277b
+RESERVATION	r-00d7766c	821387913885	env-qa-tester,env-qa
+INSTANCE	i-a08854cb	ami-fd20ad94	ec2-107-20-68-213.compute-1.amazonaws.com	ip-10-93-15-39.ec2.internal	running	techops	0		m1.small	2013-06-12T22:08:25+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	107.20.68.213	10.93.15.39			ebs					paravirtual	xen		sg-7c3d3214, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-035b4f58	2013-06-12T22:08:29.000Z	true		
+TAG	instance	i-a08854cb	Name	env-qa-tester-i-a08854cb
+RESERVATION	r-3c14b650	821387913885	env-stage,env-stage-resque
+INSTANCE	i-11789671	ami-fd20ad94	ec2-174-129-72-70.compute-1.amazonaws.com	ip-10-154-190-81.ec2.internal	running	techops	0		m1.medium	2013-07-05T17:18:48+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	174.129.72.70	10.154.190.81			ebs					paravirtual	xen	6aad374f-d20e-41df-a5de-2c189da76019_us-east-1c_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-73c9d729	2013-07-05T17:18:53.000Z	true		
+TAG	instance	i-11789671	WorkerRole	resque-worker-shares
+TAG	instance	i-11789671	Name	env-stage-resque-i-11789671
+TAG	instance	i-11789671	aws:autoscaling:groupName	env-stage-resque-worker-shares
+RESERVATION	r-0085386c	821387913885	env-qa-director,env-qa
+INSTANCE	i-98a7ecf5	ami-fd20ad94	ec2-23-20-104-219.compute-1.amazonaws.com	ip-10-118-126-95.ec2.internal	running	techops	0		m1.small	2013-05-02T20:57:19+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.104.219	10.118.126.95			ebs					paravirtual	xen	3144fa37-848a-4639-ad70-48d989174754_us-east-1c_1	sg-ee35df85, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d0b25588	2013-05-02T20:57:22.000Z	true		
+TAG	instance	i-98a7ecf5	aws:autoscaling:groupName	env-qa-director
+TAG	instance	i-98a7ecf5	Name	env-qa-director-i-98a7ecf5
+RESERVATION	r-bc6932d0	821387913885	env-stage-mongo-server,env-stage
+INSTANCE	i-00e77e6b	ami-fd20ad94	ec2-107-22-131-62.compute-1.amazonaws.com	ip-10-29-166-144.ec2.internal	running	techops	0		m1.small	2013-09-06T22:34:29+0000	us-east-1a	aki-825ea7eb			monitoring-disabled	107.22.131.62	10.29.166.144			ebs					paravirtual	xen		sg-b324b3d8, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-9a4270d0	2013-09-06T22:34:33.000Z	true		
+TAG	instance	i-00e77e6b	Name	env-stage-mongo-server-i-00e77e6b
+RESERVATION	r-fec3ee92	821387913885	env-inf,env-inf-syslog-server
+INSTANCE	i-cc6b39ad	ami-fd20ad94	ec2-54-225-75-29.compute-1.amazonaws.com	ip-10-100-161-251.ec2.internal	running	techops	0		c1.xlarge	2013-04-30T07:02:00+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.225.75.29	10.100.161.251			ebs					paravirtual	xen		sg-27649a4c, sg-7925dd12	default	false	
+BLOCKDEVICE	/dev/sda1	vol-462f281f	2013-04-30T07:02:04.000Z	true		
+BLOCKDEVICE	/dev/xvdc	vol-130e094a	2013-04-30T07:21:08.000Z	false		
+BLOCKDEVICE	/dev/xvdd	vol-144ba557	2013-09-11T21:30:24.000Z	false		
+TAG	instance	i-cc6b39ad	Name	env-inf-syslog-server-i-cc6b39ad
+RESERVATION	r-ee4b4382	821387913885	env-stage,env-stage-ppd
+INSTANCE	i-5b174839	ami-fd20ad94	ec2-54-221-57-137.compute-1.amazonaws.com	ip-10-147-206-183.ec2.internal	running	techops	0		m1.medium	2013-08-01T22:56:34+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.57.137	10.147.206.183			ebs					paravirtual	xen	cbc249c3-0a5f-44e7-9886-d77e74bfa5e6_us-east-1c_1	sg-6452610c, sg-0f2ee264	default	false	
+BLOCKDEVICE	/dev/sda1	vol-bc1839fc	2013-08-01T22:56:38.000Z	true		
+TAG	instance	i-5b174839	Name	env-stage-ppd-i-5b174839
+TAG	instance	i-5b174839	aws:autoscaling:groupName	env-stage-ppd
+RESERVATION	r-8c3bc3e3	821387913885	env-prod,env-prod-schedservice
+INSTANCE	i-4c0c182d	ami-fd20ad94	ec2-50-17-163-20.compute-1.amazonaws.com	ip-10-40-53-149.ec2.internal	running	techops	0		m1.medium	2013-08-02T23:40:44+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.17.163.20	10.40.53.149			ebs					paravirtual	xen	0d741b21-d8bd-452b-9c7e-0e92913b3ccf_us-east-1c_1	sg-b6dae9de, sg-8a3997e1	default	false	
+BLOCKDEVICE	/dev/sda1	vol-cbe5c68b	2013-08-02T23:40:46.000Z	true		
+TAG	instance	i-4c0c182d	Name	env-prod-schedservice-i-4c0c182d
+TAG	instance	i-4c0c182d	aws:autoscaling:groupName	env-prod-schedservice
+RESERVATION	r-5fa93930	821387913885	wowza
+INSTANCE	i-25dba444	ami-f3d3129a	ec2-50-17-202-6.compute-1.amazonaws.com	ip-10-195-221-174.ec2.internal	running	wowza	0	[devpay: 8ED157F9]	m1.small	2011-08-10T19:17:24+0000	us-east-1c	aki-6eaa4907	ari-42b95a2b		monitoring-disabled	50.17.202.6	10.195.221.174			instance-store					paravirtual	xen		sg-41a5fb28	default	false	
+TAG	instance	i-25dba444	Name	Development Webcam Load Balancer
+RESERVATION	r-3bd94154	821387913885	wowza
+INSTANCE	i-09632368	ami-cffa3ba6	ec2-50-17-108-109.compute-1.amazonaws.com	ip-10-202-75-214.ec2.internal	running	wowza	0	[devpay: 8ED157F9]	m1.small	2011-08-12T18:15:09+0000	us-east-1c	aki-6eaa4907	ari-42b95a2b		monitoring-disabled	50.17.108.109	10.202.75.214			instance-store					paravirtual	xen		sg-41a5fb28	default	false	
+TAG	instance	i-09632368	Name	Staging Webcam Server #1
+RESERVATION	r-23fb634c	821387913885	wowza
+INSTANCE	i-f991d198	ami-53fd3c3a	ec2-72-44-63-29.compute-1.amazonaws.com	ip-10-83-15-228.ec2.internal	running	wowza	0	[devpay: 8ED157F9]	m1.small	2011-08-12T19:02:30+0000	us-east-1c	aki-6eaa4907	ari-42b95a2b		monitoring-disabled	72.44.63.29	10.83.15.228			instance-store					paravirtual	xen		sg-41a5fb28	default	false	
+TAG	instance	i-f991d198	Name	Development Webcam Server #1
+RESERVATION	r-c1f068ae	821387913885	wowza
+INSTANCE	i-1198d870	ami-f3d3129a	ec2-184-73-190-200.compute-1.amazonaws.com	ip-10-204-171-62.ec2.internal	running	wowza	0	[devpay: 8ED157F9]	m1.small	2011-08-12T19:09:23+0000	us-east-1c	aki-6eaa4907	ari-42b95a2b		monitoring-disabled	184.73.190.200	10.204.171.62			instance-store					paravirtual	xen		sg-41a5fb28	default	false	
+TAG	instance	i-1198d870	Name	Load Testing Webcam Load Balancer
+INSTANCE	i-1398d872	ami-f3d3129a	ec2-50-16-232-101.compute-1.amazonaws.com	ip-10-80-22-120.ec2.internal	running	wowza	1	[devpay: 8ED157F9]	m1.small	2011-08-12T19:09:23+0000	us-east-1c	aki-6eaa4907	ari-42b95a2b		monitoring-disabled	50.16.232.101	10.80.22.120			instance-store					paravirtual	xen		sg-41a5fb28	default	false	
+TAG	instance	i-1398d872	Name	Production Webcam Load Balancer
+RESERVATION	r-bd039bd2	821387913885	wowza
+INSTANCE	i-d17e3db0	ami-55fd3c3c	ec2-107-20-44-33.compute-1.amazonaws.com	domU-12-31-39-0C-4D-B1.compute-1.internal	running	wowza	0	[devpay: 8ED157F9]	c1.medium	2011-08-12T23:22:06+0000	us-east-1b	aki-6eaa4907	ari-42b95a2b		monitoring-enabled	107.20.44.33	10.215.78.63			instance-store					paravirtual	xen	02db7fc1-1467-4be0-9f1e-4ece9c3e8099	sg-41a5fb28	default	false	
+TAG	instance	i-d17e3db0	Name	Production Webcam Server #1
+TAG	instance	i-d17e3db0	aws:autoscaling:groupName	wowza-recorders-production
+RESERVATION	r-be4006d1	821387913885	env-stage-pbs,env-stage
+INSTANCE	i-3a5df359	ami-fd20ad94	ec2-23-20-109-159.compute-1.amazonaws.com	ip-10-202-49-23.ec2.internal	running	techops	0		m1.medium	2013-05-15T20:58:19+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.109.159	10.202.49.23			ebs					paravirtual	xen	318b2713-40e6-4fc0-96b7-4fe3fc84df3c_us-east-1c_1	sg-cae212a1, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-8f0b7fd7	2013-05-15T20:58:23.000Z	true		
+TAG	instance	i-3a5df359	aws:autoscaling:groupName	env-stage-pbs
+TAG	instance	i-3a5df359	Name	env-stage-pbs-i-3a5df359
+RESERVATION	r-72ca861d	821387913885	env-prod-ppd,env-prod
+INSTANCE	i-f2639c99	ami-fd20ad94	ec2-54-227-19-204.compute-1.amazonaws.com	ip-10-100-217-124.ec2.internal	running	techops	0		m1.medium	2013-08-02T23:42:27+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.227.19.204	10.100.217.124			ebs					paravirtual	xen	bcc0ee10-cb0a-4bcb-aafe-59996e4bc903_us-east-1c_1	sg-6b2fe300, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a5e5c6e5	2013-08-02T23:42:30.000Z	true		
+TAG	instance	i-f2639c99	aws:autoscaling:groupName	env-prod-ppd
+TAG	instance	i-f2639c99	Name	env-prod-ppd-i-f2639c99
+RESERVATION	r-3aecbd55	821387913885	env-stage,env-stage-resque
+INSTANCE	i-e8394781	ami-fd20ad94	ec2-184-72-195-162.compute-1.amazonaws.com	ip-10-170-20-194.ec2.internal	running	techops	0		m1.medium	2013-09-13T19:00:46+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	184.72.195.162	10.170.20.194			ebs					paravirtual	xen	74db2938-8cf8-4cf9-9e2a-12d799bff3be_us-east-1a_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e49aa2ae	2013-09-13T19:00:50.000Z	true		
+TAG	instance	i-e8394781	Name	env-stage-resque-i-e8394781
+TAG	instance	i-e8394781	aws:autoscaling:groupName	env-stage-resque-worker-ops-fastrak
+TAG	instance	i-e8394781	WorkerRole	resque-worker-ops-fastrak
+RESERVATION	r-38ecbd57	821387913885	env-stage,env-stage-resque
+INSTANCE	i-a63d43cf	ami-fd20ad94	ec2-54-225-57-216.compute-1.amazonaws.com	ip-10-182-149-88.ec2.internal	running	techops	0		m1.medium	2013-09-13T19:00:45+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	54.225.57.216	10.182.149.88			ebs					paravirtual	xen	002aae22-511b-4233-a65a-8215331c22ff_us-east-1a_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e79aa2ad	2013-09-13T19:00:50.000Z	true		
+TAG	instance	i-a63d43cf	WorkerRole	resque-worker-notification
+TAG	instance	i-a63d43cf	Name	env-stage-resque-i-a63d43cf
+TAG	instance	i-a63d43cf	aws:autoscaling:groupName	env-stage-resque-worker-notification
+RESERVATION	r-a25e7dcd	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-e30c1288	ami-fd20ad94	ec2-54-224-31-18.compute-1.amazonaws.com	ip-10-194-242-66.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:31:52+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.224.31.18	10.194.242.66			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-92372ec9	2013-06-13T20:31:57.000Z	true		
+TAG	instance	i-e30c1288	Name	env-prod-mongo-shard-i-e30c1288
+RESERVATION	r-bc5e7dd3	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-1b110f70	ami-fd20ad94	ec2-54-234-128-124.compute-1.amazonaws.com	ip-10-100-218-155.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:31:09+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.234.128.124	10.100.218.155			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ca342d91	2013-06-13T20:31:12.000Z	true		
+TAG	instance	i-1b110f70	Name	env-prod-mongo-shard-i-1b110f70
+RESERVATION	r-925e7dfd	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-cf0c12a4	ami-fd20ad94	ec2-50-19-172-30.compute-1.amazonaws.com	ip-10-118-67-113.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:30:43+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.19.172.30	10.118.67.113			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-8c352cd7	2013-06-13T20:30:47.000Z	true		
+TAG	instance	i-cf0c12a4	Name	env-prod-mongo-shard-i-cf0c12a4
+RESERVATION	r-0e4d7c61	821387913885	env-prod,env-prod-schedservice
+INSTANCE	i-3e45a254	ami-fd20ad94	ec2-54-226-211-182.compute-1.amazonaws.com	ip-10-164-112-43.ec2.internal	running	techops	0		m1.medium	2013-08-02T21:15:15+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.211.182	10.164.112.43			ebs					paravirtual	xen	7a04c207-d3aa-4e50-996a-56e1ff1dfb76_us-east-1c_2	sg-b6dae9de, sg-8a3997e1	default	false	
+BLOCKDEVICE	/dev/sda1	vol-862d0ec6	2013-08-02T21:15:18.000Z	true		
+TAG	instance	i-3e45a254	aws:autoscaling:groupName	env-prod-schedservice
+TAG	instance	i-3e45a254	Name	env-prod-schedservice-i-3e45a254
+RESERVATION	r-d2585fbd	821387913885	env-stage-redis-metrics,env-stage
+INSTANCE	i-9d351df0	ami-fd20ad94	ec2-54-225-67-54.compute-1.amazonaws.com	ip-10-85-77-3.ec2.internal	running	techops	0		m1.large	2013-04-23T23:53:30+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.225.67.54	10.85.77.3			ebs					paravirtual	xen		sg-6652610e, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-3e6e1667	2013-04-23T23:53:34.000Z	true		
+TAG	instance	i-9d351df0	Name	env-stage-redis-metrics-i-9d351df0
+RESERVATION	r-8511fceb	821387913885	env-stage-redis-kicktag,env-stage
+INSTANCE	i-9f13c1f2	ami-fd20ad94	ec2-23-22-17-235.compute-1.amazonaws.com	ip-10-235-7-252.ec2.internal	running	techops	0		m1.large	2013-09-13T20:19:28+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	23.22.17.235	10.235.7.252			ebs					paravirtual	xen	b3b0c934-3add-4b1e-b1ac-7bf1bc6dde99_us-east-1a_1	sg-4feffb27, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-908cb4da	2013-09-13T20:19:30.000Z	true		
+TAG	instance	i-9f13c1f2	Name	env-stage-redis-kicktag-i-9f13c1f2
+TAG	instance	i-9f13c1f2	aws:autoscaling:groupName	env-stage-redis-kicktag
+RESERVATION	r-3323cf5d	821387913885	env-prod-jump,env-prod-ws,env-prod
+INSTANCE	i-80f975ee	ami-fd20ad94	ec2-23-22-132-30.compute-1.amazonaws.com	ip-10-40-30-188.ec2.internal	running	bastion_start20130417	0		m1.large	2013-08-15T01:40:28+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.22.132.30	10.40.30.188			ebs					paravirtual	xen		sg-48070520, sg-bfaf71d4, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f0f1b5aa	2013-06-28T01:01:57.000Z	true		
+TAG	instance	i-80f975ee	Name	env-prod-ws-i-80f975ee
+RESERVATION	r-33729e5d	821387913885	env-stage-upcode,env-stage
+INSTANCE	i-0df8a975	ami-fd20ad94	ec2-50-17-126-195.compute-1.amazonaws.com	domU-12-31-39-01-71-BA.compute-1.internal	running	techops	0		c1.medium	2013-09-14T21:36:09+0000	us-east-1b	aki-825ea7eb			monitoring-enabled	50.17.126.195	10.255.118.72			ebs					paravirtual	xen	6e79689c-029d-464f-a974-3b32e39aa490_us-east-1b_1	sg-ed524e85, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1606c061	2013-09-14T21:36:13.000Z	true		
+TAG	instance	i-0df8a975	aws:autoscaling:groupName	env-stage-upcode
+TAG	instance	i-0df8a975	Name	env-stage-upcode-i-0df8a975
+RESERVATION	r-373af259	821387913885	env-stage-api,env-stage
+INSTANCE	i-c278e2a1	ami-fd20ad94	ec2-54-226-198-156.compute-1.amazonaws.com	ip-10-147-128-198.ec2.internal	running	techops	0		m1.medium	2013-06-26T21:51:29+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.198.156	10.147.128.198			ebs					paravirtual	xen	dfb86dc6-374e-4f24-be51-181d916fc641_us-east-1c_1	sg-5f9e4534, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-56aadc0c	2013-06-26T21:51:33.000Z	true		
+TAG	instance	i-c278e2a1	aws:autoscaling:groupName	env-stage-api
+TAG	instance	i-c278e2a1	Name	env-stage-api-i-c278e2a1
+RESERVATION	r-8d954ae3	821387913885	env-stage,env-stage-haystack-hayfork
+INSTANCE	i-73b0ca13	ami-fd20ad94	ec2-75-101-220-236.compute-1.amazonaws.com	ip-10-28-186-135.ec2.internal	running	techops	0		c1.medium	2013-09-13T19:58:04+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	75.101.220.236	10.28.186.135			ebs					paravirtual	xen	33f53606-5fd6-4b63-bc01-0313e873027c_us-east-1a_1	sg-6452610c, sg-93c156f8	default	false	
+BLOCKDEVICE	/dev/sda1	vol-3796ae7d	2013-09-13T19:58:09.000Z	true		
+TAG	instance	i-73b0ca13	aws:autoscaling:groupName	env-stage-haystack-hayfork
+TAG	instance	i-73b0ca13	Name	env-stage-haystack-hayfork-i-73b0ca13
+RESERVATION	r-13b11a7d	821387913885	env-stage,env-stage-haproxy-db
+INSTANCE	i-4dbc2422	ami-fd20ad94	ec2-107-22-16-167.compute-1.amazonaws.com	ip-10-235-24-32.ec2.internal	running	techops	0		m1.large	2013-09-13T19:54:32+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	107.22.16.167	10.235.24.32			ebs					paravirtual	xen	d1d42232-f224-4de1-a2a0-1cc0bb2cd0a0_us-east-1a_1	sg-6452610c, sg-9b9f87f3	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e395ada9	2013-09-13T19:54:36.000Z	true		
+TAG	instance	i-4dbc2422	Name	env-stage-haproxy-db-i-4dbc2422
+TAG	instance	i-4dbc2422	aws:autoscaling:groupName	env-stage-haproxy-db
+RESERVATION	r-436fda2d	821387913885	env-wildwest,env-wildwest-tester
+INSTANCE	i-b981d9d4	ami-fd20ad94	ec2-184-72-66-44.compute-1.amazonaws.com	ip-10-28-194-244.ec2.internal	running	techops	0		m1.small	2013-09-11T23:24:22+0000	us-east-1a	aki-825ea7eb			monitoring-disabled	184.72.66.44	10.28.194.244			ebs					paravirtual	xen		sg-047d4e6c, sg-f211119a	default	false	
+BLOCKDEVICE	/dev/sda1	vol-015e674b	2013-09-11T23:24:27.000Z	true		
+TAG	instance	i-b981d9d4	Name	env-wildwest-tester-i-b981d9d4
+RESERVATION	r-f341c59d	821387913885	env-qa,env-qa-haproxy-app
+INSTANCE	i-a59298ca	ami-fd20ad94	ec2-54-225-232-1.compute-1.amazonaws.com	ip-10-144-80-24.ec2.internal	running	techops	0		m1.small	2013-05-14T00:25:28+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.225.232.1	10.144.80.24			ebs					paravirtual	xen		sg-5c380734, sg-1f549574	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7525ba2d	2013-05-14T00:25:33.000Z	true		
+TAG	instance	i-a59298ca	Name	env-qa-haproxy-app-i-a59298ca
+RESERVATION	r-2356324d	821387913885	env-prod-tester,env-prod
+INSTANCE	i-685ac103	ami-fd20ad94	ec2-54-221-115-22.compute-1.amazonaws.com	ip-10-168-41-106.ec2.internal	running	techops	0		m1.small	2013-09-05T22:09:01+0000	us-east-1a	aki-825ea7eb			monitoring-disabled	54.221.115.22	10.168.41.106			ebs					paravirtual	xen		sg-b7fe3ddc, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f15162bb	2013-09-05T22:09:06.000Z	true		
+TAG	instance	i-685ac103	Name	env-prod-tester-i-685ac103
+RESERVATION	r-8b93e6e5	821387913885	env-stage-haproxy-app,env-stage
+INSTANCE	i-9b26fee1	ami-fd20ad94	ec2-54-221-154-111.compute-1.amazonaws.com	ip-10-6-61-74.ec2.internal	running	techops	0		m1.small	2013-09-13T19:46:51+0000	us-east-1b	aki-825ea7eb			monitoring-enabled	54.221.154.111	10.6.61.74			ebs					paravirtual	xen	18884cb3-aa73-44c6-af3e-8366afd17abb_us-east-1b_1	sg-ad06c6c6, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-faa6618d	2013-09-13T19:46:54.000Z	true		
+TAG	instance	i-9b26fee1	aws:autoscaling:groupName	env-stage-haproxy-app
+TAG	instance	i-9b26fee1	Name	env-stage-haproxy-app-i-9b26fee1
+RESERVATION	r-a5d9a6cb	821387913885	env-stage,env-stage-resque
+INSTANCE	i-64216e0c	ami-fd20ad94	ec2-54-226-119-98.compute-1.amazonaws.com	ip-10-235-21-213.ec2.internal	running	techops	0		m1.medium	2013-09-13T19:00:33+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	54.226.119.98	10.235.21.213			ebs					paravirtual	xen	fe878c74-6ffb-43c8-a2df-d64095faf719_us-east-1a_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e39aa2a9	2013-09-13T19:00:38.000Z	true		
+TAG	instance	i-64216e0c	aws:autoscaling:groupName	env-stage-resque-worker-digest
+TAG	instance	i-64216e0c	Name	env-stage-resque-i-64216e0c
+TAG	instance	i-64216e0c	WorkerRole	resque-worker-digest
+RESERVATION	r-23374e4d	821387913885	env-stage,env-stage-resque
+INSTANCE	i-fb1fad83	ami-fd20ad94	ec2-54-234-31-199.compute-1.amazonaws.com	ip-10-66-149-58.ec2.internal	running	techops	0		c1.xlarge	2013-08-30T00:38:45+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.234.31.199	10.66.149.58			ebs					paravirtual	xen		sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-02fd1475	2013-08-30T00:38:50.000Z	true		
+TAG	instance	i-fb1fad83	Name	env-stage-resque-i-fb1fad83
+TAG	instance	i-fb1fad83	WorkerRole	resque-worker-haystack
+RESERVATION	r-c35313ad	821387913885	env-wildwest,env-wildwest-tester
+INSTANCE	i-98b1a9f9	ami-fd20ad94	ec2-54-226-47-79.compute-1.amazonaws.com	ip-10-125-9-97.ec2.internal	running	techops	0		m1.small	2013-06-11T23:32:25+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.226.47.79	10.125.9.97			ebs					paravirtual	xen		sg-047d4e6c, sg-f211119a	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f88b8aa3	2013-06-11T23:32:28.000Z	true		
+TAG	instance	i-98b1a9f9	Name	env-wildwest-tester-i-98b1a9f9
+RESERVATION	r-6d541403	821387913885	env-qa-tester,env-qa
+INSTANCE	i-56b4ac37	ami-fd20ad94	ec2-54-226-56-236.compute-1.amazonaws.com	ip-10-124-89-170.ec2.internal	running	techops	0		m1.small	2013-06-12T00:04:08+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.226.56.236	10.124.89.170			ebs					paravirtual	xen		sg-7c3d3214, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ea5959b1	2013-06-12T00:04:12.000Z	true		
+TAG	instance	i-56b4ac37	Name	env-qa-tester-i-56b4ac37
+RESERVATION	r-cf0e4ca1	821387913885	env-prod-ws,env-prod
+INSTANCE	i-0caa0969	ami-fd20ad94	ec2-54-226-175-31.compute-1.amazonaws.com	ip-10-60-65-133.ec2.internal	running	bastion_start20130417	0		m1.medium	2013-06-21T22:33:04+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.175.31	10.60.65.133			ebs					paravirtual	xen		sg-bfaf71d4, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f1bd05ab	2013-06-21T22:33:22.000Z	true		
+TAG	instance	i-0caa0969	Name	env-prod-ws-i-0caa0969
+RESERVATION	r-2b240e45	821387913885	env-stage,env-stage-resque
+INSTANCE	i-e9d08a93	ami-fd20ad94	ec2-54-221-146-126.compute-1.amazonaws.com	ip-10-236-138-57.ec2.internal	running	techops	0		m1.medium	2013-09-13T19:00:36+0000	us-east-1b	aki-825ea7eb			monitoring-enabled	54.221.146.126	10.236.138.57			ebs					paravirtual	xen	cfe27d1a-0943-41df-b2c3-462e149b2bb4_us-east-1b_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-45925532	2013-09-13T19:00:40.000Z	true		
+TAG	instance	i-e9d08a93	aws:autoscaling:groupName	env-stage-resque-worker-encoding
+TAG	instance	i-e9d08a93	Name	env-stage-resque-i-e9d08a93
+TAG	instance	i-e9d08a93	WorkerRole	resque-worker-encoding
+RESERVATION	r-e117278f	821387913885	env-qa,env-qa-schedservice
+INSTANCE	i-8118cfee	ami-fd20ad94	ec2-50-17-55-147.compute-1.amazonaws.com	ip-10-40-43-171.ec2.internal	running	techops	0		m1.large	2013-07-10T22:53:59+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.17.55.147	10.40.43.171			ebs					paravirtual	xen		sg-5c380734, sg-9855f6f3	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1f13c142	2013-07-10T22:54:04.000Z	true		
+TAG	instance	i-8118cfee	Name	env-qa-schedservice-i-8118cfee
+RESERVATION	r-2276734c	821387913885	backup-ops
+INSTANCE	i-c3dba9a0	ami-ab36fbc2			stopped	backup-ops	0		c1.medium	2011-11-19T21:27:44+0000	us-east-1c	aki-407d9529			monitoring-disabled					ebs					paravirtual	xen		sg-b57749dc	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ead30187	2011-11-19T21:27:47.000Z	true		
+BLOCKDEVICE	/dev/sdf	vol-92d002ff	2011-11-19T21:30:22.000Z	false		
+BLOCKDEVICE	/dev/sdj	vol-16cc1e7b	2011-11-19T22:13:18.000Z	false		
+TAG	instance	i-c3dba9a0	Name	Jenkins CI Test
+RESERVATION	r-608d6401	821387913885	env-prod-api,env-prod
+INSTANCE	i-80fe0aec	ami-fd20ad94	ec2-54-235-224-109.compute-1.amazonaws.com	ip-10-166-64-102.ec2.internal	running	techops	0		m1.medium	2013-06-26T21:52:09+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.235.224.109	10.166.64.102			ebs					paravirtual	xen	10a299da-a336-413d-a65f-b88e428cd4f3_us-east-1c_1	sg-2d9e4546, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-92abddc8	2013-06-26T21:52:14.000Z	true		
+TAG	instance	i-80fe0aec	aws:autoscaling:groupName	env-prod-api
+TAG	instance	i-80fe0aec	Name	env-prod-api-i-80fe0aec
+RESERVATION	r-78db2519	821387913885	env-prod-mongo-config,env-prod
+INSTANCE	i-faaa6c99	ami-fd20ad94	ec2-107-20-3-61.compute-1.amazonaws.com	ip-10-86-131-61.ec2.internal	running	techops	0		t1.micro	2013-06-13T20:36:31+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	107.20.3.61	10.86.131.61			ebs					paravirtual	xen		sg-6f518504, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c5223b9e	2013-06-13T20:36:35.000Z	true		
+TAG	instance	i-faaa6c99	Name	env-prod-mongo-config-i-faaa6c99
+RESERVATION	r-a09450c1	821387913885	env-inf,env-inf-tester
+INSTANCE	i-874f66e2	ami-fd20ad94	ec2-204-236-211-159.compute-1.amazonaws.com	ip-10-151-94-125.ec2.internal	running	techops	0		m1.small	2013-09-11T19:17:18+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	204.236.211.159	10.151.94.125			ebs					paravirtual	xen		sg-27649a4c, sg-6f31a104	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f7609b80	2013-09-11T19:17:21.000Z	true		
+RESERVATION	r-a212d4c3	821387913885	env-qa-bridge,env-qa
+INSTANCE	i-92bb53f6	ami-fd20ad94	ec2-54-225-74-235.compute-1.amazonaws.com	ip-10-110-51-167.ec2.internal	running	techops	0		m1.small	2013-08-08T17:49:15+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.225.74.235	10.110.51.167			ebs					paravirtual	xen		sg-b651ecdd, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-17d2d863	2013-08-08T17:49:18.000Z	true		
+TAG	instance	i-92bb53f6	Name	env-qa-bridge-i-92bb53f6
+RESERVATION	r-b666a6d7	821387913885	env-tiab
+INSTANCE	i-4900702b	ami-e31c728a	ec2-54-224-255-176.compute-1.amazonaws.com	ip-10-166-62-14.ec2.internal	running	tiab	0		m1.large	2013-05-14T04:35:53+0000	us-east-1c	aki-88aa75e1			monitoring-disabled	54.224.255.176	10.166.62.14			ebs					paravirtual	xen	IhkLG1368506153218	sg-c503fdae	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d024bd88	2013-05-14T04:35:57.000Z	true		
+TAG	instance	i-4900702b	Name	tiab-B
+RESERVATION	r-80a375e1	821387913885	env-prod-tester,env-prod
+INSTANCE	i-72eead19	ami-fd20ad94	ec2-184-72-192-154.compute-1.amazonaws.com	ip-10-196-53-72.ec2.internal	running	techops	0		m1.small	2013-05-16T22:08:02+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	184.72.192.154	10.196.53.72			ebs					paravirtual	xen		sg-b7fe3ddc, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7d89f325	2013-05-16T22:08:05.000Z	true		
+RESERVATION	r-7e8a361f	821387913885	env-prod-director,env-prod
+INSTANCE	i-89c300e9	ami-fd20ad94	ec2-107-22-19-55.compute-1.amazonaws.com	ip-10-32-145-203.ec2.internal	running	techops	1		m1.small	2013-05-01T19:05:00+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	107.22.19.55	10.32.145.203			ebs					paravirtual	xen	8720801a-09cd-4ddb-a40f-80f3b3c8d5b2_us-east-1c_2	sg-1436c67f, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-831e0fda	2013-05-01T19:05:03.000Z	true		
+TAG	instance	i-89c300e9	aws:autoscaling:groupName	env-prod-director
+TAG	instance	i-89c300e9	Name	env-prod-director-i-89c300e9
+INSTANCE	i-8bc300eb	ami-fd20ad94	ec2-75-101-209-28.compute-1.amazonaws.com	ip-10-35-58-165.ec2.internal	running	techops	0		m1.small	2013-05-01T19:05:00+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	75.101.209.28	10.35.58.165			ebs					paravirtual	xen	8720801a-09cd-4ddb-a40f-80f3b3c8d5b2_us-east-1c_2	sg-1436c67f, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-8e1e0fd7	2013-05-01T19:05:03.000Z	true		
+TAG	instance	i-8bc300eb	aws:autoscaling:groupName	env-prod-director
+TAG	instance	i-8bc300eb	Name	env-prod-director-i-8bc300eb
+RESERVATION	r-fa5cd59b	821387913885	env-stage-tester,env-stage
+INSTANCE	i-65ef8207	ami-fd20ad94	ec2-107-21-84-33.compute-1.amazonaws.com	ip-10-29-207-156.ec2.internal	running	techops	0		m1.small	2013-09-13T23:20:14+0000	us-east-1a	aki-825ea7eb			monitoring-disabled	107.21.84.33	10.29.207.156			ebs					paravirtual	xen		sg-1212bd79, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-76615a3c	2013-09-13T23:20:16.000Z	true		
+TAG	instance	i-65ef8207	Name	env-stage-tester-i-65ef8207
+RESERVATION	r-966e0ef7	821387913885	env-prod-resque,env-prod
+INSTANCE	i-600e2c03	ami-fd20ad94	ec2-67-202-34-221.compute-1.amazonaws.com	ip-10-10-46-4.ec2.internal	running	techops	0		m1.medium	2013-07-05T17:39:30+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	67.202.34.221	10.10.46.4			ebs					paravirtual	xen	ccf195a0-63dc-4be4-8767-ea76a422b1f7_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-909c82ca	2013-07-05T17:39:34.000Z	true		
+TAG	instance	i-600e2c03	WorkerRole	resque-worker-encoding-fastrak
+TAG	instance	i-600e2c03	aws:autoscaling:groupName	env-prod-resque-worker-encoding-fastrak
+TAG	instance	i-600e2c03	Name	env-prod-resque-i-600e2c03
+RESERVATION	r-09e3cb68	821387913885	wowza
+INSTANCE	i-c24675a0	ami-d9fd3cb0	ec2-107-20-8-27.compute-1.amazonaws.com	domU-12-31-39-09-29-15.compute-1.internal	running	wowza	0	[devpay: 8ED157F9]	m1.small	2012-01-16T22:02:20+0000	us-east-1b	aki-6eaa4907	ari-42b95a2b		monitoring-disabled	107.20.8.27	10.210.46.227			instance-store					paravirtual	xen		sg-41a5fb28	default	false	
+TAG	instance	i-c24675a0	Name	Load Testing Webcam Server #1
+RESERVATION	r-4a2c212b	821387913885	env-stage-director,env-stage
+INSTANCE	i-931bd7f3	ami-fd20ad94	ec2-107-20-27-35.compute-1.amazonaws.com	ip-10-32-31-221.ec2.internal	running	techops	0		m1.small	2013-05-02T20:52:54+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	107.20.27.35	10.32.31.221			ebs					paravirtual	xen	bb1bcd1a-2044-46ca-b1b8-c87d203ef6ed_us-east-1c_1	sg-72b34319, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ddab4c85	2013-05-02T20:52:58.000Z	true		
+TAG	instance	i-931bd7f3	Name	env-stage-director-i-931bd7f3
+TAG	instance	i-931bd7f3	aws:autoscaling:groupName	env-stage-director
+RESERVATION	r-58363b39	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-f4d94b97	ami-fd20ad94	ec2-23-22-23-158.compute-1.amazonaws.com	ip-10-118-190-172.ec2.internal	running	techops	0		m1.medium	2013-06-13T20:31:20+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.22.23.158	10.118.190.172			ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-91342dca	2013-06-13T20:31:24.000Z	true		
+TAG	instance	i-f4d94b97	Name	env-prod-mongo-shard-i-f4d94b97
+RESERVATION	r-84ecf9e5	821387913885	env-prod,env-prod-schedservice
+INSTANCE	i-b54226d8	ami-fd20ad94	ec2-54-227-93-244.compute-1.amazonaws.com	ip-10-204-243-216.ec2.internal	running	techops	0		m1.medium	2013-08-02T23:10:32+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.227.93.244	10.204.243.216			ebs					paravirtual	xen	ff21b9e5-530e-458c-bf9c-f4bc62c1e053_us-east-1c_1	sg-b6dae9de, sg-8a3997e1	default	false	
+BLOCKDEVICE	/dev/sda1	vol-211a3961	2013-08-02T23:10:34.000Z	true		
+TAG	instance	i-b54226d8	Name	env-prod-schedservice-i-b54226d8
+TAG	instance	i-b54226d8	aws:autoscaling:groupName	env-prod-schedservice
+RESERVATION	r-18d9c279	821387913885	env-stage,env-stage-resque
+INSTANCE	i-8f7bc4e5	ami-fd20ad94	ec2-204-236-201-9.compute-1.amazonaws.com	ip-10-152-164-189.ec2.internal	running	techops	0		m1.small	2013-06-20T21:49:46+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	204.236.201.9	10.152.164.189			ebs					paravirtual	xen	6876b292-a1f3-4e03-93fc-3b612a14d1a3_us-east-1c_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-3f1db765	2013-06-20T21:49:50.000Z	true		
+TAG	instance	i-8f7bc4e5	WorkerRole	resque-worker-encoding-fastrak
+TAG	instance	i-8f7bc4e5	Name	env-stage-resque-i-8f7bc4e5
+TAG	instance	i-8f7bc4e5	aws:autoscaling:groupName	env-stage-resque-worker-encoding-fastrak
+RESERVATION	r-8bbd40eb	821387913885	env-prod-jump,env-prod
+INSTANCE	i-b90b54c1	ami-fd20ad94	ec2-54-225-230-79.compute-1.amazonaws.com	ip-10-4-70-75.ec2.internal	running	bastion_start20130906	0		m1.xlarge	2013-09-06T22:22:34+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.225.230.79	10.4.70.75			ebs					paravirtual	xen		sg-48070520, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-682edc1f	2013-09-06T22:22:38.000Z	true		
+TAG	instance	i-b90b54c1	Name	env-prod-jump-i-b90b54c1
+RESERVATION	r-ec1bdd8c	821387913885	prod-web
+INSTANCE	i-4d6bc728	ami-5b528332	ec2-23-21-198-246.compute-1.amazonaws.com	domU-12-31-39-15-66-C8.compute-1.internal	running	techops	0		m1.large	2012-02-01T22:06:51+0000	us-east-1b	aki-427d952b			monitoring-enabled	23.21.198.246	10.207.101.50			ebs					paravirtual	xen	500faef1-0fb9-42de-a804-ddcdf1f9c398	sg-76dc211e	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1cbd5570	2012-02-01T22:06:54.000Z	true		
+TAG	instance	i-4d6bc728	aws:autoscaling:groupName	redirector-b-group
+TAG	instance	i-4d6bc728	Name	Apex Redirector
+RESERVATION	r-8ffb56ef	821387913885	env-prod-jump,env-prod-ws,env-prod
+INSTANCE	i-eb033183	ami-fd20ad94	ec2-107-20-123-40.compute-1.amazonaws.com	ip-10-164-68-4.ec2.internal	running	bastion_start20130417	0		m1.medium	2013-07-10T18:24:28+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	107.20.123.40	10.164.68.4			ebs					paravirtual	xen		sg-48070520, sg-bfaf71d4, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ea25f4b7	2013-07-10T18:24:33.000Z	true		
+TAG	instance	i-eb033183	Name	env-prod-ws-i-eb033183
+RESERVATION	r-062a8766	821387913885	monitoring
+INSTANCE	i-95f36af0	ami-f905d590	ec2-107-22-184-187.compute-1.amazonaws.com	ip-10-12-19-66.ec2.internal	running	techops	0		m1.large	2012-02-08T19:57:41+0000	us-east-1c	aki-427d952b			monitoring-enabled	107.22.184.187	10.12.19.66			ebs					paravirtual	xen	501c983c-7105-4855-835a-78d5000ce866	sg-1e69aa76	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d5a864b9	2012-02-08T19:57:44.000Z	true		
+TAG	instance	i-95f36af0	Name	monitoring
+TAG	instance	i-95f36af0	aws:autoscaling:groupName	monitoring-group
+RESERVATION	r-93228ff3	821387913885	env-tiab
+INSTANCE	i-0ec7bd67	ami-3fec7956	ec2-23-22-188-68.compute-1.amazonaws.com	ip-10-194-78-47.ec2.internal	running	tiab	0		m1.large	2013-05-14T19:36:25+0000	us-east-1c	aki-88aa75e1			monitoring-disabled	23.22.188.68	10.194.78.47			ebs					paravirtual	xen		sg-c503fdae	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f94627a1	2013-05-14T19:36:29.000Z	true		
+TAG	instance	i-0ec7bd67	Name	tiab-C
+RESERVATION	r-9b5ef5fb	821387913885	env-prod-mongo-shard,env-prod
+INSTANCE	i-5e3c8230	ami-fd20ad94			stopped	techops	0		m1.medium	2013-06-13T20:56:02+0000	us-east-1c	aki-825ea7eb			monitoring-disabled					ebs					paravirtual	xen		sg-5781563c, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-81f2ebda	2013-06-13T20:56:08.000Z	true		
+TAG	instance	i-5e3c8230	Name	env-prod-mongo-shard-i-5e3c8230
+RESERVATION	r-7bfd4a1b	821387913885	env-prod-director,env-prod
+INSTANCE	i-48708224	ami-fd20ad94	ec2-54-224-228-76.compute-1.amazonaws.com	ip-10-194-99-240.ec2.internal	running	techops	0		m1.small	2013-05-01T19:35:45+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.224.228.76	10.194.99.240			ebs					paravirtual	xen	5d2ebe8c-8efa-401c-9c9d-6b2b28bb48f4_us-east-1c_1	sg-1436c67f, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b7cadbee	2013-05-01T19:35:50.000Z	true		
+TAG	instance	i-48708224	aws:autoscaling:groupName	env-prod-director
+TAG	instance	i-48708224	Name	env-prod-director-i-48708224
+RESERVATION	r-1d64d37d	821387913885	env-stage-redis-metrics,env-stage
+INSTANCE	i-e2d12186	ami-fd20ad94	ec2-75-101-226-254.compute-1.amazonaws.com	ip-10-190-206-140.ec2.internal	running	techops	0		m1.large	2013-09-13T20:19:41+0000	us-east-1b	aki-825ea7eb			monitoring-enabled	75.101.226.254	10.190.206.140			ebs					paravirtual	xen	20b98508-2026-4a59-ab45-54655267cbd5_us-east-1b_1	sg-6652610e, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c7ac6bb0	2013-09-13T20:19:44.000Z	true		
+TAG	instance	i-e2d12186	Name	env-stage-redis-metrics-i-e2d12186
+TAG	instance	i-e2d12186	aws:autoscaling:groupName	env-stage-redis-metrics
+RESERVATION	r-9b78c6fb	821387913885	env-stage-haystack-heavylifter,env-stage
+INSTANCE	i-ac83cacd	ami-fd20ad94	ec2-107-21-181-176.compute-1.amazonaws.com	ip-10-159-48-174.ec2.internal	running	techops	0		c1.xlarge	2013-09-13T23:36:24+0000	us-east-1a	aki-825ea7eb			monitoring-enabled	107.21.181.176	10.159.48.174			ebs					paravirtual	xen	41e4d791-afaa-4517-a39f-a954cb72946e_us-east-1a_1	sg-4dc05726, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ed665da7	2013-09-13T23:36:27.000Z	true		
+TAG	instance	i-ac83cacd	Name	env-stage-haystack-heavylifter-i-ac83cacd
+TAG	instance	i-ac83cacd	aws:autoscaling:groupName	env-stage-haystack-heavylifter
+RESERVATION	r-d7c242b7	821387913885	env-stage,env-stage-haproxy-haystack
+INSTANCE	i-818a16e6	ami-fd20ad94	ec2-54-234-91-84.compute-1.amazonaws.com	ip-10-2-121-45.ec2.internal	running	techops	0		m1.small	2013-09-10T23:57:22+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.234.91.84	10.2.121.45			ebs					paravirtual	xen		sg-6452610c, sg-7bf86b10	default	false	
+BLOCKDEVICE	/dev/sda1	vol-54c53d23	2013-09-10T23:57:26.000Z	true		
+TAG	instance	i-818a16e6	Name	env-stage-haproxy-haystack-i-818a16e6
+RESERVATION	r-7c50371c	821387913885	env-stage,env-stage-tugboat
+INSTANCE	i-eea4d784	ami-fd20ad94	ec2-54-226-64-161.compute-1.amazonaws.com	ip-10-123-19-124.ec2.internal	running	techops	0		m1.large	2013-09-14T09:37:59+0000	us-east-1d	aki-825ea7eb			monitoring-enabled	54.226.64.161	10.123.19.124			ebs					paravirtual	xen	38d0ba78-8deb-4b1c-b1bc-93738e10b99c_us-east-1d_1	sg-6452610c, sg-1a424f72	default	false	
+BLOCKDEVICE	/dev/sda1	vol-994145ea	2013-09-14T09:38:02.000Z	true		
+TAG	instance	i-eea4d784	aws:autoscaling:groupName	env-stage-tugboat
+RESERVATION	r-d43a01b4	821387913885	env-wildwest,env-wildwest-tester
+INSTANCE	i-71fcef1e	ami-fd20ad94	ec2-54-226-25-100.compute-1.amazonaws.com	ip-10-123-43-137.ec2.internal	running	techops	0		m1.small	2013-06-18T01:59:12+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.226.25.100	10.123.43.137			ebs					paravirtual	xen		sg-047d4e6c, sg-f211119a	default	false	
+BLOCKDEVICE	/dev/sda1	vol-33905e69	2013-06-18T01:59:15.000Z	true		
+TAG	instance	i-71fcef1e	Name	env-wildwest-tester-i-71fcef1e
+RESERVATION	r-c21922a2	821387913885	env-prod,env-prod-redis-kicktag
+INSTANCE	i-ccd97bad	ami-fd20ad94	ec2-54-242-48-1.compute-1.amazonaws.com	ip-10-203-21-150.ec2.internal	running	techops	0		m1.large	2013-04-26T20:51:33+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.242.48.1	10.203.21.150			ebs					paravirtual	xen		sg-b6dae9de, sg-81b7a0e9	default	false	
+BLOCKDEVICE	/dev/sda1	vol-59dbfe00	2013-04-26T20:51:37.000Z	true		
+TAG	instance	i-ccd97bad	Name	env-prod-redis-kicktag-i-ccd97bad
+RESERVATION	r-4801e72b	821387913885	prod-mongo
+INSTANCE	i-19881f7d	ami-873becee	ec2-23-21-141-228.compute-1.amazonaws.com	ip-10-194-243-123.ec2.internal	running	techops	0		t1.micro	2012-03-13T18:51:26+0000	us-east-1c	aki-427d952b			monitoring-disabled	23.21.141.228	10.194.243.123			ebs					paravirtual	xen		sg-0fda0867	default	false	
+BLOCKDEVICE	/dev/sda1	vol-736c391f	2012-03-13T18:51:29.000Z	true		
+BLOCKDEVICE	/dev/sdf1	vol-4f712523	2012-03-13T22:39:11.000Z	false		
+TAG	instance	i-19881f7d	Name	mongo-config
+RESERVATION	r-86a444e5	821387913885	prod-mongo
+INSTANCE	i-3fed7c5b	ami-140bd77d	ec2-23-21-141-231.compute-1.amazonaws.com	ip-10-245-191-136.ec2.internal	running	techops	0		t1.micro	2012-03-13T23:16:20+0000	us-east-1c	aki-427d952b			monitoring-disabled	23.21.141.231	10.245.191.136			ebs					paravirtual	xen		sg-0fda0867	default	false	
+BLOCKDEVICE	/dev/sda1	vol-eb9eca87	2012-03-13T23:16:24.000Z	true		
+BLOCKDEVICE	/dev/sdf1	vol-e19eca8d	2012-03-13T23:16:24.000Z	false		
+TAG	instance	i-3fed7c5b	Name	mongo-config
+RESERVATION	r-1ea5457d	821387913885	prod-mongo
+INSTANCE	i-6fec7d0b	ami-140bd77d	ec2-23-21-141-234.compute-1.amazonaws.com	ip-10-126-47-59.ec2.internal	running	techops	0		t1.micro	2012-07-31T22:18:11+0000	us-east-1d	aki-427d952b			monitoring-disabled	23.21.141.234	10.126.47.59			ebs					paravirtual	xen		sg-0fda0867	default	false	
+BLOCKDEVICE	/dev/sda1	vol-759fcb19	2012-03-13T23:16:53.000Z	true		
+BLOCKDEVICE	/dev/sdf1	vol-739fcb1f	2012-03-13T23:16:53.000Z	false		
+TAG	instance	i-6fec7d0b	Name	mongo-config
+RESERVATION	r-0eca256d	821387913885	prod-mongo
+INSTANCE	i-05930d61	ami-6c2ef205	ec2-50-16-48-41.compute-1.amazonaws.com	ip-10-42-121-206.ec2.internal	running	techops	0		m1.xlarge	2012-03-14T19:55:09+0000	us-east-1d	aki-427d952b			monitoring-enabled	50.16.48.41	10.42.121.206			ebs					paravirtual	xen		sg-0fda0867	default	false	
+BLOCKDEVICE	/dev/sda1	vol-8b2b7be7	2012-03-14T19:55:22.000Z	true		
+BLOCKDEVICE	/dev/sdh2	vol-852b7be9	2012-03-14T19:55:22.000Z	false		
+BLOCKDEVICE	/dev/sdh1	vol-832b7bef	2012-03-14T19:55:22.000Z	false		
+BLOCKDEVICE	/dev/sdh3	vol-9f2b7bf3	2012-03-14T19:55:22.000Z	false		
+BLOCKDEVICE	/dev/sdh4	vol-9b2b7bf7	2012-03-14T19:55:22.000Z	false		
+TAG	instance	i-05930d61	Name	analytics-mongo-rs_st_a-s3
+RESERVATION	r-0f3ed06c	821387913885	env-qa-upcode,env-qa
+INSTANCE	i-978b4af5	ami-fd20ad94	ec2-184-72-212-16.compute-1.amazonaws.com	ip-10-102-69-226.ec2.internal	running	techops	0		c1.medium	2013-05-02T21:34:26+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	184.72.212.16	10.102.69.226			ebs					paravirtual	xen		sg-642e270c, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-9cc82fc4	2013-05-02T21:34:31.000Z	true		
+TAG	instance	i-978b4af5	Name	env-qa-upcode-i-978b4af5
+RESERVATION	r-6ea4560d	821387913885	prod-mongo
+INSTANCE	i-47345d23	ami-6c2ef205	ec2-75-101-171-179.compute-1.amazonaws.com	ip-10-10-29-24.ec2.internal	running	techops	0		m1.xlarge	2012-03-16T17:00:56+0000	us-east-1c	aki-427d952b			monitoring-enabled	75.101.171.179	10.10.29.24			ebs					paravirtual	xen		sg-0fda0867	default	false	
+BLOCKDEVICE	/dev/sda1	vol-6bc49c07	2012-03-16T17:01:06.000Z	true		
+BLOCKDEVICE	/dev/sdh2	vol-65c49c09	2012-03-16T17:01:06.000Z	false		
+BLOCKDEVICE	/dev/sdh1	vol-63c49c0f	2012-03-16T17:01:06.000Z	false		
+BLOCKDEVICE	/dev/sdh3	vol-7bc49c17	2012-03-16T17:01:06.000Z	false		
+BLOCKDEVICE	/dev/sdh4	vol-75c49c19	2012-03-16T17:01:06.000Z	false		
+TAG	instance	i-47345d23	Name	analytics-mongo-rs_st_a-s2
+RESERVATION	r-40a45923	821387913885	prod-mongo
+INSTANCE	i-1f51397b	ami-6c60bc05	ec2-23-20-38-35.compute-1.amazonaws.com	ip-10-40-78-190.ec2.internal	running	techops	0		m1.xlarge	2012-03-16T20:49:21+0000	us-east-1c	aki-427d952b			monitoring-enabled	23.20.38.35	10.40.78.190			ebs					paravirtual	xen		sg-0fda0867	default	false	
+BLOCKDEVICE	/dev/sda1	vol-55bee539	2012-03-16T20:49:27.000Z	true		
+BLOCKDEVICE	/dev/sdh2	vol-57bee53b	2012-03-16T20:49:27.000Z	false		
+BLOCKDEVICE	/dev/sdh1	vol-2dbee541	2012-03-16T20:49:27.000Z	false		
+BLOCKDEVICE	/dev/sdh3	vol-2fbee543	2012-03-16T20:49:27.000Z	false		
+BLOCKDEVICE	/dev/sdh4	vol-25bee549	2012-03-16T20:49:27.000Z	false		
+TAG	instance	i-1f51397b	Name	analytics-mongo-rs_st_a-s1
+RESERVATION	r-6d57900e	821387913885	env-stage,env-stage-resque
+INSTANCE	i-222ad44e	ami-fd20ad94	ec2-54-234-156-184.compute-1.amazonaws.com	ip-10-164-9-119.ec2.internal	running	techops	0		m1.medium	2013-07-05T17:18:55+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.234.156.184	10.164.9.119			ebs					paravirtual	xen	10e1bee3-ee0e-40b0-a1b7-da4478bf4ef2_us-east-1c_1	sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-64c9d73e	2013-07-05T17:18:58.000Z	true		
+TAG	instance	i-222ad44e	Name	env-stage-resque-i-222ad44e
+TAG	instance	i-222ad44e	aws:autoscaling:groupName	env-stage-resque-worker-shares-fastrak
+TAG	instance	i-222ad44e	WorkerRole	resque-worker-shares-fastrak
+RESERVATION	r-d34f8db0	821387913885	env-stage-schedservice,env-stage
+INSTANCE	i-db4edbb6	ami-fd20ad94	ec2-184-72-166-17.compute-1.amazonaws.com	ip-10-38-213-49.ec2.internal	running	techops	0		c1.medium	2013-08-01T19:12:43+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	184.72.166.17	10.38.213.49			ebs					paravirtual	xen		sg-be7bd4d5, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b24667f2	2013-08-01T19:12:47.000Z	true		
+TAG	instance	i-db4edbb6	Name	env-stage-schedservice-i-db4edbb6
+RESERVATION	r-c5db15a6	821387913885	env-stage-schedservice,env-stage
+INSTANCE	i-d0cbe0b1	ami-fd20ad94	ec2-23-23-52-1.compute-1.amazonaws.com	ip-10-100-106-47.ec2.internal	running	techops	0		c1.medium	2013-07-17T05:20:14+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.23.52.1	10.100.106.47			ebs					paravirtual	xen		sg-be7bd4d5, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-04c55c59	2013-07-17T05:20:18.000Z	true		
+TAG	instance	i-d0cbe0b1	Name	env-stage-schedservice-i-d0cbe0b1
+RESERVATION	r-f5f43c96	821387913885	env-stage-redis-kicktag,env-stage
+INSTANCE	i-5c4bd932	ami-fd20ad94	ec2-54-235-132-132.compute-1.amazonaws.com	ip-10-62-78-225.ec2.internal	running	techops	0		m1.large	2013-04-23T22:23:06+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.235.132.132	10.62.78.225			ebs					paravirtual	xen		sg-4feffb27, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7cbdc425	2013-04-23T22:23:10.000Z	true		
+TAG	instance	i-5c4bd932	Name	env-stage-redis-kicktag-i-5c4bd932
+RESERVATION	r-2cb4184f	821387913885	env-stage-haystack-resque,env-stage
+INSTANCE	i-e492c588	ami-fd20ad94	ec2-54-211-103-39.compute-1.amazonaws.com	ip-10-60-71-178.ec2.internal	running	techops	0		m1.large	2013-09-19T04:29:40+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.211.103.39	10.60.71.178			ebs					paravirtual	xen		sg-4d2bb726, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a042bee3	2013-09-19T04:29:43.000Z	true		
+TAG	instance	i-e492c588	Name	env-stage-haystack-resque-i-e492c588
+RESERVATION	r-22b50241	821387913885	env-prod,env-prod-deployer
+INSTANCE	i-51a1b833	ami-fd20ad94	ec2-54-235-143-62.compute-1.amazonaws.com	ip-10-85-23-253.ec2.internal	running	techops	0		m1.large	2013-09-14T18:52:20+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.235.143.62	10.85.23.253			ebs					paravirtual	xen		sg-b6dae9de, sg-f18c8699	default	false	
+BLOCKDEVICE	/dev/sda1	vol-9729ddd4	2013-09-14T18:52:24.000Z	true		
+TAG	instance	i-51a1b833	Name	env-prod-deployer-i-51a1b833
+RESERVATION	r-9aab2ff9	821387913885	env-stage-mongo-shard,env-stage
+INSTANCE	i-586c9f33	ami-fd20ad94	ec2-54-226-27-15.compute-1.amazonaws.com	ip-10-184-40-155.ec2.internal	running	techops	0		m1.medium	2013-09-06T19:21:42+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.27.15	10.184.40.155			ebs					paravirtual	xen		sg-c1089faa, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-51ef0812	2013-09-06T19:21:45.000Z	true		
+TAG	instance	i-586c9f33	Name	env-stage-mongo-shard-i-586c9f33
+RESERVATION	r-627e1101	821387913885	env-prod-resque,env-prod
+INSTANCE	i-05a8f962	ami-fd20ad94			terminated	techops	0		m1.medium	2013-10-02T04:54:46+0000	us-east-1c	aki-825ea7eb			monitoring-enabled					ebs					paravirtual	xen	a521b595-1300-48ba-97b2-eb45892867d1_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+TAG	instance	i-05a8f962	Name	env-prod-resque-i-05a8f962
+TAG	instance	i-05a8f962	WorkerRole	resque-worker-ops
+TAG	instance	i-05a8f962	aws:autoscaling:groupName	env-prod-resque-worker-ops
+INSTANCE	i-03a8f964	ami-fd20ad94	ec2-54-221-142-16.compute-1.amazonaws.com	ip-10-145-150-81.ec2.internal	running	techops	1		m1.medium	2013-10-02T04:54:46+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.142.16	10.145.150.81			ebs					paravirtual	xen	a521b595-1300-48ba-97b2-eb45892867d1_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-4882510b	2013-10-02T04:54:50.000Z	true		
+TAG	instance	i-03a8f964	WorkerRole	resque-worker-ops
+TAG	instance	i-03a8f964	Name	env-prod-resque-i-03a8f964
+TAG	instance	i-03a8f964	aws:autoscaling:groupName	env-prod-resque-worker-ops
+RESERVATION	r-614f7c02	821387913885	env-qa,env-qa-orgservice
+INSTANCE	i-ba11efdb	ami-fd20ad94	ec2-54-221-0-244.compute-1.amazonaws.com	ip-10-164-6-89.ec2.internal	running	techops	0		m1.medium	2013-08-09T17:24:19+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.0.244	10.164.6.89			ebs					paravirtual	xen	de8fb149-46eb-43cd-b88e-1e6901ad971f_us-east-1c_1	sg-5c380734, sg-2b7ab940	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7a99ad3a	2013-08-09T17:24:22.000Z	true		
+TAG	instance	i-ba11efdb	Name	env-qa-orgservice-i-ba11efdb
+TAG	instance	i-ba11efdb	aws:autoscaling:groupName	env-qa-orgservice
+RESERVATION	r-ff43719c	821387913885	env-prod-resque,env-prod
+INSTANCE	i-3121bc49	ami-fd20ad94	ec2-54-227-130-221.compute-1.amazonaws.com	ip-10-184-19-85.ec2.internal	running	techops	0		m1.medium	2013-10-02T20:48:45+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.227.130.221	10.184.19.85			ebs					paravirtual	xen	6bdf8589-627a-4fa4-b158-9aebfcce4cfc_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-2c76a46f	2013-10-02T20:48:49.000Z	true		
+TAG	instance	i-3121bc49	WorkerRole	resque-worker-ops
+TAG	instance	i-3121bc49	aws:autoscaling:groupName	env-prod-resque-worker-ops
+TAG	instance	i-3121bc49	Name	env-prod-resque-i-3121bc49
+INSTANCE	i-3321bc4b	ami-fd20ad94	ec2-54-234-185-32.compute-1.amazonaws.com	ip-10-184-32-198.ec2.internal	running	techops	1		m1.medium	2013-10-02T20:48:45+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.234.185.32	10.184.32.198			ebs					paravirtual	xen	6bdf8589-627a-4fa4-b158-9aebfcce4cfc_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1c76a45f	2013-10-02T20:48:49.000Z	true		
+TAG	instance	i-3321bc4b	aws:autoscaling:groupName	env-prod-resque-worker-ops
+TAG	instance	i-3321bc4b	WorkerRole	resque-worker-ops
+TAG	instance	i-3321bc4b	Name	env-prod-resque-i-3321bc4b
+RESERVATION	r-9fd3d0fc	821387913885	env-prod-jump,env-wildwest,awsdev,env-wildwest-ws
+INSTANCE	i-69d27604	ami-fd20ad94	ec2-50-19-128-3.compute-1.amazonaws.com	ip-10-203-85-77.ec2.internal	running	bastion_start20130906	0		m1.medium	2013-09-11T23:24:31+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.19.128.3	10.203.85.77			ebs					paravirtual	xen		sg-48070520, sg-047d4e6c, sg-cb5a8aa3, sg-1b24b670	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d6a74e95	2013-09-11T23:24:34.000Z	true		
+TAG	instance	i-69d27604	Name	env-wildwest-ws-i-69d27604
+RESERVATION	r-a1b0a7c2	821387913885	env-stage,env-stage-mongo-config
+INSTANCE	i-25e90445	ami-fd20ad94	ec2-54-226-250-76.compute-1.amazonaws.com	ip-10-99-7-42.ec2.internal	running	techops	0		t1.micro	2013-09-06T21:33:42+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.250.76	10.99.7.42			ebs					paravirtual	xen		sg-6452610c, sg-732eb918	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ded2359d	2013-09-06T21:33:45.000Z	true		
+TAG	instance	i-25e90445	Name	env-stage-mongo-config-i-25e90445
+RESERVATION	r-61726902	821387913885	env-prod-resque,env-prod
+INSTANCE	i-8d3303e9	ami-fd20ad94	ec2-54-211-36-244.compute-1.amazonaws.com	ip-10-80-145-207.ec2.internal	running	techops	0		m1.medium	2013-09-22T04:17:44+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.211.36.244	10.80.145.207			ebs					paravirtual	xen	38e4a9b4-6d92-4755-bc5f-578c0f913626_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-15c20756	2013-09-22T04:17:47.000Z	true		
+TAG	instance	i-8d3303e9	WorkerRole	resque-worker-general
+TAG	instance	i-8d3303e9	Name	env-prod-resque-i-8d3303e9
+TAG	instance	i-8d3303e9	aws:autoscaling:groupName	env-prod-resque-worker-general
+RESERVATION	r-1730d175	821387913885	backup-ops
+INSTANCE	i-20557e47	ami-e372ab8a	ec2-174-129-190-174.compute-1.amazonaws.com	ip-10-10-237-60.ec2.internal	running	techops	0		m2.xlarge	2012-04-26T17:02:53+0000	us-east-1c	aki-427d952b			monitoring-enabled	174.129.190.174	10.10.237.60			ebs					paravirtual	xen		sg-b57749dc	default	false	
+BLOCKDEVICE	/dev/sda1	vol-06026669	2012-04-26T17:02:57.000Z	true		
+BLOCKDEVICE	/dev/sdf1	vol-4d3f6b27	2012-05-08T21:11:35.000Z	false		
+BLOCKDEVICE	/dev/sdf2	vol-cdad98a1	2012-08-02T21:48:25.000Z	false		
+TAG	instance	i-20557e47	Name	new backup
+RESERVATION	r-4c3cde2e	821387913885	env-prod,env-prod-kicktag
+INSTANCE	i-f41a859f	ami-fd20ad94	ec2-54-226-119-82.compute-1.amazonaws.com	ip-10-179-12-139.ec2.internal	running	techops	1		c1.xlarge	2013-09-13T15:09:27+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.119.82	10.179.12.139			ebs					paravirtual	xen	ac7556b1-55ac-4e1a-bee8-6d29a99433d2_us-east-1c_2	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0ff41e4c	2013-09-13T15:09:32.000Z	true		
+TAG	instance	i-f41a859f	Name	env-prod-kicktag-i-f41a859f
+TAG	instance	i-f41a859f	aws:autoscaling:groupName	env-prod-kicktag
+RESERVATION	r-0af73368	821387913885	env-prod-resque,env-prod
+INSTANCE	i-555e4f30	ami-fd20ad94			terminated	techops	1		m1.medium	2013-10-02T20:55:43+0000	us-east-1c	aki-825ea7eb			monitoring-enabled					ebs					paravirtual	xen	c81393be-3cd6-4317-9344-5a74bf682008_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+TAG	instance	i-555e4f30	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-555e4f30	WorkerRole	resque-worker-notification
+INSTANCE	i-535e4f36	ami-fd20ad94	ec2-23-22-21-50.compute-1.amazonaws.com	ip-10-152-147-211.ec2.internal	running	techops	0		m1.medium	2013-10-02T20:55:43+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.21.50	10.152.147.211			ebs					paravirtual	xen	c81393be-3cd6-4317-9344-5a74bf682008_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c97aa88a	2013-10-02T20:55:46.000Z	true		
+TAG	instance	i-535e4f36	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-535e4f36	Name	env-prod-resque-i-535e4f36
+TAG	instance	i-535e4f36	WorkerRole	resque-worker-notification
+RESERVATION	r-aedb0ecc	821387913885	env-stage,env-stage-kestrel-upcode
+INSTANCE	i-9f9b1af7	ami-fd20ad94	ec2-75-101-182-95.compute-1.amazonaws.com	ip-10-83-113-240.ec2.internal	running	techops	0		m1.large	2013-08-12T14:24:19+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	75.101.182.95	10.83.113.240			ebs					paravirtual	xen		sg-6452610c, sg-6f4b5707	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e44a79a4	2013-08-12T14:24:21.000Z	true		
+TAG	instance	i-9f9b1af7	Name	env-stage-kestrel-upcode-i-9f9b1af7
+RESERVATION	r-ccda0fae	821387913885	env-qa-kestrel-upcode,env-qa
+INSTANCE	i-9429a7fa	ami-fd20ad94	ec2-54-224-33-183.compute-1.amazonaws.com	ip-10-164-57-148.ec2.internal	running	techops	0		m1.large	2013-08-12T14:15:50+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.224.33.183	10.164.57.148			ebs					paravirtual	xen		sg-10929a78, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d6457696	2013-08-12T14:15:53.000Z	true		
+TAG	instance	i-9429a7fa	Name	env-qa-kestrel-upcode-i-9429a7fa
+RESERVATION	r-d069fab2	821387913885	env-prod-resque,env-prod
+INSTANCE	i-de5ef3ba	ami-fd20ad94	ec2-23-20-14-178.compute-1.amazonaws.com	ip-10-164-92-151.ec2.internal	running	techops	0		m1.medium	2013-10-02T21:35:51+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.14.178	10.164.92.151			ebs					paravirtual	xen	02f2f1d3-0692-4e98-b154-fdd4117679a6_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a16bb9e2	2013-10-02T21:35:55.000Z	true		
+TAG	instance	i-de5ef3ba	Name	env-prod-resque-i-de5ef3ba
+TAG	instance	i-de5ef3ba	aws:autoscaling:groupName	env-prod-resque-worker-ops
+TAG	instance	i-de5ef3ba	WorkerRole	resque-worker-ops
+RESERVATION	r-7a6efd18	821387913885	env-prod-resque,env-prod
+INSTANCE	i-6a59f40e	ami-fd20ad94	ec2-50-17-131-176.compute-1.amazonaws.com	ip-10-147-191-135.ec2.internal	running	techops	0		m1.medium	2013-10-02T21:40:55+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.17.131.176	10.147.191.135			ebs					paravirtual	xen	d45661a0-1045-422d-bed7-b28c23f71935_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-426ebc01	2013-10-02T21:40:58.000Z	true		
+TAG	instance	i-6a59f40e	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-6a59f40e	WorkerRole	resque-worker-notification
+TAG	instance	i-6a59f40e	Name	env-prod-resque-i-6a59f40e
+RESERVATION	r-86472ee4	821387913885	env-stage,env-stage-acmecorp
+INSTANCE	i-b94bb3c0	ami-fd20ad94	ec2-54-211-118-10.compute-1.amazonaws.com	ip-10-164-111-33.ec2.internal	running	techops	0		m1.medium	2013-09-19T19:29:12+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.211.118.10	10.164.111.33			ebs					paravirtual	xen		sg-6452610c, sg-a73451cc	default	false	
+BLOCKDEVICE	/dev/sda1	vol-cdd32d8e	2013-09-19T19:29:16.000Z	true		
+TAG	instance	i-b94bb3c0	Name	env-stage-acmecorp-i-b94bb3c0
+RESERVATION	r-e6760284	821387913885	env-stage,env-stage-haproxy-haystack
+INSTANCE	i-d70961b7	ami-fd20ad94	ec2-54-221-131-73.compute-1.amazonaws.com	ip-10-196-34-160.ec2.internal	running	techops	0		m1.small	2013-09-13T19:57:15+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.131.73	10.196.34.160			ebs					paravirtual	xen	6078139e-6369-4a70-af90-718694e71e71_us-east-1c_1	sg-6452610c, sg-7bf86b10	default	false	
+BLOCKDEVICE	/dev/sda1	vol-947a90d7	2013-09-13T19:57:18.000Z	true		
+TAG	instance	i-d70961b7	aws:autoscaling:groupName	env-stage-haproxy-haystack
+TAG	instance	i-d70961b7	Name	env-stage-haproxy-haystack-i-d70961b7
+RESERVATION	r-e2f78b80	821387913885	env-prod-jump,env-prod
+INSTANCE	i-5886d634	ami-fd20ad94	ec2-54-234-236-1.compute-1.amazonaws.com	ip-10-165-20-162.ec2.internal	running	bastion_start20130906	0		m1.xlarge	2013-09-06T21:42:57+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.234.236.1	10.165.20.162			ebs					paravirtual	xen		sg-48070520, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c3df3880	2013-09-06T21:42:59.000Z	true		
+TAG	instance	i-5886d634	Name	env-prod-jump-i-5886d634
+RESERVATION	r-9cdda6fe	821387913885	env-stage,env-stage-mongo-config
+INSTANCE	i-2f6f7040	ami-fd20ad94	ec2-54-221-81-119.compute-1.amazonaws.com	ip-10-147-150-138.ec2.internal	running	techops	0		t1.micro	2013-09-06T21:21:39+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.221.81.119	10.147.150.138			ebs					paravirtual	xen		sg-6452610c, sg-732eb918	default	false	
+BLOCKDEVICE	/dev/sda1	vol-57d53214	2013-09-06T21:21:42.000Z	true		
+TAG	instance	i-2f6f7040	Name	env-stage-mongo-config-i-2f6f7040
+RESERVATION	r-74aefe16	821387913885	env-prod-resque,env-prod
+INSTANCE	i-159f217a	ami-fd20ad94	ec2-54-226-93-179.compute-1.amazonaws.com	ip-10-179-18-24.ec2.internal	running	techops	0		m1.medium	2013-08-18T19:52:49+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.93.179	10.179.18.24			ebs					paravirtual	xen	27094a62-9155-46d7-a159-a7e89efedd19_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-14454154	2013-08-18T19:52:54.000Z	true		
+TAG	instance	i-159f217a	WorkerRole	resque-worker-shares
+TAG	instance	i-159f217a	aws:autoscaling:groupName	env-prod-resque-worker-shares
+TAG	instance	i-159f217a	Name	env-prod-resque-i-159f217a
+RESERVATION	r-5eaefe3c	821387913885	env-prod-resque,env-prod
+INSTANCE	i-3b9f2154	ami-fd20ad94	ec2-54-211-82-205.compute-1.amazonaws.com	ip-10-164-84-42.ec2.internal	running	techops	0		m1.medium	2013-08-18T19:51:40+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.211.82.205	10.164.84.42			ebs					paravirtual	xen	242bff45-e649-4cec-89ad-75798538ca42_us-east-1c_4	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-46454106	2013-08-18T19:51:43.000Z	true		
+TAG	instance	i-3b9f2154	aws:autoscaling:groupName	env-prod-resque-worker-encoding
+TAG	instance	i-3b9f2154	Name	env-prod-resque-i-3b9f2154
+TAG	instance	i-3b9f2154	WorkerRole	resque-worker-encoding
+INSTANCE	i-379f2158	ami-fd20ad94	ec2-107-22-64-198.compute-1.amazonaws.com	ip-10-152-129-123.ec2.internal	running	techops	2		m1.medium	2013-08-18T19:51:40+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	107.22.64.198	10.152.129.123			ebs					paravirtual	xen	242bff45-e649-4cec-89ad-75798538ca42_us-east-1c_4	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-47454107	2013-08-18T19:51:44.000Z	true		
+TAG	instance	i-379f2158	Name	env-prod-resque-i-379f2158
+TAG	instance	i-379f2158	aws:autoscaling:groupName	env-prod-resque-worker-encoding
+TAG	instance	i-379f2158	WorkerRole	resque-worker-encoding
+INSTANCE	i-359f215a	ami-fd20ad94	ec2-54-211-64-240.compute-1.amazonaws.com	ip-10-164-44-226.ec2.internal	running	techops	1		m1.medium	2013-08-18T19:51:40+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.211.64.240	10.164.44.226			ebs					paravirtual	xen	242bff45-e649-4cec-89ad-75798538ca42_us-east-1c_4	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7b45413b	2013-08-18T19:51:43.000Z	true		
+TAG	instance	i-359f215a	WorkerRole	resque-worker-encoding
+TAG	instance	i-359f215a	aws:autoscaling:groupName	env-prod-resque-worker-encoding
+TAG	instance	i-359f215a	Name	env-prod-resque-i-359f215a
+INSTANCE	i-319f215e	ami-fd20ad94	ec2-184-73-29-232.compute-1.amazonaws.com	ip-10-164-65-61.ec2.internal	running	techops	3		m1.medium	2013-08-18T19:51:40+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.73.29.232	10.164.65.61			ebs					paravirtual	xen	242bff45-e649-4cec-89ad-75798538ca42_us-east-1c_4	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-65454125	2013-08-18T19:51:43.000Z	true		
+TAG	instance	i-319f215e	aws:autoscaling:groupName	env-prod-resque-worker-encoding
+TAG	instance	i-319f215e	WorkerRole	resque-worker-encoding
+TAG	instance	i-319f215e	Name	env-prod-resque-i-319f215e
+RESERVATION	r-45c49427	821387913885	products
+INSTANCE	i-7bb5911d	ami-a29943cb	ec2-107-21-255-252.compute-1.amazonaws.com	ip-10-28-209-145.ec2.internal	running	techops	0		t1.micro	2012-05-23T22:29:21+0000	us-east-1a	aki-825ea7eb			monitoring-disabled	107.21.255.252	10.28.209.145			ebs					paravirtual	xen		sg-7f2b9617	default	false	
+BLOCKDEVICE	/dev/sda1	vol-6949b507	2012-05-23T22:29:25.000Z	true		
+TAG	instance	i-7bb5911d	Name	products
+RESERVATION	r-f44b6c96	821387913885	env-stage-haystack-receiver,env-stage
+INSTANCE	i-3486155e	ami-fd20ad94	ec2-54-211-119-24.compute-1.amazonaws.com	ip-10-116-227-96.ec2.internal	running	techops	0		m1.small	2013-09-12T19:18:50+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.211.119.24	10.116.227.96			ebs					paravirtual	xen	63dc0b00-3d57-4c29-8b94-d20f2ef40ef4_us-east-1c_1	sg-b7c156dc, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c06e8683	2013-09-12T19:18:53.000Z	true		
+TAG	instance	i-3486155e	aws:autoscaling:groupName	env-stage-haystack-receiver
+TAG	instance	i-3486155e	Name	env-stage-haystack-receiver-i-3486155e
+RESERVATION	r-96ac87f4	821387913885	env-prod-resque,env-prod
+INSTANCE	i-4f426035	ami-fd20ad94	ec2-50-17-124-180.compute-1.amazonaws.com	ip-10-152-165-233.ec2.internal	running	techops	0		m1.medium	2013-10-02T20:53:41+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.17.124.180	10.152.165.233			ebs					paravirtual	xen	c538fe2f-658f-409b-997f-e05cf7dbe2a0_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f375a7b0	2013-10-02T20:53:43.000Z	true		
+TAG	instance	i-4f426035	aws:autoscaling:groupName	env-prod-resque-worker-ops
+TAG	instance	i-4f426035	WorkerRole	resque-worker-ops
+TAG	instance	i-4f426035	Name	env-prod-resque-i-4f426035
+RESERVATION	r-044e7966	821387913885	env-qa-mysql,env-qa
+INSTANCE	i-b8d389d6	ami-fd20ad94	ec2-174-129-82-249.compute-1.amazonaws.com	ip-10-147-137-158.ec2.internal	running	techops	0		m1.medium	2013-08-21T18:02:04+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	174.129.82.249	10.147.137.158			ebs					paravirtual	xen		sg-7a399b11, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5f45461f	2013-08-21T18:02:07.000Z	true		
+TAG	instance	i-b8d389d6	Name	env-qa-mysql-i-b8d389d6
+RESERVATION	r-ba0f0bd8	821387913885	env-prod-mobile-web,env-prod
+INSTANCE	i-725a1a17	ami-fd20ad94	ec2-54-221-141-220.compute-1.amazonaws.com	ip-10-178-29-162.ec2.internal	running	techops	0		m1.small	2013-09-14T22:23:37+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.141.220	10.178.29.162			ebs					paravirtual	xen	c90ec1a0-1a88-4d4a-9147-bd8ab22891b5_us-east-1c_1	sg-75a3681e, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-04689c47	2013-09-14T22:23:39.000Z	true		
+TAG	instance	i-725a1a17	aws:autoscaling:groupName	env-prod-mobile-web
+TAG	instance	i-725a1a17	Name	env-prod-mobile-web-i-725a1a17
+RESERVATION	r-9b1ff9fe	821387913885	env-prod-kestrel-devops,env-prod
+INSTANCE	i-0424496c	ami-fd20ad94	ec2-107-21-156-150.compute-1.amazonaws.com	ip-10-196-82-192.ec2.internal	running	techops	0		m1.large	2013-08-21T19:24:33+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	107.21.156.150	10.196.82.192			ebs					paravirtual	xen		sg-c1c848aa, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-3c60637c	2013-08-21T19:24:36.000Z	true		
+TAG	instance	i-0424496c	Name	env-prod-kestrel-devops-i-0424496c
+RESERVATION	r-6b12ff0e	821387913885	env-prod-kestrel-devops,env-prod
+INSTANCE	i-9abd13f4	ami-fd20ad94	ec2-54-243-24-30.compute-1.amazonaws.com	ip-10-164-112-152.ec2.internal	running	techops	0		m1.large	2013-08-30T00:01:56+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.243.24.30	10.164.112.152			ebs					paravirtual	xen		sg-c1c848aa, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d7150497	2013-08-30T00:01:59.000Z	true		
+TAG	instance	i-9abd13f4	Name	env-prod-kestrel-devops-i-9abd13f4
+RESERVATION	r-b03dcad5	821387913885	awsdev
+INSTANCE	i-2290345b	ami-a29943cb	ec2-23-21-128-57.compute-1.amazonaws.com	ip-10-4-245-55.ec2.internal	running	techops	0		m2.xlarge	2012-06-07T20:51:07+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	23.21.128.57	10.4.245.55			ebs					paravirtual	xen		sg-cb5a8aa3	default	false	
+BLOCKDEVICE	/dev/sda1	vol-6ba62405	2012-06-07T20:51:11.000Z	true		
+TAG	instance	i-2290345b	Name	the real awsdev
+RESERVATION	r-d30df2b6	821387913885	env-prod,env-prod-kestrel-upcode
+INSTANCE	i-f267d991	ami-fd20ad94	ec2-54-227-69-117.compute-1.amazonaws.com	ip-10-82-238-206.ec2.internal	running	techops	0		m1.large	2013-08-12T15:19:44+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.227.69.117	10.82.238.206			ebs					paravirtual	xen		sg-b6dae9de, sg-e9e1fd81	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f53d0eb5	2013-08-12T15:19:48.000Z	true		
+TAG	instance	i-f267d991	Name	env-prod-kestrel-upcode-i-f267d991
+RESERVATION	r-bb2d9dde	821387913885	env-prod,env-prod-kicktag
+INSTANCE	i-bcb37bd2	ami-fd20ad94	ec2-50-16-143-227.compute-1.amazonaws.com	ip-10-204-227-240.ec2.internal	running	techops	0		c1.xlarge	2013-09-17T05:21:46+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.16.143.227	10.204.227.240			ebs					paravirtual	xen	bdf9ec2e-a3f0-46ab-b58f-b2a5b6d51316_us-east-1c_2	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-be40b0fd	2013-09-17T05:21:49.000Z	true		
+TAG	instance	i-bcb37bd2	Name	env-prod-kicktag-i-bcb37bd2
+TAG	instance	i-bcb37bd2	aws:autoscaling:groupName	env-prod-kicktag
+INSTANCE	i-b2b37bdc	ami-fd20ad94	ec2-50-17-169-215.compute-1.amazonaws.com	ip-10-98-223-7.ec2.internal	running	techops	1		c1.xlarge	2013-09-17T05:21:46+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.17.169.215	10.98.223.7			ebs					paravirtual	xen	bdf9ec2e-a3f0-46ab-b58f-b2a5b6d51316_us-east-1c_2	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1440b057	2013-09-17T05:21:49.000Z	true		
+TAG	instance	i-b2b37bdc	Name	env-prod-kicktag-i-b2b37bdc
+TAG	instance	i-b2b37bdc	aws:autoscaling:groupName	env-prod-kicktag
+RESERVATION	r-7305b716	821387913885	env-stage,env-stage-resque
+INSTANCE	i-0f2b266f	ami-fd20ad94	ec2-54-226-45-52.compute-1.amazonaws.com	ip-10-79-81-128.ec2.internal	running	techops	0		c1.xlarge	2013-08-29T23:52:45+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.45.52	10.79.81.128			ebs					paravirtual	xen		sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b86e7ff8	2013-08-29T23:52:49.000Z	true		
+TAG	instance	i-0f2b266f	Name	env-stage-resque-i-0f2b266f
+TAG	instance	i-0f2b266f	WorkerRole	resque-worker-haystack
+RESERVATION	r-edaf2888	821387913885	env-tiab
+INSTANCE	i-f31eec91	ami-3fec7956	ec2-54-224-181-178.compute-1.amazonaws.com	ip-10-202-209-218.ec2.internal	running	tiab	0		m1.large	2013-08-20T20:46:26+0000	us-east-1c	aki-88aa75e1			monitoring-disabled	54.224.181.178	10.202.209.218			ebs					paravirtual	xen		sg-c503fdae	default	false	
+BLOCKDEVICE	/dev/sda1	vol-123e3f52	2013-08-20T20:46:29.000Z	true		
+RESERVATION	r-d18feab4	821387913885	env-prod,env-prod-kestrel-upcode
+INSTANCE	i-88834de9	ami-fd20ad94	ec2-54-226-177-45.compute-1.amazonaws.com	ip-10-80-119-39.ec2.internal	running	techops	0		m1.large	2013-08-12T15:32:17+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.177.45	10.80.119.39			ebs					paravirtual	xen		sg-b6dae9de, sg-e9e1fd81	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b02615f0	2013-08-12T15:32:22.000Z	true		
+TAG	instance	i-88834de9	Name	env-prod-kestrel-upcode-i-88834de9
+RESERVATION	r-a195e2c4	821387913885	env-stage,env-stage-sixpack
+INSTANCE	i-f33cee8b	ami-fd20ad94	ec2-23-22-33-118.compute-1.amazonaws.com	ip-10-185-33-19.ec2.internal	running	techops	0		m1.medium	2013-09-24T00:44:45+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.33.118	10.185.33.19			ebs					paravirtual	xen	ff8a22ad-ba94-4722-85be-4f9d3d2eedba_us-east-1c_1	sg-6452610c, sg-c33650a8	default	false	
+BLOCKDEVICE	/dev/sda1	vol-fe5690bd	2013-09-24T00:44:48.000Z	true		
+TAG	instance	i-f33cee8b	aws:autoscaling:groupName	env-stage-sixpack
+TAG	instance	i-f33cee8b	Name	env-stage-sixpack-i-f33cee8b
+RESERVATION	r-914635f4	821387913885	env-prod-resque,env-prod
+INSTANCE	i-c32dbfa1	ami-fd20ad94	ec2-107-20-51-138.compute-1.amazonaws.com	ip-10-196-81-29.ec2.internal	running	techops	0		m1.medium	2013-08-18T20:16:10+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	107.20.51.138	10.196.81.29			ebs					paravirtual	xen	b9f9ac67-6ea3-4b55-b133-70897b9ec44a_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0b43474b	2013-08-18T20:16:14.000Z	true		
+TAG	instance	i-c32dbfa1	Name	env-prod-resque-i-c32dbfa1
+TAG	instance	i-c32dbfa1	aws:autoscaling:groupName	env-prod-resque-worker-ops-fastrak
+TAG	instance	i-c32dbfa1	WorkerRole	resque-worker-ops-fastrak
+RESERVATION	r-28c9844d	821387913885	env-prod-resque,env-prod
+INSTANCE	i-c7bdbabe	ami-fd20ad94	ec2-54-242-49-171.compute-1.amazonaws.com	ip-10-165-19-32.ec2.internal	running	techops	1		m1.medium	2013-10-02T00:34:39+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.242.49.171	10.165.19.32			ebs					paravirtual	xen	b9cc84f8-7522-4465-90d3-cfe041dc366e_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f20fdfb1	2013-10-02T00:34:42.000Z	true		
+TAG	instance	i-c7bdbabe	Name	env-prod-resque-i-c7bdbabe
+TAG	instance	i-c7bdbabe	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-c7bdbabe	WorkerRole	resque-worker-notification
+RESERVATION	r-90174bf5	821387913885	env-prod-resque,env-prod
+INSTANCE	i-95fff1f0	ami-fd20ad94	ec2-54-227-167-1.compute-1.amazonaws.com	ip-10-184-38-112.ec2.internal	running	techops	1		m1.medium	2013-10-02T22:25:55+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.227.167.1	10.184.38.112			ebs					paravirtual	xen	dd4c3a84-d7d0-4ab7-b208-66248edeab0c_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-03904d40	2013-10-02T22:25:59.000Z	true		
+TAG	instance	i-95fff1f0	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-95fff1f0	WorkerRole	resque-worker-notification
+TAG	instance	i-95fff1f0	Name	env-prod-resque-i-95fff1f0
+INSTANCE	i-97fff1f2	ami-fd20ad94	ec2-23-20-153-201.compute-1.amazonaws.com	ip-10-152-166-49.ec2.internal	running	techops	0		m1.medium	2013-10-02T22:25:55+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.153.201	10.152.166.49			ebs					paravirtual	xen	dd4c3a84-d7d0-4ab7-b208-66248edeab0c_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ab904de8	2013-10-02T22:25:59.000Z	true		
+TAG	instance	i-97fff1f2	WorkerRole	resque-worker-notification
+TAG	instance	i-97fff1f2	Name	env-prod-resque-i-97fff1f2
+TAG	instance	i-97fff1f2	aws:autoscaling:groupName	env-prod-resque-worker-notification
+RESERVATION	r-315d0454	821387913885	wowza
+INSTANCE	i-f803cf80	ami-55fd3c3c	ec2-107-22-50-230.compute-1.amazonaws.com	domU-12-31-39-01-B0-54.compute-1.internal	running	wowza	0	[devpay: 8ED157F9]	c1.medium	2012-07-03T21:09:59+0000	us-east-1b	aki-6eaa4907	ari-42b95a2b		monitoring-enabled	107.22.50.230	10.255.183.162			instance-store					paravirtual	xen	b161880e-1eed-4df7-ba7a-2598281ee1cf_us-east-1b_1	sg-41a5fb28	default	false	
+TAG	instance	i-f803cf80	Name	Production Webcam Server #2
+TAG	instance	i-f803cf80	aws:autoscaling:groupName	wowza-recorders-production
+RESERVATION	r-d0da82b5	821387913885	env-prod,env-prod-upcode
+INSTANCE	i-9fa717f5	ami-fd20ad94	ec2-184-72-149-106.compute-1.amazonaws.com	ip-10-10-142-81.ec2.internal	running	techops	4		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.72.149.106	10.10.142.81			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ed6763ad	2013-08-18T22:24:40.000Z	true		
+TAG	instance	i-9fa717f5	Name	env-prod-upcode-i-9fa717f5
+TAG	instance	i-9fa717f5	aws:autoscaling:groupName	env-prod-upcode
+INSTANCE	i-9da717f7	ami-fd20ad94	ec2-54-226-85-13.compute-1.amazonaws.com	ip-10-60-19-125.ec2.internal	running	techops	6		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.85.13	10.60.19.125			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-916763d1	2013-08-18T22:24:40.000Z	true		
+TAG	instance	i-9da717f7	Name	env-prod-upcode-i-9da717f7
+TAG	instance	i-9da717f7	aws:autoscaling:groupName	env-prod-upcode
+INSTANCE	i-93a717f9	ami-fd20ad94	ec2-54-235-6-73.compute-1.amazonaws.com	ip-10-10-51-75.ec2.internal	running	techops	2		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.235.6.73	10.10.51.75			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-906763d0	2013-08-18T22:24:40.000Z	true		
+TAG	instance	i-93a717f9	Name	env-prod-upcode-i-93a717f9
+TAG	instance	i-93a717f9	aws:autoscaling:groupName	env-prod-upcode
+INSTANCE	i-91a717fb	ami-fd20ad94	ec2-184-73-75-101.compute-1.amazonaws.com	ip-10-62-109-148.ec2.internal	running	techops	3		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.73.75.101	10.62.109.148			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-8c6763cc	2013-08-18T22:24:40.000Z	true		
+TAG	instance	i-91a717fb	Name	env-prod-upcode-i-91a717fb
+TAG	instance	i-91a717fb	aws:autoscaling:groupName	env-prod-upcode
+INSTANCE	i-95a717ff	ami-fd20ad94	ec2-184-72-177-93.compute-1.amazonaws.com	ip-10-10-86-227.ec2.internal	running	techops	0		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.72.177.93	10.10.86.227			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ee6763ae	2013-08-18T22:24:40.000Z	true		
+TAG	instance	i-95a717ff	Name	env-prod-upcode-i-95a717ff
+TAG	instance	i-95a717ff	aws:autoscaling:groupName	env-prod-upcode
+INSTANCE	i-4bab1b21	ami-fd20ad94	ec2-54-242-84-250.compute-1.amazonaws.com	ip-10-62-114-135.ec2.internal	running	techops	5		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.242.84.250	10.62.114.135			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-926763d2	2013-08-18T22:24:40.000Z	true		
+TAG	instance	i-4bab1b21	Name	env-prod-upcode-i-4bab1b21
+TAG	instance	i-4bab1b21	aws:autoscaling:groupName	env-prod-upcode
+INSTANCE	i-49ab1b23	ami-fd20ad94	ec2-107-20-86-190.compute-1.amazonaws.com	ip-10-40-213-86.ec2.internal	running	techops	7		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	107.20.86.190	10.40.213.86			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-8b6763cb	2013-08-18T22:24:40.000Z	true		
+TAG	instance	i-49ab1b23	aws:autoscaling:groupName	env-prod-upcode
+TAG	instance	i-49ab1b23	Name	env-prod-upcode-i-49ab1b23
+INSTANCE	i-41ab1b2b	ami-fd20ad94	ec2-54-234-101-23.compute-1.amazonaws.com	ip-10-38-53-103.ec2.internal	running	techops	1		m1.xlarge	2013-08-18T22:24:36+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.234.101.23	10.38.53.103			ebs					paravirtual	xen	21fe020c-aa3c-4e60-b7eb-fb2ffca08414_us-east-1c_8	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-e26763a2	2013-08-18T22:24:41.000Z	true		
+TAG	instance	i-41ab1b2b	aws:autoscaling:groupName	env-prod-upcode
+TAG	instance	i-41ab1b2b	Name	env-prod-upcode-i-41ab1b2b
+RESERVATION	r-244b7c41	821387913885	env-prod-resque,env-prod
+INSTANCE	i-a46349c2	ami-fd20ad94	ec2-23-20-108-153.compute-1.amazonaws.com	ip-10-80-125-124.ec2.internal	running	techops	1		m1.medium	2013-10-02T22:30:59+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.108.153	10.80.125.124			ebs					paravirtual	xen	fa550be5-4561-4488-b83a-0cdb3b472fdf_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f28d50b1	2013-10-02T22:31:02.000Z	true		
+TAG	instance	i-a46349c2	WorkerRole	resque-worker-notification
+TAG	instance	i-a46349c2	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-a46349c2	Name	env-prod-resque-i-a46349c2
+INSTANCE	i-aa6349cc	ami-fd20ad94	ec2-54-226-204-241.compute-1.amazonaws.com	ip-10-145-150-101.ec2.internal	running	techops	0		m1.medium	2013-10-02T22:30:59+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.204.241	10.145.150.101			ebs					paravirtual	xen	fa550be5-4561-4488-b83a-0cdb3b472fdf_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a4924fe7	2013-10-02T22:31:02.000Z	true		
+TAG	instance	i-aa6349cc	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-aa6349cc	Name	env-prod-resque-i-aa6349cc
+TAG	instance	i-aa6349cc	WorkerRole	resque-worker-notification
+RESERVATION	r-d6989bb3	821387913885	env-prod-resque,env-prod
+INSTANCE	i-0966c070	ami-fd20ad94			terminated	techops	0		m1.medium	2013-10-02T21:34:52+0000	us-east-1c	aki-825ea7eb			monitoring-enabled					ebs					paravirtual	xen	2c2b2c43-0fa8-4505-bfb3-98a734c2b6f7_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+TAG	instance	i-0966c070	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-0966c070	WorkerRole	resque-worker-notification
+INSTANCE	i-0f66c076	ami-fd20ad94			terminated	techops	1		m1.medium	2013-10-02T21:34:52+0000	us-east-1c	aki-825ea7eb			monitoring-enabled					ebs					paravirtual	xen	2c2b2c43-0fa8-4505-bfb3-98a734c2b6f7_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+TAG	instance	i-0f66c076	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-0f66c076	WorkerRole	resque-worker-notification
+RESERVATION	r-ac18f5c8	821387913885	wowza
+INSTANCE	i-acf180d4	ami-55fd3c3c	ec2-23-20-70-222.compute-1.amazonaws.com	domU-12-31-39-0C-36-92.compute-1.internal	running	wowza	2	[devpay: 8ED157F9]	c1.medium	2012-07-16T23:56:17+0000	us-east-1b	aki-6eaa4907	ari-42b95a2b		monitoring-enabled	23.20.70.222	10.215.53.92			instance-store					paravirtual	xen	c59707c1-6b45-4864-ab1c-09a35019b8cd_us-east-1b_3	sg-41a5fb28	default	false	
+TAG	instance	i-acf180d4	aws:autoscaling:groupName	wowza-recorders-production
+TAG	instance	i-acf180d4	Name	Production Webcam Server #3
+RESERVATION	r-a55595c1	821387913885	env-prod-resque,env-prod
+INSTANCE	i-e32ab09a	ami-fd20ad94	ec2-184-73-92-153.compute-1.amazonaws.com	ip-10-145-180-156.ec2.internal	running	techops	0		m1.medium	2013-10-02T21:39:33+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.73.92.153	10.145.180.156			ebs					paravirtual	xen	a118328d-dca8-406f-ad9d-dd9752fd69d0_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-4b69bb08	2013-10-02T21:39:36.000Z	true		
+TAG	instance	i-e32ab09a	aws:autoscaling:groupName	env-prod-resque-worker-general
+TAG	instance	i-e32ab09a	Name	env-prod-resque-i-e32ab09a
+TAG	instance	i-e32ab09a	WorkerRole	resque-worker-general
+RESERVATION	r-8619cae2	821387913885	ssh-only
+INSTANCE	i-6aeede12	ami-82fa58eb	ec2-174-129-108-198.compute-1.amazonaws.com	ip-10-68-191-197.ec2.internal	running	techops	0		m1.xlarge	2012-07-24T18:26:28+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	174.129.108.198	10.68.191.197			ebs					paravirtual	xen		sg-00f61c68	default	false	
+BLOCKDEVICE	/dev/sda1	vol-be163adf	2012-07-24T18:26:31.000Z	true		
+TAG	instance	i-6aeede12	Name	logstash production
+RESERVATION	r-b40ad9d0	821387913885	ssh-only
+INSTANCE	i-d4c6f6ac	ami-82fa58eb	ec2-23-20-127-237.compute-1.amazonaws.com	ip-10-6-137-27.ec2.internal	running	techops	0		m1.xlarge	2012-07-24T18:35:51+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	23.20.127.237	10.6.137.27			ebs					paravirtual	xen		sg-00f61c68	default	false	
+BLOCKDEVICE	/dev/sda1	vol-58e5c939	2012-07-24T18:35:55.000Z	true		
+TAG	instance	i-d4c6f6ac	Name	logstash staging
+RESERVATION	r-dd41e1b9	821387913885	env-prod-resque,env-prod
+INSTANCE	i-70b3040b	ami-fd20ad94			terminated	techops	0		m1.medium	2013-10-02T04:32:41+0000	us-east-1c	aki-825ea7eb			monitoring-enabled					ebs					paravirtual	xen	98d0a464-0416-4f6f-88cb-5beec5288452_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+TAG	instance	i-70b3040b	aws:autoscaling:groupName	env-prod-resque-worker-ops
+TAG	instance	i-70b3040b	WorkerRole	resque-worker-ops
+TAG	instance	i-70b3040b	Name	env-prod-resque-i-70b3040b
+INSTANCE	i-76b3040d	ami-fd20ad94			terminated	techops	1		m1.medium	2013-10-02T04:32:41+0000	us-east-1c	aki-825ea7eb			monitoring-enabled					ebs					paravirtual	xen	98d0a464-0416-4f6f-88cb-5beec5288452_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+TAG	instance	i-76b3040d	Name	env-prod-resque-i-76b3040d
+TAG	instance	i-76b3040d	aws:autoscaling:groupName	env-prod-resque-worker-ops
+TAG	instance	i-76b3040d	WorkerRole	resque-worker-ops
+RESERVATION	r-9110a0f5	821387913885	env-prod-resque,env-prod
+INSTANCE	i-2c9d2e4f	ami-fd20ad94	ec2-54-225-3-41.compute-1.amazonaws.com	ip-10-115-37-109.ec2.internal	running	techops	0		c1.xlarge	2013-09-14T17:38:11+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.225.3.41	10.115.37.109			ebs					paravirtual	xen		sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-513dc912	2013-09-14T17:38:14.000Z	true		
+TAG	instance	i-2c9d2e4f	WorkerRole	resque-worker-digest
+TAG	instance	i-2c9d2e4f	Name	env-prod-resque-i-2c9d2e4f
+RESERVATION	r-43a61427	821387913885	env-qa,env-qa-orgservice
+INSTANCE	i-340c1257	ami-fd20ad94	ec2-107-22-58-200.compute-1.amazonaws.com	ip-10-167-3-196.ec2.internal	running	techops	0		m1.medium	2013-08-09T17:44:54+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	107.22.58.200	10.167.3.196			ebs					paravirtual	xen	791ca1e5-37fa-4d98-95a4-8a060a36ee8f_us-east-1c_1	sg-5c380734, sg-2b7ab940	default	false	
+BLOCKDEVICE	/dev/sda1	vol-cc80b48c	2013-08-09T17:44:58.000Z	true		
+TAG	instance	i-340c1257	aws:autoscaling:groupName	env-qa-orgservice
+TAG	instance	i-340c1257	Name	env-qa-orgservice-i-340c1257
+RESERVATION	r-f98c0c9d	821387913885	env-prod-orgservice,env-prod
+INSTANCE	i-04d0856a	ami-fd20ad94	ec2-50-19-18-46.compute-1.amazonaws.com	ip-10-202-154-10.ec2.internal	running	techops	0		m1.medium	2013-09-13T02:03:25+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.19.18.46	10.202.154.10			ebs					paravirtual	xen	51a4b1a0-2e21-48b6-914a-fc029415dea1_us-east-1c_1	sg-b979bad2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f9ca21ba	2013-09-13T02:03:28.000Z	true		
+TAG	instance	i-04d0856a	aws:autoscaling:groupName	env-prod-orgservice
+TAG	instance	i-04d0856a	Name	env-prod-orgservice-i-04d0856a
+RESERVATION	r-b1e97cd5	821387913885	env-prod,env-prod-kicktag
+INSTANCE	i-bc3503d5	ami-fd20ad94	ec2-23-22-221-184.compute-1.amazonaws.com	ip-10-100-170-186.ec2.internal	running	techops	0		c1.xlarge	2013-09-17T05:28:20+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.221.184	10.100.170.186			ebs					paravirtual	xen	713cd9ce-a355-4d26-8f6c-2d3db4d566e7_us-east-1c_2	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5042b213	2013-09-17T05:28:23.000Z	true		
+TAG	instance	i-bc3503d5	Name	env-prod-kicktag-i-bc3503d5
+TAG	instance	i-bc3503d5	aws:autoscaling:groupName	env-prod-kicktag
+INSTANCE	i-803503e9	ami-fd20ad94	ec2-54-235-55-42.compute-1.amazonaws.com	ip-10-79-82-18.ec2.internal	running	techops	1		c1.xlarge	2013-09-17T05:28:20+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.235.55.42	10.79.82.18			ebs					paravirtual	xen	713cd9ce-a355-4d26-8f6c-2d3db4d566e7_us-east-1c_2	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-3342b270	2013-09-17T05:28:23.000Z	true		
+TAG	instance	i-803503e9	aws:autoscaling:groupName	env-prod-kicktag
+TAG	instance	i-803503e9	Name	env-prod-kicktag-i-803503e9
+RESERVATION	r-137f1177	821387913885	env-prod-resque,env-prod
+INSTANCE	i-cc709aa0	ami-fd20ad94	ec2-23-22-236-93.compute-1.amazonaws.com	ip-10-40-135-93.ec2.internal	running	techops	0		m1.medium	2013-08-18T20:16:14+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.236.93	10.40.135.93			ebs					paravirtual	xen	17ae237d-c456-491d-9e12-ccd9dbac8dc2_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1e43475e	2013-08-18T20:16:20.000Z	true		
+TAG	instance	i-cc709aa0	Name	env-prod-resque-i-cc709aa0
+TAG	instance	i-cc709aa0	aws:autoscaling:groupName	env-prod-resque-worker-encoding-fastrak
+TAG	instance	i-cc709aa0	WorkerRole	resque-worker-encoding-fastrak
+RESERVATION	r-a5a3ddc1	821387913885	env-prod-resque,env-prod
+INSTANCE	i-56ac363d	ami-fd20ad94	ec2-23-20-192-85.compute-1.amazonaws.com	ip-10-83-137-178.ec2.internal	running	techops	0		m1.medium	2013-08-18T20:16:24+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.192.85	10.83.137.178			ebs					paravirtual	xen	6c21d43f-6e78-4cc2-a9fa-f35d3048266f_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-79434739	2013-08-18T20:16:28.000Z	true		
+TAG	instance	i-56ac363d	Name	env-prod-resque-i-56ac363d
+TAG	instance	i-56ac363d	aws:autoscaling:groupName	env-prod-resque-worker-shares-fastrak
+TAG	instance	i-56ac363d	WorkerRole	resque-worker-shares-fastrak
+RESERVATION	r-2b59074f	821387913885	env-stage,env-stage-resque
+INSTANCE	i-b804d6db	ami-fd20ad94	ec2-54-211-132-1.compute-1.amazonaws.com	ip-10-100-135-28.ec2.internal	running	techops	0		c1.xlarge	2013-08-30T00:30:16+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.211.132.1	10.100.135.28			ebs					paravirtual	xen		sg-6452610c, sg-a6dce4ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-461e0f06	2013-08-30T00:30:19.000Z	true		
+TAG	instance	i-b804d6db	WorkerRole	resque-worker-ops
+TAG	instance	i-b804d6db	Name	env-stage-resque-i-b804d6db
+RESERVATION	r-a9411acd	821387913885	env-stage-redis-tugboat,env-stage
+INSTANCE	i-2c301540	ami-fd20ad94	ec2-67-202-1-68.compute-1.amazonaws.com	ip-10-185-17-196.ec2.internal	running	techops	0		m1.large	2013-09-13T23:38:06+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	67.202.1.68	10.185.17.196			ebs					paravirtual	xen	e68d4a5f-be57-4e5f-8be4-95ee662dda0f_us-east-1c_1	sg-37f5e35f, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f9986dba	2013-09-13T23:38:09.000Z	true		
+TAG	instance	i-2c301540	aws:autoscaling:groupName	env-stage-redis-tugboat
+TAG	instance	i-2c301540	Name	env-stage-redis-tugboat-i-2c301540
+RESERVATION	r-a7122dc3	821387913885	env-stage-upcode,env-stage
+INSTANCE	i-13087171	ami-fd20ad94	ec2-50-16-169-246.compute-1.amazonaws.com	ip-10-244-190-161.ec2.internal	running	techops	0		c1.medium	2013-09-14T21:36:09+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.16.169.246	10.244.190.161			ebs					paravirtual	xen	6e79689c-029d-464f-a974-3b32e39aa490_us-east-1c_1	sg-ed524e85, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-637a8e20	2013-09-14T21:36:13.000Z	true		
+TAG	instance	i-13087171	Name	env-stage-upcode-i-13087171
+TAG	instance	i-13087171	aws:autoscaling:groupName	env-stage-upcode
+RESERVATION	r-97f0e5f3	821387913885	env-qa-tester,env-qa
+INSTANCE	i-bca7e5d5	ami-fd20ad94	ec2-54-224-136-128.compute-1.amazonaws.com	ip-10-167-4-101.ec2.internal	running	techops	0		t1.micro	2013-09-12T00:19:29+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.224.136.128	10.167.4.101			ebs					paravirtual	xen	3bac584d-eb2b-4cdd-91e7-eb92161fe8fe_us-east-1c_1	sg-7c3d3214, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-078b6244	2013-09-12T00:19:33.000Z	true		
+TAG	instance	i-bca7e5d5	aws:autoscaling:groupName	env-qa-tester
+TAG	instance	i-bca7e5d5	Name	env-qa-tester-i-bca7e5d5
+RESERVATION	r-daad43bd	821387913885	env-tiab
+INSTANCE	i-a604b9cd	ami-3fec7956	ec2-184-73-75-23.compute-1.amazonaws.com	ip-10-100-254-10.ec2.internal	running	tiab	0		m1.large	2013-08-09T01:01:26+0000	us-east-1c	aki-88aa75e1			monitoring-disabled	184.73.75.23	10.100.254.10			ebs					paravirtual	xen		sg-c503fdae	default	false	
+BLOCKDEVICE	/dev/sda1	vol-52c0f512	2013-08-09T01:01:29.000Z	true		
+RESERVATION	r-28cf3d4f	821387913885	env-prod,env-prod-kicktag
+INSTANCE	i-59ef7723	ami-fd20ad94	ec2-23-20-5-246.compute-1.amazonaws.com	ip-10-98-250-253.ec2.internal	running	techops	0		c1.xlarge	2013-09-22T03:06:38+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.20.5.246	10.98.250.253			ebs					paravirtual	xen	b4bacfc7-8aea-48a3-b610-33a14721e443_us-east-1c_1	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-acb471ef	2013-09-22T03:06:40.000Z	true		
+TAG	instance	i-59ef7723	aws:autoscaling:groupName	env-prod-kicktag
+TAG	instance	i-59ef7723	Name	env-prod-kicktag-i-59ef7723
+RESERVATION	r-c43fc5a3	821387913885	env-stage,env-stage-kestrel-haystack
+INSTANCE	i-0ca02e6d	ami-fd20ad94	ec2-54-226-227-254.compute-1.amazonaws.com	ip-10-224-13-165.ec2.internal	running	techops	0		m1.large	2013-09-10T20:55:50+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.227.254	10.224.13.165			ebs					paravirtual	xen		sg-6452610c, sg-49ff6c22	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5812fe1b	2013-09-10T20:55:53.000Z	true		
+TAG	instance	i-0ca02e6d	Name	env-stage-kestrel-haystack-i-0ca02e6d
+RESERVATION	r-8e8850e9	821387913885	env-prod,env-prod-pbs
+INSTANCE	i-7ea5ec10	ami-fd20ad94	ec2-54-226-197-12.compute-1.amazonaws.com	ip-10-100-227-39.ec2.internal	running	techops	0		m1.medium	2013-09-15T16:56:15+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.197.12	10.100.227.39			ebs					paravirtual	xen	43af40b3-f63c-42d5-b359-f051148f808c_us-east-1c_2	sg-b6dae9de, sg-5909c932	default	false	
+BLOCKDEVICE	/dev/sda1	vol-73ab5d30	2013-09-15T16:56:19.000Z	true		
+TAG	instance	i-7ea5ec10	Name	env-prod-pbs-i-7ea5ec10
+TAG	instance	i-7ea5ec10	aws:autoscaling:groupName	env-prod-pbs
+INSTANCE	i-70a5ec1e	ami-fd20ad94	ec2-54-221-119-129.compute-1.amazonaws.com	ip-10-145-150-104.ec2.internal	running	techops	1		m1.medium	2013-09-15T16:56:15+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.119.129	10.145.150.104			ebs					paravirtual	xen	43af40b3-f63c-42d5-b359-f051148f808c_us-east-1c_2	sg-b6dae9de, sg-5909c932	default	false	
+BLOCKDEVICE	/dev/sda1	vol-aaaa5ce9	2013-09-15T16:56:19.000Z	true		
+TAG	instance	i-70a5ec1e	Name	env-prod-pbs-i-70a5ec1e
+TAG	instance	i-70a5ec1e	aws:autoscaling:groupName	env-prod-pbs
+RESERVATION	r-822096e5	821387913885	env-prod,env-prod-kicktag
+INSTANCE	i-66484a00	ami-fd20ad94	ec2-50-19-65-102.compute-1.amazonaws.com	ip-10-84-139-61.ec2.internal	running	techops	0		c1.xlarge	2013-09-22T02:09:58+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	50.19.65.102	10.84.139.61			ebs					paravirtual	xen	28af0cee-0107-4fe0-8f00-9f5815fe83d6_us-east-1c_3	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b1a560f2	2013-09-22T02:10:01.000Z	true		
+TAG	instance	i-66484a00	Name	env-prod-kicktag-i-66484a00
+TAG	instance	i-66484a00	aws:autoscaling:groupName	env-prod-kicktag
+INSTANCE	i-7a484a1c	ami-fd20ad94	ec2-184-73-20-126.compute-1.amazonaws.com	ip-10-39-11-77.ec2.internal	running	techops	2		c1.xlarge	2013-09-22T02:09:58+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.73.20.126	10.39.11.77			ebs					paravirtual	xen	28af0cee-0107-4fe0-8f00-9f5815fe83d6_us-east-1c_3	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5fa4611c	2013-09-22T02:10:00.000Z	true		
+TAG	instance	i-7a484a1c	Name	env-prod-kicktag-i-7a484a1c
+TAG	instance	i-7a484a1c	aws:autoscaling:groupName	env-prod-kicktag
+INSTANCE	i-78484a1e	ami-fd20ad94	ec2-54-224-155-227.compute-1.amazonaws.com	ip-10-39-69-221.ec2.internal	running	techops	1		c1.xlarge	2013-09-22T02:09:58+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.224.155.227	10.39.69.221			ebs					paravirtual	xen	28af0cee-0107-4fe0-8f00-9f5815fe83d6_us-east-1c_3	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b2a560f1	2013-09-22T02:10:00.000Z	true		
+TAG	instance	i-78484a1e	Name	env-prod-kicktag-i-78484a1e
+TAG	instance	i-78484a1e	aws:autoscaling:groupName	env-prod-kicktag
+RESERVATION	r-f444fc93	821387913885	env-prod-resque,env-prod
+INSTANCE	i-b23e82d4	ami-fd20ad94	ec2-54-237-4-76.compute-1.amazonaws.com	ip-10-184-9-188.ec2.internal	running	techops	1		m1.medium	2013-10-02T22:01:49+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.237.4.76	10.184.9.188			ebs					paravirtual	xen	873e9bc3-a2c6-4936-b907-b5c366aa74b9_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ed9944ae	2013-10-02T22:01:54.000Z	true		
+TAG	instance	i-b23e82d4	WorkerRole	resque-worker-notification
+TAG	instance	i-b23e82d4	Name	env-prod-resque-i-b23e82d4
+TAG	instance	i-b23e82d4	aws:autoscaling:groupName	env-prod-resque-worker-notification
+INSTANCE	i-bc3e82da	ami-fd20ad94	ec2-54-242-74-56.compute-1.amazonaws.com	ip-10-185-16-158.ec2.internal	running	techops	0		m1.medium	2013-10-02T22:01:49+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.242.74.56	10.185.16.158			ebs					paravirtual	xen	873e9bc3-a2c6-4936-b907-b5c366aa74b9_us-east-1c_2	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b99944fa	2013-10-02T22:01:54.000Z	true		
+TAG	instance	i-bc3e82da	WorkerRole	resque-worker-notification
+TAG	instance	i-bc3e82da	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-bc3e82da	Name	env-prod-resque-i-bc3e82da
+RESERVATION	r-d835b3bf	821387913885	env-prod-orgservice,env-prod
+INSTANCE	i-4ddfc120	ami-fd20ad94	ec2-54-224-234-139.compute-1.amazonaws.com	ip-10-154-177-106.ec2.internal	running	techops	0		m1.medium	2013-08-09T21:20:56+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.224.234.139	10.154.177.106			ebs					paravirtual	xen	4616550b-b76a-42bc-97d9-30f2337429aa_us-east-1c_1	sg-b979bad2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5a34031a	2013-08-09T21:20:59.000Z	true		
+TAG	instance	i-4ddfc120	aws:autoscaling:groupName	env-prod-orgservice
+TAG	instance	i-4ddfc120	Name	env-prod-orgservice-i-4ddfc120
+RESERVATION	r-eac7448d	821387913885	env-stage-mongo-shard,env-stage
+INSTANCE	i-850d2fe8	ami-fd20ad94	ec2-50-16-138-122.compute-1.amazonaws.com	ip-10-202-46-213.ec2.internal	running	techops	0		m1.medium	2013-09-06T19:20:19+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.16.138.122	10.202.46.213			ebs					paravirtual	xen		sg-c1089faa, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d5e00796	2013-09-06T19:20:23.000Z	true		
+TAG	instance	i-850d2fe8	Name	env-stage-mongo-shard-i-850d2fe8
+RESERVATION	r-80017be7	821387913885	env-prod,env-prod-kicktag
+INSTANCE	i-e3c42c99	ami-fd20ad94	ec2-54-227-174-142.compute-1.amazonaws.com	ip-10-79-26-243.ec2.internal	running	techops	0		c1.xlarge	2013-09-24T01:35:04+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.227.174.142	10.79.26.243			ebs					paravirtual	xen	8b2ab087-867e-4c82-bc9b-f5351ab2543f_us-east-1c_1	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-d162a492	2013-09-24T01:35:06.000Z	true		
+TAG	instance	i-e3c42c99	aws:autoscaling:groupName	env-prod-kicktag
+TAG	instance	i-e3c42c99	Name	env-prod-kicktag-i-e3c42c99
+RESERVATION	r-e6590081	821387913885	env-stage-haystack-resque,env-stage
+INSTANCE	i-fe701c90	ami-fd20ad94	ec2-54-226-237-231.compute-1.amazonaws.com	ip-10-12-19-233.ec2.internal	running	techops	0		m1.large	2013-09-13T23:00:48+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.226.237.231	10.12.19.233			ebs					paravirtual	xen		sg-4d2bb726, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-eba85da8	2013-09-13T23:00:51.000Z	true		
+TAG	instance	i-fe701c90	Name	env-stage-haystack-resque-i-fe701c90
+RESERVATION	r-f0ba9a97	821387913885	env-prod-ppd,env-prod
+INSTANCE	i-de164cb6	ami-fd20ad94	ec2-75-101-252-178.compute-1.amazonaws.com	ip-10-184-40-201.ec2.internal	running	techops	0		m1.medium	2013-09-14T23:05:07+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	75.101.252.178	10.184.40.201			ebs					paravirtual	xen	b58f547b-1cb5-4f73-9f20-48f1de292c76_us-east-1c_1	sg-6b2fe300, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0c5eaa4f	2013-09-14T23:05:10.000Z	true		
+TAG	instance	i-de164cb6	aws:autoscaling:groupName	env-prod-ppd
+TAG	instance	i-de164cb6	Name	env-prod-ppd-i-de164cb6
+RESERVATION	r-e086b987	821387913885	env-qa-resque,env-qa
+INSTANCE	i-70a3a219	ami-fd20ad94	ec2-54-224-132-245.compute-1.amazonaws.com	ip-10-164-111-50.ec2.internal	running	techops	0		m1.medium	2013-08-30T20:01:28+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.224.132.245	10.164.111.50			ebs					paravirtual	xen	c39256a7-252b-40c6-845d-d235b9ea7700_us-east-1c_1	sg-b82c13d0, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-ea8595aa	2013-08-30T20:01:32.000Z	true		
+TAG	instance	i-70a3a219	Name	env-qa-resque-i-70a3a219
+TAG	instance	i-70a3a219	aws:autoscaling:groupName	env-qa-resque-worker-haystack
+TAG	instance	i-70a3a219	WorkerRole	resque-worker-haystack
+RESERVATION	r-4f6b7528	821387913885	stage-metrics
+INSTANCE	i-91c87fec	ami-976edcfe	ec2-23-22-126-235.compute-1.amazonaws.com	ip-10-80-107-198.ec2.internal	running	techops	0		m1.large	2012-10-01T18:38:30+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.22.126.235	10.80.107.198			ebs					paravirtual	xen	TWZPf1349116709634	sg-3670af5e	default	false	
+BLOCKDEVICE	/dev/sda1	vol-576f0c2d	2012-10-01T18:38:34.000Z	true		
+TAG	instance	i-91c87fec	Name	metrics-staging
+RESERVATION	r-f418c492	821387913885	env-qa-resque,env-qa
+INSTANCE	i-b4549fd1	ami-fd20ad94	ec2-54-226-200-179.compute-1.amazonaws.com	ip-10-164-17-207.ec2.internal	running	techops	0		m1.medium	2013-08-13T22:30:16+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.226.200.179	10.164.17.207			ebs					paravirtual	xen	2a6eba18-6f22-4589-88d9-b99fd04f33f1_us-east-1c_1	sg-b82c13d0, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-90b38ed0	2013-08-13T22:30:19.000Z	true		
+TAG	instance	i-b4549fd1	WorkerRole	resque-worker
+TAG	instance	i-b4549fd1	Name	env-qa-resque-i-b4549fd1
+TAG	instance	i-b4549fd1	aws:autoscaling:groupName	env-qa-resque-worker
+RESERVATION	r-2ace144c	821387913885	env-stage,env-stage-haystack-hayfork
+INSTANCE	i-a45808c7	ami-fd20ad94	ec2-54-211-88-72.compute-1.amazonaws.com	ip-10-37-1-208.ec2.internal	running	techops	0		c1.medium	2013-09-06T23:59:48+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.211.88.72	10.37.1.208			ebs					paravirtual	xen		sg-6452610c, sg-93c156f8	default	false	
+BLOCKDEVICE	/dev/sda1	vol-460dea05	2013-09-06T23:59:52.000Z	true		
+TAG	instance	i-a45808c7	Name	env-stage-haystack-hayfork-i-a45808c7
+RESERVATION	r-828a06e4	821387913885	env-prod,env-prod-kestrel-tugboat
+INSTANCE	i-8ca8c0e0	ami-fd20ad94	ec2-50-19-151-39.compute-1.amazonaws.com	ip-10-203-86-75.ec2.internal	running	techops	0		m1.large	2013-08-09T11:27:15+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.19.151.39	10.203.86.75			ebs					paravirtual	xen		sg-b6dae9de, sg-c2505daa	default	false	
+BLOCKDEVICE	/dev/sda1	vol-291a2e69	2013-08-09T11:27:18.000Z	true		
+BLOCKDEVICE	/dev/xvdc	vol-34437474	2013-08-09T20:43:09.000Z	false		
+TAG	instance	i-8ca8c0e0	Name	env-prod-kestrel-tugboat-i-8ca8c0e0
+RESERVATION	r-e2fc6184	821387913885	env-prod-resque,env-prod
+INSTANCE	i-9f1088e5	ami-fd20ad94	ec2-54-221-183-135.compute-1.amazonaws.com	ip-10-185-38-222.ec2.internal	running	techops	0		m1.medium	2013-10-02T22:33:00+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.183.135	10.185.38.222			ebs					paravirtual	xen	6fd29861-b390-45b3-a273-a580c627ab39_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-4e8d500d	2013-10-02T22:33:03.000Z	true		
+TAG	instance	i-9f1088e5	Name	env-prod-resque-i-9f1088e5
+TAG	instance	i-9f1088e5	aws:autoscaling:groupName	env-prod-resque-worker-notification
+TAG	instance	i-9f1088e5	WorkerRole	resque-worker-notification
+RESERVATION	r-5e44db38	821387913885	env-stage-mongo-shard,env-stage
+INSTANCE	i-4cc68d2d	ami-fd20ad94	ec2-50-16-58-118.compute-1.amazonaws.com	ip-10-154-153-15.ec2.internal	running	techops	0		m1.medium	2013-09-06T20:10:59+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.16.58.118	10.154.153.15			ebs					paravirtual	xen		sg-c1089faa, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b7f017f4	2013-09-06T20:11:03.000Z	true		
+TAG	instance	i-4cc68d2d	Name	env-stage-mongo-shard-i-4cc68d2d
+RESERVATION	r-6b3f720d	821387913885	prod-metrics
+INSTANCE	i-4db41031	ami-976edcfe	ec2-184-73-60-9.compute-1.amazonaws.com	ip-10-205-18-4.ec2.internal	running	techops	0		m1.large	2012-10-23T22:18:50+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.73.60.9	10.205.18.4			ebs					paravirtual	xen	018623c0-c859-4a84-ada0-adf31d1c6af4_us-east-1c_1	sg-d7df02bf	default	false	
+BLOCKDEVICE	/dev/sda1	vol-267fe95b	2012-10-23T22:19:05.000Z	true		
+TAG	instance	i-4db41031	aws:autoscaling:groupName	prod-analytics-webcron-group
+TAG	instance	i-4db41031	Name	prod-metrics
+RESERVATION	r-11531e77	821387913885	prod-metrics
+INSTANCE	i-ad6dc9d1	ami-976edcfe	ec2-23-22-113-123.compute-1.amazonaws.com	ip-10-80-109-120.ec2.internal	running	techops	0		m1.large	2012-10-23T22:47:47+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.113.123	10.80.109.120			ebs					paravirtual	xen	94410a49-7feb-4413-8c75-bc3fc03a696e_us-east-1c_1	sg-d7df02bf	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0726b07a	2012-10-23T22:47:51.000Z	true		
+TAG	instance	i-ad6dc9d1	aws:autoscaling:groupName	prod-analytics-web-group
+TAG	instance	i-ad6dc9d1	Name	prod-metrics
+RESERVATION	r-8ea3eee8	821387913885	env-prod-orgservice,env-prod
+INSTANCE	i-6ea4930d	ami-fd20ad94	ec2-54-234-199-13.compute-1.amazonaws.com	ip-10-77-22-87.ec2.internal	running	techops	0		m1.medium	2013-09-13T01:41:21+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.234.199.13	10.77.22.87			ebs					paravirtual	xen	b9b62cca-d2ac-485e-9635-a40344aa0844_us-east-1c_1	sg-b979bad2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b2f219f1	2013-09-13T01:41:24.000Z	true		
+TAG	instance	i-6ea4930d	Name	env-prod-orgservice-i-6ea4930d
+TAG	instance	i-6ea4930d	aws:autoscaling:groupName	env-prod-orgservice
+RESERVATION	r-20240946	821387913885	env-stage,env-stage-mongo-config
+INSTANCE	i-6d034402	ami-fd20ad94	ec2-54-227-19-130.compute-1.amazonaws.com	ip-10-194-139-2.ec2.internal	running	techops	0		t1.micro	2013-09-06T21:33:49+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.227.19.130	10.194.139.2			ebs					paravirtual	xen		sg-6452610c, sg-732eb918	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c9d2358a	2013-09-06T21:33:53.000Z	true		
+TAG	instance	i-6d034402	Name	env-stage-mongo-config-i-6d034402
+RESERVATION	r-a1c3fbc7	821387913885	stage-web
+INSTANCE	i-7bf39a07	ami-9c78c0f5	ec2-23-22-196-96.compute-1.amazonaws.com	ip-10-99-34-237.ec2.internal	running	techops	0		m1.large	2012-10-30T20:54:18+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.22.196.96	10.99.34.237			ebs					paravirtual	xen		sg-249e694c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-33a5fa4e	2012-10-30T20:54:21.000Z	true		
+RESERVATION	r-3d7e8044	821387913885	env-prod,env-prod-upcode
+INSTANCE	i-ff51bb92	ami-fd20ad94	ec2-54-221-48-225.compute-1.amazonaws.com	ip-10-179-34-98.ec2.internal	running	techops	0		m1.xlarge	2013-09-14T22:43:07+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.221.48.225	10.179.34.98			ebs					paravirtual	xen	908edb69-3164-41e0-ad41-44bf50c61554_us-east-1c_1	sg-b6dae9de, sg-19e1fd71	default	false	
+BLOCKDEVICE	/dev/sda1	vol-cb56a288	2013-09-14T22:43:10.000Z	true		
+TAG	instance	i-ff51bb92	Name	env-prod-upcode-i-ff51bb92
+TAG	instance	i-ff51bb92	aws:autoscaling:groupName	env-prod-upcode
+RESERVATION	r-10448969	821387913885	stage-web
+INSTANCE	i-617e6d1d	ami-9c78c0f5	ec2-50-17-155-28.compute-1.amazonaws.com	ip-10-114-214-225.ec2.internal	running	techops	0		m1.large	2012-11-09T00:22:23+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.17.155.28	10.114.214.225			ebs					paravirtual	xen		sg-249e694c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c11ae9bd	2012-11-09T00:22:26.000Z	true		
+RESERVATION	r-7379b70a	821387913885	env-prod-jump,env-prod-ws,env-prod
+INSTANCE	i-3cfb6150	ami-fd20ad94	ec2-184-72-67-147.compute-1.amazonaws.com	ip-10-154-169-138.ec2.internal	running	bastion_start20130417	0		m1.medium	2013-08-28T22:45:39+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	184.72.67.147	10.154.169.138			ebs					paravirtual	xen		sg-48070520, sg-bfaf71d4, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-fa4651ba	2013-08-28T22:45:42.000Z	true		
+TAG	instance	i-3cfb6150	Name	env-prod-ws-i-3cfb6150
+RESERVATION	r-dd59e8a4	821387913885	env-qa,env-qa-orgservice
+INSTANCE	i-702d0d1b	ami-fd20ad94	ec2-23-22-172-109.compute-1.amazonaws.com	ip-10-165-1-81.ec2.internal	running	techops	0		m1.medium	2013-08-09T17:47:24+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.172.109	10.165.1.81			ebs					paravirtual	xen	2f482359-8355-4db7-9da8-7eaa8ff7b372_us-east-1c_1	sg-5c380734, sg-2b7ab940	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f681b5b6	2013-08-09T17:47:42.000Z	true		
+TAG	instance	i-702d0d1b	aws:autoscaling:groupName	env-qa-orgservice
+TAG	instance	i-702d0d1b	Name	env-qa-orgservice-i-702d0d1b
+RESERVATION	r-cec87ab7	821387913885	opscheck
+INSTANCE	i-14b6646b	ami-3d4ff254			stopped	techops	0		m1.xlarge	2012-11-15T00:45:00+0000	us-east-1b	aki-825ea7eb			monitoring-disabled					ebs					paravirtual	xen	XDJUk1352940300238	sg-5382de3b	default	false	
+BLOCKDEVICE	/dev/sda1	vol-bde64cc1	2012-11-15T00:45:03.000Z	true		
+TAG	instance	i-14b6646b	Name	opscheck-001
+INSTANCE	i-12b6646d	ami-3d4ff254			stopped	techops	1		m1.xlarge	2012-11-15T00:45:00+0000	us-east-1b	aki-825ea7eb			monitoring-disabled					ebs					paravirtual	xen	XDJUk1352940300238	sg-5382de3b	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b8e64cc4	2012-11-15T00:45:03.000Z	true		
+TAG	instance	i-12b6646d	Name	opscheck-002
+INSTANCE	i-10b6646f	ami-3d4ff254			stopped	techops	2		m1.xlarge	2012-11-15T00:45:00+0000	us-east-1b	aki-825ea7eb			monitoring-disabled					ebs					paravirtual	xen	XDJUk1352940300238	sg-5382de3b	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b6e64cca	2012-11-15T00:45:03.000Z	true		
+TAG	instance	i-10b6646f	Name	opscheck-003
+INSTANCE	i-0eb66471	ami-3d4ff254			stopped	techops	3		m1.xlarge	2012-11-15T00:45:00+0000	us-east-1b	aki-825ea7eb			monitoring-disabled					ebs					paravirtual	xen	XDJUk1352940300238	sg-5382de3b	default	false	
+BLOCKDEVICE	/dev/sda1	vol-bbe64cc7	2012-11-15T00:45:03.000Z	true		
+TAG	instance	i-0eb66471	Name	opscheck-004
+RESERVATION	r-492c9030	821387913885	env-prod,env-prod-haystack-resque
+INSTANCE	i-8d1c77f5	ami-fd20ad94	ec2-67-202-60-164.compute-1.amazonaws.com	ip-10-35-87-53.ec2.internal	running	techops	0		m1.large	2013-09-23T20:09:03+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	67.202.60.164	10.35.87.53			ebs					paravirtual	xen		sg-b6dae9de, sg-15c4a37e	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0ee4224d	2013-09-23T20:09:07.000Z	true		
+BLOCKDEVICE	/dev/xvdc	vol-e011d1a3	2013-09-24T21:34:58.000Z	false		
+TAG	instance	i-8d1c77f5	Name	env-prod-haystack-resque-i-8d1c77f5
+RESERVATION	r-5fa61926	821387913885	env-prod,env-prod-kicktag
+INSTANCE	i-2970ec50	ami-fd20ad94	ec2-23-22-54-159.compute-1.amazonaws.com	ip-10-195-154-127.ec2.internal	running	techops	0		c1.xlarge	2013-09-21T16:54:47+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	23.22.54.159	10.195.154.127			ebs					paravirtual	xen	5c4e392c-25f9-4262-9146-5d4bad468864_us-east-1c_2	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-2036cc63	2013-09-21T16:54:49.000Z	true		
+TAG	instance	i-2970ec50	aws:autoscaling:groupName	env-prod-kicktag
+TAG	instance	i-2970ec50	Name	env-prod-kicktag-i-2970ec50
+INSTANCE	i-2b70ec52	ami-fd20ad94	ec2-54-211-191-24.compute-1.amazonaws.com	ip-10-245-43-178.ec2.internal	running	techops	1		c1.xlarge	2013-09-21T16:54:47+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	54.211.191.24	10.245.43.178			ebs					paravirtual	xen	5c4e392c-25f9-4262-9146-5d4bad468864_us-east-1c_2	sg-b6dae9de, sg-88dce4e0	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1036cc53	2013-09-21T16:54:50.000Z	true		
+TAG	instance	i-2b70ec52	aws:autoscaling:groupName	env-prod-kicktag
+TAG	instance	i-2b70ec52	Name	env-prod-kicktag-i-2b70ec52
+RESERVATION	r-a99822d0	821387913885	env-prod-resque,env-prod
+INSTANCE	i-744dc809	ami-fd20ad94	ec2-184-73-105-217.compute-1.amazonaws.com	ip-10-152-129-73.ec2.internal	running	techops	0		m1.medium	2013-10-02T21:37:53+0000	us-east-1c	aki-825ea7eb			monitoring-enabled	184.73.105.217	10.152.129.73			ebs					paravirtual	xen	7e788cd9-4134-48c6-a122-bc38e763cfc5_us-east-1c_1	sg-8adce4e2, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7c68ba3f	2013-10-02T21:37:56.000Z	true		
+TAG	instance	i-744dc809	WorkerRole	resque-worker-ops
+TAG	instance	i-744dc809	aws:autoscaling:groupName	env-prod-resque-worker-ops
+TAG	instance	i-744dc809	Name	env-prod-resque-i-744dc809
+RESERVATION	r-8fcc92f6	821387913885	awsdev
+INSTANCE	i-f9290f86	ami-a29943cb			stopped	techops	0		m1.small	2012-11-28T05:59:48+0000	us-east-1c	aki-825ea7eb			monitoring-disabled					ebs					paravirtual	xen		sg-cb5a8aa3	default	false	
+BLOCKDEVICE	/dev/sda1	vol-a2b49cde	2012-11-28T05:59:51.000Z	true		
+RESERVATION	r-c7547abe	821387913885	graphite
+INSTANCE	i-27e9d458	ami-3d4ff254	ec2-23-21-156-130.compute-1.amazonaws.com	ip-10-149-29-214.ec2.internal	running	techops	0		m3.2xlarge	2012-11-29T19:22:50+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	23.21.156.130	10.149.29.214			ebs					paravirtual	xen	waxeN1354216969431	sg-fc95b594	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5bdfdb27	2012-11-29T19:22:52.000Z	true		
+TAG	instance	i-27e9d458	Name	graphite-001
+RESERVATION	r-24300b5c	821387913885	graphite
+INSTANCE	i-73fb4302	ami-3d4ff254	ec2-23-21-156-127.compute-1.amazonaws.com	ip-10-166-2-74.ec2.internal	running	techops	0		m3.2xlarge	2013-01-07T20:11:43+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.21.156.127	10.166.2.74			ebs					paravirtual	xen	olyIp1357589502554	sg-fc95b594	default	false	
+BLOCKDEVICE	/dev/sda1	vol-b472a9ca	2013-01-07T20:11:46.000Z	true		
+TAG	instance	i-73fb4302	Name	graphite-002
+RESERVATION	r-4e0d1f36	821387913885	env-wildwest,env-wildwest-mv
+INSTANCE	i-03c9ac72	ami-fd20ad94	ec2-23-22-59-48.compute-1.amazonaws.com	ip-10-245-29-221.ec2.internal	running	techops	0		m1.small	2013-01-11T02:14:15+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.22.59.48	10.245.29.221			ebs					paravirtual	xen		sg-047d4e6c, sg-a6b088ce	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1aac1464	2013-01-11T02:14:18.000Z	true		
+TAG	instance	i-03c9ac72	Name	env-wildwest-mv-i-03c9ac72
+RESERVATION	r-5e283026	821387913885	env-qa,env-qa-kestrel-tugboat
+INSTANCE	i-c5b7dbb4	ami-fd20ad94	ec2-204-236-220-137.compute-1.amazonaws.com	ip-10-38-134-77.ec2.internal	running	techops	0		m1.large	2013-01-11T20:58:19+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	204.236.220.137	10.38.134.77			ebs					paravirtual	xen		sg-5c380734, sg-3e447f56	default	false	
+BLOCKDEVICE	/dev/sda1	vol-4c30b132	2013-01-11T20:58:25.000Z	true		
+TAG	instance	i-c5b7dbb4	Name	env-qa-kestrel-tugboat-i-c5b7dbb4
+RESERVATION	r-c94a80b2	821387913885	graphite
+INSTANCE	i-07765d76	ami-3d4ff254	ec2-50-16-186-96.compute-1.amazonaws.com	ip-10-145-195-25.ec2.internal	running	techops	0		m3.2xlarge	2013-01-17T23:32:37+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	50.16.186.96	10.145.195.25			ebs					paravirtual	xen	CrZck1358465556674	sg-fc95b594	default	false	
+BLOCKDEVICE	/dev/sda1	vol-bf8cf2c1	2013-01-17T23:32:40.000Z	true		
+TAG	instance	i-07765d76	Name	nagios-001
+RESERVATION	r-3b962e40	821387913885	env-qa,env-qa-kestrel-tugboat
+INSTANCE	i-0ed33d7e	ami-fd20ad94	ec2-23-23-57-62.compute-1.amazonaws.com	ip-10-40-223-162.ec2.internal	running	techops	0		m1.large	2013-01-23T19:05:09+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.23.57.62	10.40.223.162			ebs					paravirtual	xen		sg-5c380734, sg-3e447f56	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7bba9305	2013-01-23T19:05:13.000Z	true		
+RESERVATION	r-a18931da	821387913885	env-qa,env-qa-kestrel-tugboat
+INSTANCE	i-ae2cc2de	ami-fd20ad94	ec2-204-236-211-186.compute-1.amazonaws.com	ip-10-70-18-46.ec2.internal	running	techops	0		m1.large	2013-01-23T19:07:23+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	204.236.211.186	10.70.18.46			ebs					paravirtual	xen		sg-5c380734, sg-3e447f56	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0abf9674	2013-01-23T19:07:27.000Z	true		
+TAG	instance	i-ae2cc2de	Name	env-qa-kestrel-tugboat-i-ae2cc2de
+RESERVATION	r-a37dc5d8	821387913885	env-qa,env-qa-kestrel-tugboat
+INSTANCE	i-2833dd58	ami-fd20ad94	ec2-23-22-91-235.compute-1.amazonaws.com	ip-10-6-50-226.ec2.internal	running	techops	0		m1.large	2013-01-23T19:20:04+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	23.22.91.235	10.6.50.226			ebs					paravirtual	xen		sg-5c380734, sg-3e447f56	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5782ab29	2013-01-23T19:20:07.000Z	true		
+TAG	instance	i-2833dd58	Name	env-qa-kestrel-tugboat-i-2833dd58
+RESERVATION	r-89af27f2	821387913885	env-qa-tugboat,env-qa
+INSTANCE	i-eeea2d9e	ami-fd20ad94	ec2-54-242-246-237.compute-1.amazonaws.com	ip-10-73-25-16.ec2.internal	running	techops	0		m1.large	2013-01-25T20:04:40+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.242.246.237	10.73.25.16			ebs					paravirtual	xen		sg-3c447f54, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-0391947d	2013-01-25T20:04:46.000Z	true		
+TAG	instance	i-eeea2d9e	Name	env-qa-tugboat-i-eeea2d9e
+RESERVATION	r-c35bd3b8	821387913885	env-prod,env-prod-kestrel-tugboat
+INSTANCE	i-fc21e68c	ami-fd20ad94	ec2-174-129-172-220.compute-1.amazonaws.com	ip-10-196-37-171.ec2.internal	running	techops	0		m1.large	2013-01-25T20:31:28+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	174.129.172.220	10.196.37.171			ebs					paravirtual	xen		sg-b6dae9de, sg-c2505daa	default	false	
+BLOCKDEVICE	/dev/sda1	vol-184d4966	2013-01-25T20:31:31.000Z	true		
+TAG	instance	i-fc21e68c	Name	env-prod-kestrel-tugboat-i-fc21e68c
+RESERVATION	r-7f482b04	821387913885	env-qa-tester,env-qa
+INSTANCE	i-a2d87bd2	ami-fd20ad94	ec2-23-20-236-165.compute-1.amazonaws.com	ip-10-77-57-55.ec2.internal	running	techops	0		m1.large	2013-01-29T17:53:00+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.20.236.165	10.77.57.55			ebs					paravirtual	xen		sg-7c3d3214, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-6c55b01d	2013-01-29T17:53:05.000Z	true		
+TAG	instance	i-a2d87bd2	Name	env-qa-tester-i-a2d87bd2
+RESERVATION	r-e1e4b79a	821387913885	env-stage-kestrel-tugboat,env-stage
+INSTANCE	i-3e4a254e	ami-fd20ad94	ec2-174-129-73-84.compute-1.amazonaws.com	ip-10-203-11-120.ec2.internal	running	techops	0		m1.large	2013-02-04T20:52:16+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	174.129.73.84	10.203.11.120			ebs					paravirtual	xen		sg-ae4845c6, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-52518a23	2013-02-04T20:52:20.000Z	true		
+TAG	instance	i-3e4a254e	Name	env-stage-kestrel-tugboat-i-3e4a254e
+RESERVATION	r-bf6c3ec4	821387913885	env-prod,env-prod-tugboat
+INSTANCE	i-100a6460	ami-fd20ad94	ec2-50-17-80-43.compute-1.amazonaws.com	ip-10-6-93-150.ec2.internal	running	techops	0		m1.large	2013-02-04T22:21:51+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	50.17.80.43	10.6.93.150			ebs					paravirtual	xen		sg-b6dae9de, sg-3e505d56	default	false	
+BLOCKDEVICE	/dev/sda1	vol-76e33907	2013-02-04T22:21:55.000Z	true		
+TAG	instance	i-100a6460	Name	env-prod-tugboat-i-100a6460
+RESERVATION	r-5fc9ee24	821387913885	env-prod,env-prod-build
+INSTANCE	i-c45729b4	ami-fd20ad94	ec2-23-22-86-237.compute-1.amazonaws.com	ip-10-118-241-189.ec2.internal	running	techops	0		m1.large	2013-02-06T05:29:06+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.22.86.237	10.118.241.189			ebs					paravirtual	xen		sg-b6dae9de, sg-184f4070	default	false	
+BLOCKDEVICE	/dev/sda1	vol-9fff55ee	2013-02-06T05:29:11.000Z	true		
+TAG	instance	i-c45729b4	Name	env-prod-build-i-c45729b4
+RESERVATION	r-a87479d3	821387913885	env-stage-redis-kicktag,env-stage
+INSTANCE	i-41e2d531	ami-fd20ad94	ec2-107-20-90-153.compute-1.amazonaws.com	ip-10-72-105-89.ec2.internal	running	techops	0		m1.large	2013-02-11T19:30:10+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	107.20.90.153	10.72.105.89			ebs					paravirtual	xen		sg-4feffb27, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-8c5532fd	2013-02-11T19:30:15.000Z	true		
+RESERVATION	r-9ab8a4e1	821387913885	env-prod-redis-tugboat,env-prod
+INSTANCE	i-f98d8489	ami-fd20ad94	ec2-54-235-152-23.compute-1.amazonaws.com	ip-10-194-103-144.ec2.internal	running	techops	0		m1.large	2013-02-14T01:55:49+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.235.152.23	10.194.103.144			ebs					paravirtual	xen		sg-b54157dd, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5ee59a2f	2013-02-14T01:56:04.000Z	true		
+TAG	instance	i-f98d8489	Name	env-prod-redis-tugboat-i-f98d8489
+RESERVATION	r-7f46a305	821387913885	env-stage-redis-tugboat,env-stage
+INSTANCE	i-5bb5a62b	ami-fd20ad94	ec2-54-235-152-10.compute-1.amazonaws.com	ip-10-118-207-198.ec2.internal	running	techops	0		m1.large	2013-02-14T22:05:10+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.235.152.10	10.118.207.198			ebs					paravirtual	xen		sg-37f5e35f, sg-6452610c	default	false	
+BLOCKDEVICE	/dev/sda1	vol-35591844	2013-02-14T22:05:14.000Z	true		
+TAG	instance	i-5bb5a62b	Name	env-stage-redis-tugboat-i-5bb5a62b
+RESERVATION	r-e1f4109b	821387913885	env-qa-redis-tugboat,env-qa
+INSTANCE	i-85d4c6f5	ami-fd20ad94	ec2-54-235-154-25.compute-1.amazonaws.com	ip-10-12-59-112.ec2.internal	running	techops	0		m1.large	2013-02-14T23:21:01+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.235.154.25	10.12.59.112			ebs					paravirtual	xen		sg-ebfdeb83, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-5eeaab2f	2013-02-14T23:21:05.000Z	true		
+TAG	instance	i-85d4c6f5	Name	env-qa-redis-tugboat-i-85d4c6f5
+RESERVATION	r-6559b41f	821387913885	env-prod,env-prod-tugboat
+INSTANCE	i-d819feab	ami-fd20ad94	ec2-54-234-250-154.compute-1.amazonaws.com	ip-10-98-70-165.ec2.internal	running	techops	0		m1.large	2013-02-15T22:03:32+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.234.250.154	10.98.70.165			ebs					paravirtual	xen		sg-b6dae9de, sg-3e505d56	default	false	
+BLOCKDEVICE	/dev/sda1	vol-4680cb37	2013-02-15T22:03:37.000Z	true		
+TAG	instance	i-d819feab	Name	env-prod-tugboat-i-d819feab
+RESERVATION	r-a5a844df	821387913885	env-prod,env-prod-tugboat
+INSTANCE	i-f87e998b	ami-fd20ad94	ec2-184-73-24-84.compute-1.amazonaws.com	ip-10-118-25-14.ec2.internal	running	techops	0		m1.large	2013-02-15T22:16:20+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	184.73.24.84	10.118.25.14			ebs					paravirtual	xen		sg-b6dae9de, sg-3e505d56	default	false	
+BLOCKDEVICE	/dev/sda1	vol-db94dfaa	2013-02-15T22:16:24.000Z	true		
+TAG	instance	i-f87e998b	Name	env-prod-tugboat-i-f87e998b
+RESERVATION	r-d5fc30af	821387913885	env-wildwest,env-wildwest-mobile-web
+INSTANCE	i-34cb1c47	ami-fd20ad94	ec2-54-234-181-70.compute-1.amazonaws.com	ip-10-124-11-170.ec2.internal	running	techops	0		m1.small	2013-02-20T18:38:12+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.234.181.70	10.124.11.170			ebs					paravirtual	xen		sg-047d4e6c, sg-3dcbd955	default	false	
+BLOCKDEVICE	/dev/sda1	vol-f22a1483	2013-02-20T18:38:14.000Z	true		
+TAG	instance	i-34cb1c47	Name	env-wildwest-mobile-web-i-34cb1c47
+RESERVATION	r-fbb26b81	821387913885	env-prod-redis-tugboat,env-prod
+INSTANCE	i-bc64cccf	ami-fd20ad94	ec2-23-23-59-162.compute-1.amazonaws.com	ip-10-34-75-20.ec2.internal	running	techops	0		m1.large	2013-02-23T00:21:23+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.23.59.162	10.34.75.20			ebs					paravirtual	xen		sg-b54157dd, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-024d5d73	2013-02-23T00:21:27.000Z	true		
+TAG	instance	i-bc64cccf	Name	env-prod-redis-tugboat-i-bc64cccf
+RESERVATION	r-4322b639	821387913885	env-prod-haproxy-db,env-prod
+INSTANCE	i-2a80ff59	ami-fd20ad94	ec2-54-235-221-230.compute-1.amazonaws.com	ip-10-32-49-20.ec2.internal	running	techops	0		m1.large	2013-03-01T20:29:04+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	54.235.221.230	10.32.49.20			ebs					paravirtual	xen		sg-31e1f959, sg-b6dae9de	default	false	
+BLOCKDEVICE	/dev/sda1	vol-1af52b6a	2013-03-01T20:29:07.000Z	true		
+TAG	instance	i-2a80ff59	Name	env-prod-haproxy-db-i-2a80ff59
+RESERVATION	r-2353c559	821387913885	env-qa-haproxy-db,env-qa
+INSTANCE	i-bcd3aacf	ami-fd20ad94	ec2-107-21-237-211.compute-1.amazonaws.com	domU-12-31-39-16-95-EA.compute-1.internal	running	techops	0		m1.large	2013-03-02T00:26:17+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	107.21.237.211	10.96.150.24			ebs					paravirtual	xen		sg-7f908817, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-dde931ad	2013-03-02T00:26:21.000Z	true		
+TAG	instance	i-bcd3aacf	Name	env-qa-haproxy-db-i-bcd3aacf
+RESERVATION	r-d776e0ad	821387913885	env-stage,env-stage-haproxy-db
+INSTANCE	i-4a374f39	ami-fd20ad94	ec2-107-21-237-138.compute-1.amazonaws.com	ip-10-32-59-169.ec2.internal	running	techops	0		m1.large	2013-03-02T00:42:43+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	107.21.237.138	10.32.59.169			ebs					paravirtual	xen		sg-6452610c, sg-9b9f87f3	default	false	
+BLOCKDEVICE	/dev/sda1	vol-7800d808	2013-03-02T00:42:47.000Z	true		
+TAG	instance	i-4a374f39	Name	env-stage-haproxy-db-i-4a374f39
+RESERVATION	r-43186d39	821387913885	env-qa-upcode,env-qa
+INSTANCE	i-ce5575bd	ami-fd20ad94	ec2-23-22-152-22.compute-1.amazonaws.com	ip-10-244-106-194.ec2.internal	running	techops	0		c1.medium	2013-03-05T19:34:32+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	23.22.152.22	10.244.106.194			ebs					paravirtual	xen		sg-642e270c, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-96ca4ee6	2013-03-05T19:34:37.000Z	true		
+RESERVATION	r-cffae9b5	821387913885	env-prod,env-prod-deployer
+INSTANCE	i-1742b378	ami-fd20ad94	ec2-54-235-12-163.compute-1.amazonaws.com	ip-10-108-38-101.ec2.internal	running	techops	0		m1.small	2013-03-19T04:19:29+0000	us-east-1b	aki-825ea7eb			monitoring-disabled	54.235.12.163	10.108.38.101			ebs					paravirtual	xen		sg-b6dae9de, sg-f18c8699	default	false	
+BLOCKDEVICE	/dev/sda1	vol-937f6ee3	2013-03-19T04:19:33.000Z	true		
+TAG	instance	i-1742b378	Name	env-prod-deployer-i-1742b378
+RESERVATION	r-b21396cf	821387913885	env-qa-director,env-qa
+INSTANCE	i-85f5f8ea	ami-fd20ad94	ec2-107-21-149-106.compute-1.amazonaws.com	ip-10-62-94-227.ec2.internal	running	techops	0		m1.small	2013-04-01T21:06:11+0000	us-east-1c	aki-825ea7eb			monitoring-disabled	107.21.149.106	10.62.94.227			ebs					paravirtual	xen		sg-ee35df85, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-601c7013	2013-04-01T21:06:15.000Z	true		
+RESERVATION	r-9cb83ce1	821387913885	env-qa-director,env-qa
+INSTANCE	i-982aedf6	ami-fd20ad94	ec2-107-21-65-185.compute-1.amazonaws.com	ip-10-90-146-85.ec2.internal	running	techops	0		m1.small	2013-04-01T22:40:32+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	107.21.65.185	10.90.146.85			ebs					paravirtual	xen		sg-ee35df85, sg-5c380734	default	false	
+BLOCKDEVICE	/dev/sda1	vol-35325d46	2013-04-01T22:40:37.000Z	true		
+RESERVATION	r-3071fe4d	821387913885	env-wildwest,env-wildwest-tester
+INSTANCE	i-4e481b26	ami-fd20ad94	ec2-54-224-65-105.compute-1.amazonaws.com	ip-10-123-38-239.ec2.internal	running	techops	0		m1.small	2013-04-02T23:42:02+0000	us-east-1d	aki-825ea7eb			monitoring-disabled	54.224.65.105	10.123.38.239			ebs					paravirtual	xen		sg-047d4e6c, sg-f211119a	default	false	
+BLOCKDEVICE	/dev/sda1	vol-c8a6f38e	2013-04-02T23:42:06.000Z	true		
+TAG	instance	i-4e481b26	Name	env-wildwest-tester-i-4e481b26
+EOF

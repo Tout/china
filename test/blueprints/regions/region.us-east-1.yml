@@ -1,0 +1,16 @@
+# region-specific defaults
+ENV_PREFIX: ue1
+EC2_REGION_AZS: [ us-east-1a, us-east-1b, us-east-1c, us-east-1d ]
+
+default_availability_zone: us-east-1a
+default_ami: ami-ff20af94
+
+jump_sgs: [ env-prod-jump, awsdev ]
+deploy_sgs: env-prod-deployer
+
+# dev is special, as it can see into wildwest
+# do NOT propogate this to other regions
+#env_dev_group_name: env-dev
+
+# supported environments
+supported_envs: [ dev, stage, prod ]

@@ -5,7 +5,6 @@ import os
 import unit
 import util
 import ec2
-import s3
 from pprint import pprint, pformat
 
 def setup_environment(ctx, unit_name):
@@ -32,12 +31,3 @@ def setup_unit_environment(ctx, unit_name):
             if env in authorizations:
                 for auth in authorizations[env]:
                     ec2.authorize(auth, active_unit.group_name, ctx.region_config)
-
-
-def create(ctx):
-
-    # create S3 buckets
-    prefix = ctx.region_config['s3_bucket_prefix'] + "-" + ctx.specific_environment['name'] + "."
-    for bucket in ctx.region_config['buckets']:
-        s3.create_bucket(prefix+bucket)
-

@@ -1,0 +1,13 @@
+ec2-run-instances ami-ff20af94 --instance-initiated-shutdown-behavior terminate -g env-dev -g env-dev-example -t c1.xlarge -k bastion_start20130906 -f user_data_md5_f898fd014c8e4e440fbe0853efbd54a8 -z us-east-1c
+iid2hn i-945af9e3
+nc -z ec2-54-234-99-180.compute-1.amazonaws.com 22
+knife bootstrap ec2-54-234-99-180.compute-1.amazonaws.com --run-list role[example] --node-name env-dev-example-i-945af9e3 --ssh-user ubuntu -i {{HOME}}/.ssh/keys/bastion_start20130906.pem --sudo --no-host-key-verify --environment dev
+ec2-create-tags i-945af9e3 --tag Name=env-dev-example-i-945af9e3
+create-cname env-dev-example-i-945af9e3.unit ec2-54-234-99-180.compute-1.amazonaws.com. 86400
+knife environment show -F json dev
+iid2privipv4 i-945af9e3
+knife environment from file knife.json
+knife environment show -F json dev
+ssh-sg-hosts env-dev-haproxy-app sudo chef-client
+ssh-asg-hosts env-dev-director sudo chef-client
+ssh-tag-hosts env-dev-haproxy-app sudo chef-client

@@ -1,0 +1,39 @@
+#!/bin/bash
+chars='[ !"#$&()*,;<>?\^`{|}]'
+
+do_data_file=0
+orig_data_file=""
+for arg
+do
+    if [ $do_data_file -eq 1 ] ; then
+      orig_data_file=${arg}
+      arg="user_data_md5_$(cat $arg | tr -d ' \n\t' | md5sum | awk '{print $1}')"
+      do_data_file=0
+    fi
+    if [ "$arg" = "-f" ] ; then
+      do_data_file=1
+    fi
+
+    if [[ $arg == *\'* ]]
+    then
+        arg=\""$arg"\"
+    elif [[ $arg == *$chars* ]]
+    then
+        arg="'$arg'"
+    fi
+    allargs+=("$arg")    # ${allargs[@]} is to be used only for printing
+done
+
+if [ "x${CHINA_TEST_LOG}" != "x" ] ; then
+  echo -n "$(basename $0) " >> ${CHINA_TEST_LOG}
+  printf "%s " "${allargs[*]}" >> ${CHINA_TEST_LOG}
+  echo " " >> ${CHINA_TEST_LOG}
+  if [ "x${orig_data_file}" != "x" ] ; then
+    echo "# user_data file: ${orig_data_file}" >> ${CHINA_TEST_LOG}
+  fi
+fi
+
+echo "RESERVATION r-b6ea58c1    696664755663    default"
+echo "INSTANCE    i-945af9e3    ami-dd8ea5b9    pending    0    c1.medium    2010-04-15T10:47:56+0000    eu-west-1a    aki-b02a01c4    ari-39c2e94d"
+
+# Note the instance id above, it is also used in the knife command so that when creating a unit, any postprocessing that checks if the server is in the knife env will succeed 

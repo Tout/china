@@ -1,0 +1,64 @@
+authorizations:
+  default:
+  - ports: 8080
+    to: {{corp_ip_block}}
+
+  - ports: 3000
+    to: {{env_group_name}}-director, {{env_group_name}}-haproxy-app
+
+  # environment-specific authorizations
+  wildwest:
+    - ports: 3000
+      to: {{jump_sgs}}
+
+    - ports: 3000
+      to: {{env_ensign}}-dev
+
+    # You can use mustache iterators. Here we iterate over each supported environment defined in the region's yml
+    {{#supported_envs}}
+    - ports: 14500
+      to: {{env_ensign}}-{{.}}
+    {{/supported_envs}}
+
+
+override_region_context:
+  keypair: bastion_start20130906 # for example jump needs this
+
+instance_size: c1.xlarge
+
+availability_zone:
+  east: us-east-1c
+  west: us-west-2a
+
+# auto-scale sizing, used by china_asg commands
+auto_scale:
+  default:
+    min: 1
+    max: 1
+    desired: 1
+  prod:
+    min: 4
+    max: 10
+    desired: 4
+
+user_data:
+  {{unit_name}}: |
+    #!/bin/bash
+    curl http://deployer.prod.env.tout.com:14500/deployer/$(ec2metadata --instance-id)
+
+  {{unit_name}}-test: |
+    #!/bin/bash
+    curl http://deployer.prod.env.tout.com:14500/deployer/$(ec2metadata --instance-id)/{{unit_name}}-test
+
+  # since most of the time this is simply a curl to deployer.prod.env.tout.com, we have a convenience case
+  {{unit_name}}-example: deployer
+
+  # if you need to override where the deployer is, do it thusly:
+  {{unit_name}}-example2:
+    deployer: http://deployer.prod.env.tout.com:14500
+
+post_bootstrap:
+  refresh_asg_hosts: {{env_ensign}}-{{env_name}}-director
+  refresh_sg_hosts: {{env_ensign}}-{{env_name}}-haproxy-app
+  refresh_tag_hosts: {{env_ensign}}-{{env_name}}-haproxy-app
+

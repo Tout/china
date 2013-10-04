@@ -1,0 +1,17 @@
+#!/bin/bash
+chars='[ !"#$&()*,;<>?\^`{|}]'
+for arg
+do
+    if [[ $arg == *\'* ]]
+    then
+        arg=\""$arg"\"
+    elif [[ $arg == *$chars* ]]
+    then
+        arg="'$arg'"
+    fi
+    allargs+=("$arg")    # ${allargs[@]} is to be used only for printing
+done
+
+echo -n "$(basename $0) "
+printf "%s " "${allargs[*]}"
+echo ""

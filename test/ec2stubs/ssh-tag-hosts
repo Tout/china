@@ -1,0 +1,23 @@
+#!/bin/bash
+chars='[ !"#$&()*,;<>?\^`{|}]'
+for arg
+do
+    if [[ $arg == *\'* ]]
+    then
+        arg=\""$arg"\"
+    elif [[ $arg == *$chars* ]]
+    then
+        arg="'$arg'"
+    fi
+    allargs+=("$arg")    # ${allargs[@]} is to be used only for printing
+done
+
+echo -n "$(basename $0) "
+printf "%s " "${allargs[*]}"
+echo " "
+
+if [ "x${CHINA_TEST_LOG}" != "x" ] ; then
+  echo -n "$(basename $0) " >> ${CHINA_TEST_LOG}
+  printf "%s " "${allargs[*]}" >> ${CHINA_TEST_LOG}
+  echo " " >> ${CHINA_TEST_LOG}
+fi

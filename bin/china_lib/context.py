@@ -12,12 +12,8 @@ class ChinaContextError:
         return "ChinaContextError: "+self.message
 
 class ChinaContext:
-    def __init__(self, blueprints_dir, command, valid_commands):
+    def __init__(self, blueprints_dir):
         self.blueprints_dir = blueprints_dir
-        self.valid_commands = valid_commands
-        if command not in self.valid_commands:
-            raise ChinaContextError("invalid command: " + command + ", valid commands are: " + str(self.valid_commands.keys()))
-        self.command = command
 
     def __repr__(self):
         return "ChinaContext{"+self.command+", "+self.region+", "+self.environment+"}"

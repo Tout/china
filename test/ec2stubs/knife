@@ -1,0 +1,89 @@
+#!/bin/bash
+chars='[ !"#$&()*,;<>?\^`{|}]'
+knife_file="none"
+count=1
+for arg
+do
+    count=$(expr $count + 1)
+    if [ $count -eq 5 ] && [ "${2} ${3}" = "from file" ] && [ $knife_file = "none" ] ; then
+      knife_file="${4}"
+      arg="knife.json"
+    fi
+
+    if [[ $arg == *\'* ]]
+    then
+        arg=\""$arg"\"
+    elif [[ $arg == *$chars* ]]
+    then
+        arg="'$arg'"
+    fi
+    allargs+=("$arg")    # ${allargs[@]} is to be used only for printing
+done
+
+if [ "x${CHINA_TEST_LOG}" != "x" ] ; then
+  echo -n "$(basename $0) " >> ${CHINA_TEST_LOG}
+  printf "%s " "${allargs[*]}" >> ${CHINA_TEST_LOG}
+  echo " " >> ${CHINA_TEST_LOG}
+  if [ $knife_file != "none" ] ; then
+    echo "# knife_file=$knife_file" >> ${CHINA_TEST_LOG}
+  fi
+fi
+
+CMD="${1}"
+
+case ${CMD} in
+  environment)
+    ENV="${5}"
+    if [[ ${ENV} == uw* ]] ; then
+      REGION=us-west-2
+    else
+      REGION=us-east-1
+    fi
+
+# note that the "dummy" server here matches the instance-id returned from ec2-run-instances
+cat <<EOF
+{
+  "dummy-server-to-make-tests-pass": "env-${ENV}-${ACTIVE_UNIT}-i-945af9e3.unit.example.com",
+  "china_command": "$(basename $0) $@",
+  "name": "${ENV}",
+  "description": "${ENV}",
+  "cookbook_versions": {
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "EC2_REGION": "${REGION}",
+    "syslog": {
+      "server": "ec2-192-225-75-29.compute-1.amazonaws.com."
+    },
+    "java_services": {
+      "upcode": {
+        "version": "2.0.2"
+      }
+    },
+    "rails_env": "production",
+    "haproxy": {
+      "haproxy-example": {
+        "servers": [
+          "ec2-192-17-80-43.compute-1.amazonaws.com",
+          "ec2-192-234-250-154.compute-1.amazonaws.com",
+          "ec2-192-73-24-84.compute-1.amazonaws.com"
+        ],
+        "port": [
+          "8300",
+          "8301"
+        ]
+      }
+    }
+  }
+}
+EOF
+  ;;
+  *)
+  echo -n "$(basename $0) "
+  printf "%s " "${allargs[*]}"
+  echo " "
+  ;;
+esac

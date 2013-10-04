@@ -1,0 +1,20 @@
+corp_ip_block: 192.168.141.114/32
+aws_account: 3478897345
+env_ensign: env
+keypair: techops
+default_instance_size: m1.large
+unit_domain: unit.example.com
+
+deployer_base_uri: http://deployer.example.com:14500
+
+# set these locally if different
+KEY_DIR: ~/.ssh/keys
+
+worldwild_jumps: [ 192.168.230.79, 192.168.233.5 ]
+
+s3_bucket_prefix: mycorp
+
+buckets:
+  - foo-bucket
+  - bar-bucket
+  - baz-buckey

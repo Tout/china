@@ -1,0 +1,12 @@
+# region-specific defaults
+ENV_PREFIX: uw2
+EC2_REGION_AZS: [ us-west-2a, us-west1b, us-west1c ]
+
+default_availability_zone: us-west-2a
+default_ami: ami-cbe76ff9
+
+jump_sgs: env-uw2prod-jump
+deploy_sgs: env-uw2prod-deployer
+
+# supported environments
+supported_envs: [ uw2prod, uw2qa ]

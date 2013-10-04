@@ -23,6 +23,7 @@ def add_to_haproxy(unit, host, iid):
         output = knife_environment_show(unit.env_name)
         if util.is_noop():
             temp = "debug-knife-file.json"
+            iid2privipv4(iid)
         else:
             data = json.loads(output)
 
@@ -40,7 +41,7 @@ def add_to_haproxy(unit, host, iid):
 
         # verify host is now in output
         output = knife_environment_show(unit.env_name)
-        print "looking for host="+host+" in output: "+str(output)
+        print >> sys.stderr, "looking for host="+host+" in output: "+str(output)
         if util.is_noop():
             return
 
@@ -225,7 +226,7 @@ class ChinaUnit:
             return generate_deployer_script(self, deployer)
         else:
             # whatever kind of shell script you want
-            return str(config['user_data'][self.role_name]).strip()
+            return str(self.config['user_data'][self.role_name]).strip()
 
     def get_keypair(self):
         return self.region_context.region_config['keypair']
@@ -258,10 +259,3 @@ class ChinaUnit:
             iid = run_instance(self, i)
             add_instance(self, i, iid)
 
-def instantiate_units(ctx, unit_name, role_name, num_instances):
-    unit = ChinaUnit(ctx, unit_name, role_name, num_instances)
-    unit.instantiate()
-
-def add_units(ctx, unit_name, role_name, num_instances):
-    unit = ChinaUnit(ctx, unit_name, role_name, num_instances)
-    unit.add()

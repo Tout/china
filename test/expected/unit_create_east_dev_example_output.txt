@@ -1,0 +1,1 @@
+ec2-run-instances ami-ff20af94 --instance-initiated-shutdown-behavior terminate -g env-dev -g env-dev-example -t c1.xlarge -k bastion_start20130906 -f user_data_md5_f898fd014c8e4e440fbe0853efbd54a8 -z us-east-1c

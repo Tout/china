@@ -111,6 +111,10 @@ def write_file(data, path):
     with open(path, "w") as file:
         file.write(data)
 
+def read_file(path):
+    with open(path) as data:
+        return data.read()
+
 def find_element_on_line_starting_with(output, start, word_index):
     for line in output.split("\n"):
         if line.startswith(start):

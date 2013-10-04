@@ -24,25 +24,23 @@ def config_basic_args(parser):
                         help='the environment to operate in',
                         required=True)
 
-def config_common_args(parser, valid_commands, default_command):
-
-    config_basic_args(parser)
-
-    parser.add_argument('-u', '--unit',
-                        help='the name of the unit to work with',
-                        required=True)
-
-    parser.add_argument('-c', '--command',
-                        help='one of: '+str(list(valid_commands.keys())),
-                        default=default_command,
-                        required=default_command is None)
-
     parser.add_argument('-n', '--noop',
                         help='do not execute any commands, but show what would be done',
                         action='store_const',
                         const=True,
                         default=False)
 
-def add_role_arg(parser):
+    parser.add_argument('-u', '--unit',
+                        help='the name of the unit to work with',
+                        required=True)
+
+def config_unit_args(parser):
+    config_basic_args(parser)
+
     parser.add_argument('-l', '--role',
                         help='the role of the unit (default is the unit name)')
+
+    parser.add_argument('-x', '--number',
+                        help='how many instances to create',
+                        default=1)
+

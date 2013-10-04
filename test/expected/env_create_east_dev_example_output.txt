@@ -1,0 +1,14 @@
+ec2-create-group env-dev -d 'Environment dev'
+ec2-authorize env-dev -P tcp -p 22 -u 3478897345 -o env-prod-jump
+ec2-authorize env-dev -P tcp -p 22 -u 3478897345 -o awsdev
+ec2-authorize env-dev -P tcp -p 22 -u 3478897345 -o env-prod-deployer
+ec2-authorize env-inf-syslog-server -P tcp -p 514 -u 3478897345 -o env-dev
+ec2-authorize env-inf-syslog-server -P udp -p 514 -u 3478897345 -o env-dev
+ec2-authorize ssh-only -P udp -p 514 -u 3478897345 -o env-dev
+ec2-authorize env-dev -P icmp -t -1:-1 -u 3478897345 -o env-inf-nagios-server
+ec2-authorize env-dev -P tcp -p 5666 -u 3478897345 -o env-inf-nagios-server
+ec2-authorize env-dev -P tcp -p 22 -s 192.168.141.114/32
+ec2-create-group env-dev-example -d 'Environment dev Unit example'
+ec2-authorize env-dev-example -P tcp -p 8080 -s 192.168.141.114/32
+ec2-authorize env-dev-example -P tcp -p 3000 -u 3478897345 -o env-dev-director
+ec2-authorize env-dev-example -P tcp -p 3000 -u 3478897345 -o env-dev-haproxy-app

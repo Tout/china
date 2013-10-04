@@ -1,0 +1,21 @@
+#!/bin/bash
+chars='[ !"#$&()*,;<>?\^`{|}]'
+for arg
+do
+    if [[ $arg == *\'* ]]
+    then
+        arg=\""$arg"\"
+    elif [[ $arg == *$chars* ]]
+    then
+        arg="'$arg'"
+    fi
+    allargs+=("$arg")    # ${allargs[@]} is to be used only for printing
+done
+
+echo "ec2-54-234-99-180.compute-1.amazonaws.com"
+
+if [ "x${CHINA_TEST_LOG}" != "x" ] ; then
+  echo -n "$(basename $0) " >> ${CHINA_TEST_LOG}
+  printf "%s " "${allargs[*]}" >> ${CHINA_TEST_LOG}
+  echo " " >> ${CHINA_TEST_LOG}
+fi
