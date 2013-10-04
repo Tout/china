@@ -3,7 +3,6 @@
 import sys
 import os
 import argparse
-from china_lib import environment
 from china_lib import context
 
 from china_lib.global_config import *
@@ -20,6 +19,6 @@ ctx.set_region(args.region)
 ctx.set_environment(args.environment)
 
 # OK, we have everything we need, let's roll...
-environment.setup_environment(ctx, args.unit)
+ctx.create_environment(args.unit)
 
 sys.exit(0)

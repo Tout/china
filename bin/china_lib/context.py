@@ -1,6 +1,8 @@
 import os
 from global_config import *
 import util
+import unit
+import ec2
 
 SUPPORTED_ENVS = 'supported_envs'
 
@@ -50,3 +52,25 @@ class ChinaContext:
         if os.path.isfile(env_yml):
             self.specific_environment = util.load_yaml(env_yml, self.region_config)
         self.specific_environment['name'] = env
+
+    def create_environment(self, unit_name):
+        # Create the EC2 group
+        env_name = self.specific_environment['name']
+        group_name = util.env_prefix(self) + env_name
+        ec2.create_group(group_name, 'Environment ' + env_name)
+
+        for env in [ self.default_environment, self.specific_environment ]:
+            if 'authorizations' in env:
+                for auth in env['authorizations']:
+                    ec2.authorize(auth, group_name, self.region_config)
+
+        active_unit = unit.ChinaUnit(self, unit_name)
+        active_unit.create_ec2_group()
+        if 'authorizations' in active_unit.config:
+            authorizations = active_unit.config['authorizations']
+
+            # default and env-specific grants
+            for env in ['default', active_unit.env_name]:
+                if env in authorizations:
+                    for auth in authorizations[env]:
+                        ec2.authorize(auth, active_unit.group_name, self.region_config)
