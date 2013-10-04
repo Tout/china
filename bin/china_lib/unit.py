@@ -51,7 +51,10 @@ def add_to_haproxy(unit, host, iid):
 
 def generate_deployer_script(unit, deployer_base_uri=None):
     if deployer_base_uri is None:
-        deployer_base_uri = unit.region_context.region_config['deployer_base_uri']
+        region_config = unit.region_context.region_config
+        if 'deployer_base_uri' not in region_config:
+            raise Exception("no 'deployer_base_uri' defined for region: "+unit.region)
+        deployer_base_uri = region_config['deployer_base_uri']
     suffix = ""
     if unit.role_name != unit.unit_name:
         suffix = "/" + unit.role_name
@@ -64,8 +67,7 @@ def run_instance(unit, instance_number):
     region_config = unit.region_context.region_config
     region_name = unit.region_context.region
 
-    ami = region_config['ami']
-    args = ["ec2-run-instances", ami,
+    args = ["ec2-run-instances", unit.get_ami(),
             "--instance-initiated-shutdown-behavior", "terminate",
             "-g", unit.env_group_name,
             "-g", unit.group_name]
@@ -75,39 +77,15 @@ def run_instance(unit, instance_number):
             args.append("-g")
             args.append(group)
 
-    if 'instance_size' in config:
-        size = config['instance_size']
-    else:
-        size = region_config['default_instance_size']
+    args += [ "-t", unit.get_instance_size(), "-k", unit.get_keypair() ]
 
-    args += ["-t", size, "-k", region_config['keypair']]
-
-    if 'user_data' in config:
-        if unit.role_name not in config['user_data']:
-            raise Exception("no user_data found in unit "+unit.unit_name+" for role "+unit.role_name)
-
-        data = config['user_data'][unit.role_name]
-        if isinstance(data, types.StringType) and data == 'deployer':
-            # super simple case - default deployer action
-            data = generate_deployer_script(unit)
-
-        elif isinstance(data, types.DictType) and data.has_key('deployer'):
-            deployer = data['deployer']
-            if not deployer.startswith('http'):
-                raise Exception("custom deployer url is invalid ("+deployer+") in yml: "+unit.yml)
-            # custom deployer action
-            data = generate_deployer_script(unit, deployer)
-        else:
-            # whatever kind of shell script you want
-            data = str(config['user_data'][unit.role_name]).strip()
-
+    data = unit.get_user_data()
+    if data is not None:
         data_file = util.write_temp_file(data, "run_"+unit.unit_name+"_"+unit.role_name+"_userdata_")
         args += [ "-f", data_file ]
 
-    if 'default_availability_zone' in config and region_name in config['default_availability_zone']:
-        azone = config['default_availability_zone'][region_name]
-        if azone not in region_config['EC2_REGION_AZS']:
-            raise Exception("Availability Zone '"+azone+"' is not allowed in region "+region_name+". Valid values: "+str(region_config['EC2_REGION_AZS']))
+    azone = unit.get_availability_zone()
+    if azone is not None:
         args += [ "-z", azone]
 
     elif 'default_availability_zone' in region_config:
@@ -185,7 +163,8 @@ class ChinaUnit:
         self.context['unit_name'] = unit_name
         self.context['env_name'] = self.env_name
         self.context['env_group_name'] = self.env_group_name
-        self.yml = ctx.blueprints_dir + "/units/" + unit_name + "/unit.yml"
+        self.unit_yml_dir = ctx.blueprints_dir + "/units/" + unit_name
+        self.yml = self.unit_yml_dir + "/unit.yml"
         self.config = util.load_yaml(self.yml, self.context)
         # print "loaded "+unit_name+" yml: "+pformat(self.config)
         if 'override_region_context' in self.config:
@@ -193,6 +172,79 @@ class ChinaUnit:
                 self.region_context.region_config[key] = value
         # print("config====")
         # pprint(self.config)
+
+    def get_ami(self):
+        region_config = self.region_context.region_config
+        if 'ami' in self.config:
+            return self.config['ami']
+        elif 'default_ami' in region_config:
+            return region_config['default_ami']
+        else:
+            raise Exception("no 'ami' specified in unit "+self.unit_name+" and no 'default_ami' specified in region "+self.region)
+
+    def get_instance_size(self):
+        region_config = self.region_context.region_config
+        if 'instance_size' in self.config:
+            return self.config['instance_size']
+        elif 'default_instance_size' in region_config:
+            return region_config['default_instance_size']
+        else:
+            raise Exception("no 'instance_size' specified in unit "+self.unit_name+" and no 'default_instance_size' specified in region "+self.region)
+
+    def get_availability_zone(self):
+        region = self.region_context.region
+        region_config = self.region_context.region_config
+        azone = None
+        if 'availability_zone' in self.config and region in self.config['availability_zone']:
+            azone = self.config['availability_zone'][region]
+        elif 'default_availability_zone' in region_config:
+            azone = region_config['default_availability_zone']
+
+        if azone is not None and azone not in region_config['EC2_REGION_AZS']:
+            raise Exception("Availability Zone '"+azone+"' is not allowed in region "+region+". Valid values: "+str(region_config['EC2_REGION_AZS']))
+
+        return azone
+
+    def get_user_data(self):
+        if 'user_data' not in self.config:
+            return None
+
+        if self.role_name not in self.config['user_data']:
+            raise Exception("no user_data found in unit "+self.unit_name+" for role "+self.role_name)
+
+        data = self.config['user_data'][self.role_name]
+        if isinstance(data, types.StringType) and data == 'deployer':
+            # super simple case - default deployer action
+            return generate_deployer_script(self)
+
+        elif isinstance(data, types.DictType) and data.has_key('deployer'):
+            deployer = data['deployer']
+            if not deployer.startswith('http'):
+                raise Exception("custom deployer url is invalid ("+deployer+") in yml: "+self.yml)
+                # custom deployer action
+            return generate_deployer_script(self, deployer)
+        else:
+            # whatever kind of shell script you want
+            return str(config['user_data'][self.role_name]).strip()
+
+    def get_keypair(self):
+        return self.region_context.region_config['keypair']
+
+    def get_asg_parameter(self, arg, default_value):
+        if 'auto_scale' in self.config:
+            for env in [ self.env_name, 'default' ]:
+                if env in self.config['auto_scale'] and arg in self.config['auto_scale'][env]:
+                    return str(self.config['auto_scale'][env][arg])
+        return default_value
+
+    def get_asg_max(self):
+        return self.get_asg_parameter('max', 1)
+
+    def get_asg_min(self):
+        return self.get_asg_parameter('min', 1)
+
+    def get_asg_desired(self):
+        return self.get_asg_parameter('desired', 1)
 
     def create_ec2_group(self):
         ec2.create_group(self.group_name, "Environment "+self.env_name+" Unit "+self.unit_name)

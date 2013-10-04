@@ -42,7 +42,7 @@ class ChinaContext:
 
     def set_environment(self, env):
         if env not in self.region_config[SUPPORTED_ENVS]:
-            raise ChinaContextError("environment '"+env+"' is not supported in region '" + self.region + "', check supported_envs in region config: "+self.region_config_file)
+            raise ChinaContextError("environment '"+env+"' is not supported in region '" + self.region + "', supported_envs in region config ("+self.region_config_file+"), must be one of: "+str(self.region_config[SUPPORTED_ENVS]))
 
         self.environment = env
 

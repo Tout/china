@@ -107,8 +107,14 @@ def write_temp_file(data, prefix=None):
     temp.close()
     return temp.name
 
+def write_file(data, path):
+    with open(path, "w") as file:
+        file.write(data)
+
 def find_element_on_line_starting_with(output, start, word_index):
     for line in output.split("\n"):
         if line.startswith(start):
             return line.split()[word_index]
     raise Exception("no line starting with " + start + " not found in output: "+output)
+
+

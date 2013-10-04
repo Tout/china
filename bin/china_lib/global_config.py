@@ -5,8 +5,8 @@ ENV_EC2_REGION="CHINA_EC2_REGION"
 
 VALID_REGIONS={'east': 'us-east-1', 'west': 'us-west-2'}
 
-def config_common_args(parser, valid_commands, default_command):
 
+def config_basic_args(parser):
     # load defaults if they are set
     blueprint_dir = util.env_var(ENV_BLUEPRINT_DIR)
     region = util.env_var(ENV_EC2_REGION)
@@ -24,6 +24,10 @@ def config_common_args(parser, valid_commands, default_command):
                         help='the environment to operate in',
                         required=True)
 
+def config_common_args(parser, valid_commands, default_command):
+
+    config_basic_args(parser)
+
     parser.add_argument('-u', '--unit',
                         help='the name of the unit to work with',
                         required=True)
@@ -38,3 +42,7 @@ def config_common_args(parser, valid_commands, default_command):
                         action='store_const',
                         const=True,
                         default=False)
+
+def add_role_arg(parser):
+    parser.add_argument('-l', '--role',
+                        help='the role of the unit (default is the unit name)')

@@ -16,9 +16,8 @@ VALID_COMMANDS = { DEFAULT_COMMAND: unit.instantiate_units,
 parser = argparse.ArgumentParser(description='Manage china unit instances')
 
 config_common_args(parser, VALID_COMMANDS, DEFAULT_COMMAND)
+add_role_arg(parser)
 
-parser.add_argument('-l', '--role',
-                    help='the role of the unit (default is the unit name)')
 parser.add_argument('-x', '--number',
                     help='how many instances to create',
                     default=1)
