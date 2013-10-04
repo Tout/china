@@ -25,15 +25,18 @@ The name of the unit to work with. This must match the name of the unit's direct
 #### Do-nothing mode (-n)
 Print the commands that would run, but do not execute anything. Dummy values will be shown where necessary.
 
-### china_env_create: Initialize an environment
+### china_env_create
+Initialize an environment
 
     china_env_create -e dev -u kicktag
 
-### china_unit_create: Launch an instance and do nothing else
+### china_unit_create
+Launch an instance and do nothing else
 
     china_unit_create -e dev -u kicktag
 
-### china_unit_add: Launch an instance and add it to various haproxy/directors that it should be part of
+### china_unit_add
+Launch an instance and add it to various haproxy/directors that it should be part of
 
     china_unit_add -e dev -u kicktag
 
