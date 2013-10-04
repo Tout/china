@@ -27,15 +27,15 @@ Print the commands that would run, but do not execute anything. Dummy values wil
 
 ## china_env: Initialize an environment
 
-    china_env -e dev -u kicktag
+    china_env_create -e dev -u kicktag
 
 ## china_unit: Work with unit instances
 
 To simply launch an instance and do nothing else:
 
-    china_unit -e dev -u kicktag
+    china_unit_create -e dev -u kicktag
 
 To launch an instance and add it to various haproxy/directors that it should be part of:
 
-    china_unit -e dev -u kicktag -c add
+    china_unit_add -e dev -u kicktag
 
