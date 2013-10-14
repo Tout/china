@@ -9,9 +9,7 @@ from china_lib import context
 from china_lib.global_config import *
 
 parser = argparse.ArgumentParser(description='Instantiate a new china unit instance')
-
 config_unit_args(parser)
-
 args = parser.parse_args()
 
 if args.noop:

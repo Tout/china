@@ -57,7 +57,8 @@ class ChinaContext:
         # Create the EC2 group
         env_name = self.specific_environment['name']
         group_name = util.env_prefix(self) + env_name
-        ec2.create_group(group_name, 'Environment ' + env_name)
+        region_name = self.region_config['EC2_REGION']
+        ec2.create_group(group_name, 'Environment ' + env_name, region_name)
 
         for env in [ self.default_environment, self.specific_environment ]:
             if 'authorizations' in env:

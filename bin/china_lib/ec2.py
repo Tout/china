@@ -2,8 +2,10 @@ import subprocess
 import util
 from pprint import pprint
 
-def create_group (group_name, description):
-    util.execute_shell([ 'ec2-create-group',  group_name, '-d', description ])
+def create_group (group_name, description, region_name):
+    util.execute_shell([ 'ec2-create-group',  group_name,
+                         '-d', description,
+                         '--region', region_name ])
 
 def authorize(auth, group_name, region):
     has_from = 'from' in auth
@@ -28,11 +30,12 @@ def do_authorize(from_group, to_group, auth, region):
         protocols = util.to_list(auth['protocols'])
 
     account = str(region['aws_account'])
+    region_name = str(region['EC2_REGION']).strip()
 
     auths = 0
     for protocol in protocols:
         if protocol == 'icmp':
-            authorize_icmp(from_group, to_group, auth['icmp_types'], account)
+            authorize_icmp(from_group, to_group, auth['icmp_types'], account, region_name)
             auths += 1
         else:
             if 'ports' not in auth:
@@ -40,28 +43,31 @@ def do_authorize(from_group, to_group, auth, region):
 
             ports = util.to_list(auth['ports'])
             for port in ports:
-                authorize_normal(from_group, to_group, port, protocol, account)
+                authorize_normal(from_group, to_group, port, protocol, account, region_name)
                 auths += 1
 
     if auths == 0:
         raise Exception("no authorizations made for auth: "+str(auth))
 
-def authorize_normal (from_addr, to_addr, port, protocol, account):
+def authorize_normal (from_addr, to_addr, port, protocol, account, region_name):
     # If it doesn't look like an IP address, then it's a group
     if util.is_cidr(to_addr):
         util.execute_shell([ 'ec2-authorize', from_addr,
+                             '--region', region_name,
                              '-P', protocol,
                              '-p', str(port),
                              '-s', to_addr])
     else:
         util.execute_shell([ 'ec2-authorize', from_addr,
+                             '--region', region_name,
                              '-P', protocol,
                              '-p', str(port),
                              '-u', account,
                              '-o', to_addr])
 
-def authorize_icmp (from_addr, to_addr, icmp_types, account):
+def authorize_icmp (from_addr, to_addr, icmp_types, account, region_name):
     util.execute_shell([ 'ec2-authorize', from_addr,
+                         '--region', region_name,
                          '-P', 'icmp',
                          '-t', icmp_types,
                          '-u', account,

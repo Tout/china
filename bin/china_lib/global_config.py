@@ -5,7 +5,6 @@ ENV_EC2_REGION="CHINA_EC2_REGION"
 
 VALID_REGIONS={'east': 'us-east-1', 'west': 'us-west-2'}
 
-
 def config_basic_args(parser):
     # load defaults if they are set
     blueprint_dir = util.env_var(ENV_BLUEPRINT_DIR)

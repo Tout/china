@@ -70,6 +70,7 @@ def run_instance(unit, instance_number):
 
     args = ["ec2-run-instances", unit.get_ami(),
             "--instance-initiated-shutdown-behavior", "terminate",
+            "--region", region_config['EC2_REGION'],
             "-g", unit.env_group_name,
             "-g", unit.group_name]
 
@@ -248,7 +249,8 @@ class ChinaUnit:
         return self.get_asg_parameter('desired', 1)
 
     def create_ec2_group(self):
-        ec2.create_group(self.group_name, "Environment "+self.env_name+" Unit "+self.unit_name)
+        region_name = self.region_context.region_config['EC2_REGION']
+        ec2.create_group(self.group_name, "Environment "+self.env_name+" Unit "+self.unit_name, region_name)
 
     def instantiate(self):
         for i in range(1, self.num_instances+1):

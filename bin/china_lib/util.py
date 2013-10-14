@@ -1,4 +1,5 @@
 import os
+import sys
 import yaml
 import pystache
 import re
@@ -49,18 +50,13 @@ def is_noop():
 def execute_shell_internal(args):
     env = {}
 
-    test_log = env_var('CHINA_TEST_LOG')
-    if test_log is not None:
-        # args.insert(0, 'CHINA_TEST_LOG='+test_log)
-        env['CHINA_TEST_LOG'] = test_log
+    for key in ['CHINA_TEST_LOG', 'ACTIVE_UNIT', 'EC2_HOME', 'JAVA_HOME', 'HOME', 'AWS_ACCESS_KEY', 'AWS_SECRET_KEY']:
+        if env_var(key) is not None:
+            env[key] = env_var(key)
 
     ec2_stubs = env_var('EC2_STUBS')
     if ec2_stubs is not None:
         args[0] = ec2_stubs + "/" + args[0]
-
-    active_unit = env_var('ACTIVE_UNIT')
-    if active_unit is not None:
-        env['ACTIVE_UNIT'] = active_unit
 
     cmd = ''
     for arg in args:
@@ -80,7 +76,7 @@ def execute_shell_internal(args):
         if os.path.exists(path+"/"+args[0]):
             args[0] = path + "/" + args[0]
 
-    # print "execute_shell (args="+str(args)+") with env="+str(env)
+    print >> sys.stderr, ">>> execute_shell ("+cmd+") with env="+str(env)
     child = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
     return child
 
@@ -89,7 +85,7 @@ def execute_shell(args):
     if child is None:
         return ["", ""]
     output = child.communicate()
-    # print "execute_shell got output="+str(output)
+    print >> sys.stderr, ">>> execute_shell got output="+str(output)
     return output
 
 def execute_shell_returncode(args):
