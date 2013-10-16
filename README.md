@@ -15,7 +15,7 @@ The EC2 region to operate in, for example 'east' or 'west'.
 If you define the environment variable CHINA\_EC2\_REGION then you can omit this option
 
 #### Environment (-e env_name)
-The EC2 environment to operate in, valid values depend on the region.
+The EC2 environment to operate in, valid values are found in the "supported_envs" in the region's yml blueprint.
 
 #### Unit (-u unit_name)
 The name of the unit to work with. This must match the name of the unit's directory within the blueprints repo.
