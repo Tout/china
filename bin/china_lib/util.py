@@ -95,10 +95,9 @@ def execute_shell_returncode(args):
     child.communicate()
     return child.returncode
 
-def write_temp_file(data, prefix=None):
-    if prefix is None:
-        prefix = "temp_"
-    temp = tempfile.NamedTemporaryFile(delete=False, prefix=prefix, suffix=".json")
+def write_temp_file(data, prefix="temp_", suffix=None):
+    
+    temp = tempfile.NamedTemporaryFile(delete=False, prefix=prefix, suffix=suffix)
     temp.write(data)
     temp.close()
     return temp.name

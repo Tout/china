@@ -84,7 +84,7 @@ def run_instance(unit, instance_number):
 
     data = unit.get_user_data()
     if data is not None:
-        data_file = util.write_temp_file(data, "run_"+unit.unit_name+"_"+unit.role_name+"_userdata_")
+        data_file = util.write_temp_file("run_"+unit.unit_name+"_"+unit.role_name+"_userdata_", suffix=".json")
         args += [ "-f", data_file ]
 
     azone = unit.get_availability_zone()
