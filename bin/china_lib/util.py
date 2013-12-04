@@ -77,7 +77,7 @@ def execute_shell_internal(args):
             args[0] = path + "/" + args[0]
 
     print >> sys.stderr, ">>> execute_shell ("+cmd+") with env="+str(env)
-    child = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
+    child = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return child
 
 def execute_shell(args):
@@ -98,7 +98,7 @@ def execute_shell_returncode(args):
 def write_temp_file(data, prefix=None):
     if prefix is None:
         prefix = "temp_"
-    temp = tempfile.NamedTemporaryFile(delete=False, prefix=prefix)
+    temp = tempfile.NamedTemporaryFile(delete=False, prefix=prefix, suffix=".json")
     temp.write(data)
     temp.close()
     return temp.name

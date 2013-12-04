@@ -1,5 +1,6 @@
-__author__ = 'jonathan'
+__author__ = 'jonathan, jba'
 
+import os
 import time
 import util
 import ec2
@@ -126,13 +127,14 @@ def bootstrap(unit, host, iid):
 
 def add_instance(unit, instance_number, iid):
     host = None
-    while host is None:
+    while True:
         host = str(util.execute_shell(["iid2hn", iid])[0]).strip()
+	print host
         if util.is_noop():
             host = 'debug.host.example.com'
 
         # print "iid2hn returned "+host
-        if host != "pending" and len(host) > 5 and len(host) < 100:
+        if host != "pending" and len(host) > 10 and len(host) < 100:
             break
         time.sleep(5)
 
