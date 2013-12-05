@@ -76,7 +76,7 @@ def execute_shell_internal(args):
         if os.path.exists(path+"/"+args[0]):
             args[0] = path + "/" + args[0]
 
-    print >> sys.stderr, ">>> execute_shell ("+cmd+") with env="+str(env)
+    print >> sys.stderr, ">>> execute_shell ("+cmd+")"
     child = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return child
 
@@ -95,7 +95,7 @@ def execute_shell_returncode(args):
     child.communicate()
     return child.returncode
 
-def write_temp_file(data, prefix="temp_", suffix=None):   
+def write_temp_file(data, prefix="temp_", suffix=""):   
     temp = tempfile.NamedTemporaryFile(delete=False, prefix=prefix, suffix=suffix)
     temp.write(data)
     temp.close()

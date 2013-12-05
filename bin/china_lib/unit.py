@@ -36,7 +36,7 @@ def add_to_haproxy(unit, host, iid):
             # print("looking for override/haproxy/"+block+"/servers/ to add host:"+host)
             data['override_attributes']['haproxy'][block]["servers"].append([host, ip])
 
-            temp = util.write_temp_file(json.dumps(data))
+            temp = util.write_temp_file(json.dumps(data), suffix=".json")
 
         util.execute_shell(["knife", "environment", "from", "file", temp])
 
@@ -164,18 +164,19 @@ class ChinaUnit:
         self.group_name = self.env_group_name + "-" + unit_name
 
         self.context = dict(ctx.region_config.items() + ctx.default_environment.items() + ctx.specific_environment.items())
+        # print "raw context is "+pformat(self.context)
         self.context['unit_name'] = unit_name
         self.context['env_name'] = self.env_name
         self.context['env_group_name'] = self.env_group_name
         self.unit_yml_dir = ctx.blueprints_dir + "/units/" + unit_name
         self.yml = self.unit_yml_dir + "/unit.yml"
         self.config = util.load_yaml(self.yml, self.context)
-        # print "loaded "+unit_name+" yml: "+pformat(self.config)
+        print "loaded "+unit_name+" yml: "+pformat(self.config)
         if 'override_region_context' in self.config:
             for key, value in self.config['override_region_context'].iteritems():
                 self.region_context.region_config[key] = value
-        # print("config====")
-        # pprint(self.config)
+        print("config====")
+        pprint(self.config)
 
     def get_ami(self):
         region_config = self.region_context.region_config
