@@ -3,6 +3,7 @@ from global_config import *
 import util
 import unit
 import ec2
+from pprint import pprint, pformat
 
 SUPPORTED_ENVS = 'supported_envs'
 
@@ -63,7 +64,8 @@ class ChinaContext:
         for env in [ self.default_environment, self.specific_environment ]:
             if 'authorizations' in env:
                 for auth in env['authorizations']:
-                    ec2.authorize(auth, group_name, self.region_config)
+                    # print "now authing "+pformat(auth)
+                    ec2.authorize(auth, group_name, env_name, self.region_config)
 
         active_unit = unit.ChinaUnit(self, unit_name)
         active_unit.create_ec2_group()
@@ -74,4 +76,4 @@ class ChinaContext:
             for env in ['default', active_unit.env_name]:
                 if env in authorizations:
                     for auth in authorizations[env]:
-                        ec2.authorize(auth, active_unit.group_name, self.region_config)
+                        ec2.authorize(auth, active_unit.group_name, env_name, self.region_config)
