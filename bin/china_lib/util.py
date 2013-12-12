@@ -71,7 +71,7 @@ def execute_shell_internal(args):
     if is_noop():
         return None
 
-    # manually check the PATH, not sure why this is needed
+    # force the first argument to be a fully-qualified path, correcting it if when it's a relative path
     for path in os.environ['PATH'].split(':'):
         if os.path.exists(path+"/"+args[0]):
             args[0] = path + "/" + args[0]
