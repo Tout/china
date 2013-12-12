@@ -65,7 +65,6 @@ def generate_deployer_script(unit, deployer_base_uri=None):
 def run_instance(unit, instance_number):
 
     config = unit.config
-
     region_config = unit.region_context.region_config
     region_name = unit.region_context.region
 
@@ -75,10 +74,17 @@ def run_instance(unit, instance_number):
             "-g", unit.env_group_name,
             "-g", unit.group_name]
 
-    if 'extra_groups' in config:
-        for group in util.to_list(config['extra_groups']):
-            args.append("-g")
-            args.append(group)
+    # check to see if we need to add the unit to the rds-access SG i.e. mysql
+    
+    if config['authorizations'].get('mysql', False):
+        db_access_sg = unit.env_group_name+"-rds-access"
+        args.append("-g")
+        args.append(db_access_sg)
+
+#    if 'extra_groups' in config:
+#        for group in util.to_list(config['extra_groups']):
+#            args.append("-g")
+#            args.append(group)
 
     args += [ "-t", unit.get_instance_size(), "-k", unit.get_keypair() ]
 
@@ -173,8 +179,8 @@ class ChinaUnit:
         if 'override_region_context' in self.config:
             for key, value in self.config['override_region_context'].iteritems():
                 self.region_context.region_config[key] = value
-        print("config====")
-        pprint(self.config)
+        # print("config====")
+        # pprint(self.config)
 
     def get_ami(self):
         region_config = self.region_context.region_config
